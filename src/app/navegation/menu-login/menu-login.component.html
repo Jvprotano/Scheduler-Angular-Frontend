@@ -1,0 +1,15 @@
+<ul [ngSwitch]="loggedUser()">
+    <li *ngSwitchCase="false" class="nav-item" style="padding-right: 30px;">
+        <a class="btn btn-primary" routerLink="/account/login" routerLinkActive="active">Login</a>
+    </li>
+    <li *ngSwitchCase="false" class="nav-item" style="padding-right: 30px;">
+        <a class="btn btn-primary" routerLink="/account/register" routerLinkActive="active">Register</a>
+    </li>
+
+    <li *ngSwitchCase="true" class="nav-item" style="padding-right: 30px;">
+        <a class="btn btn-primary" (click)="logout()" href="javascript::void(0)">Logout</a>
+    </li>
+    <li *ngSwitchCase="true" class="nav-item" style="padding-right: 30px;">
+        <a class="btn btn-primary" routerLink="/account/profile" routerLinkActive="active">Profile {{email}}</a>
+    </li>
+</ul>
