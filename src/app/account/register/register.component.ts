@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 
 import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormControlName } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormControlName, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
@@ -10,12 +10,13 @@ import { User } from '../models/user';
 import { AccountService } from '../services/account.service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from '../../utils/generic-form-validation';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
   providers: [AccountService]
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
@@ -32,12 +33,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
-  mudancasNaoSalvas: boolean = true;
+  unsavedChanges: boolean = true;
 
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
     private router: Router
-    // ,private toastr: ToastrService
+    , private toastr: ToastrService
   ) {
 
     this.validationMessages = {
@@ -61,6 +62,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
+
     // let senha = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15])]);
     // let senhaConfirm = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15]), CustomValidators.equalTo(senha)]);
     let senha = new FormControl('', [Validators.required]);
@@ -78,8 +80,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     merge(...controlBlurs).subscribe(() => {
       this.displayMessage = this.genericValidator.processarMensagens(this.registerForm);
-      this.mudancasNaoSalvas = true;
+      // this.unsavedChanges = true;
     });
+
   }
 
   addAccount() {
@@ -91,9 +94,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
           sucesso => { this.processarSucesso(sucesso) }
           // falha => {this.processarFalha(falha)}
         );
-
-      this.mudancasNaoSalvas = false;
     }
+  }
+
+  processarFalha(fail: any) {
+    this.errors = fail.error.errors;
+    this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
 
   processarSucesso(response: any) {
@@ -101,18 +107,28 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     this.errors = [];
 
     this.accountService.LocalStorage.saveUserLocalData(response);
-    this.router.navigate(['/home'])
+    // this.router.navigate(['/home'])
 
-    // let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
-    // if(toast){
-    //   toast.onHidden.subscribe(() => {
-    //     this.router.navigate(['/home']);
-    //   });
-    // }
-  }
+    //https://www.npmjs.com/package/ngx-toastr - Na DOC tem uma demo
 
-  processarFalha(fail: any) {
-    this.errors = fail.error.errors;
-    // this.toastr.error('Ocorreu um erro!', 'Opa :(');
+    let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!'); // Essa é uma mensagem que aparece do lado verde ou vermelha
+
+    if (toast) { // Adiciona um evento para quando a mensagem sumir, redirecionar para a home
+      toast.onHidden.subscribe(() => {
+        this.router.navigate(['/home']);
+      });
+    }
+
+    // Redirecionar e depois mostrar o toast na tela home
+
+    this.router.navigate(['/home']).then(() => {
+      let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
+
+      if (toast) {
+        toast.onHidden.subscribe(() => {
+          // Additional logic after toast is hidden
+        });
+      }
+    })
   }
 }

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { LocalStorageUtils } from '../../utils/localstorage';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'app-menu-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, NgbDropdownModule],
   templateUrl: './menu-login.component.html',
   styleUrl: './menu-login.component.css'
 })

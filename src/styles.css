@@ -1,32 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
+:root {
+    --dark-blue: #28534A;
+    --light-green: #84DCC6;
+    --light-blue: #edf7ff;
+    --medium-blue: #ACD7EC;
+    --purple-blue: #8B95C9;
 }
 
-.main-container {
-    padding-top: 25px;
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-bottom: 100px;
-    margin-right: auto;
-    margin-left: auto;
-    overflow: hidden;
+.navbar{
+    background-color: #c3c3e9 !important;
+    border-radius: 150px;
+    margin: 1%;
 }
-
-
-/* Sticky footer styles
-  -------------------------------------------------- */
 
 html {
     font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
 }
 
 .border-top {
@@ -46,18 +33,16 @@ button.accept-policy {
     line-height: inherit;
 }
 
-
-/* Sticky footer styles
-  -------------------------------------------------- */
-
 html {
     position: relative;
     min-height: 100%;
+    font-family: Poppins, sans-serif;
 }
 
 body {
-    /* Margin bottom by footer height */
     margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
 }
 
 .footer {
@@ -65,10 +50,13 @@ body {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px;
-    /* Vertically center the text there */
+    text-align: center;
+}
+
+.text-footer {
+    color: var(--light-blue);
 }
 
 input,
@@ -76,4 +64,33 @@ select,
 file,
 textarea {
     max-width: 400px;
+}
+
+.card {
+    border: 1px solid var(--dark-blue);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex: 0 0 calc(33.33% - 20px);
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .card {
+        flex: 0 0 100%;
+    }
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
 }

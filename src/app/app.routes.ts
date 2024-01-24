@@ -4,6 +4,11 @@ import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { NotFoundComponent } from './navegation/not-found/not-found.component';
 import { AccountAppComponent } from './account/account-app.component';
+import { UserComponent } from './user/user.component';
+import { CompaniesComponent } from './user/companies/companies.component';
+import { CompanyComponent } from './company/company.component';
+import { EditComponent } from './company/edit/edit.component';
+import { CreateComponent } from './company/create/create.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,6 +19,19 @@ export const routes: Routes = [
             { path: 'register', component: RegisterComponent },
         ]
     },
+    {
+        path: 'user', component: UserComponent, children: [
+            { path: 'companies', component: CompaniesComponent },
+        ]
+    },
+    {
+        path: 'company', component: CompanyComponent, children: [
+            { path: 'new', component: CreateComponent },
+            { path: 'edit', component: EditComponent },
+            { path: 'edit/:id', component: EditComponent },
+        ]
+    },
+
     { path: '**', component: NotFoundComponent },
     { path: 'not-found', component: NotFoundComponent },
 ];

@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
     <div class="container">
-      <a class="navbar-brand" href="/">Meus Produtos</a>
+      <a class="navbar-brand"  routerLink="/home">Book it Easy [BiE]</a>
       <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse"
         data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -9,20 +9,15 @@
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed">
 
-        <app-menu-login></app-menu-login>
-        
         <ul class="navbar-nav flex-grow-1">
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Fornecedores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Produtos</a>
+            <a class="nav-link text-dark" routerLink="/home">Home</a>
           </li>
         </ul>
       </div>
+      
+      <app-menu-login></app-menu-login>
+
     </div>
   </nav>
 </header>

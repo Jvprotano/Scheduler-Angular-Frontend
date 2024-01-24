@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http"
 import { throwError } from "rxjs";
-import { LocalStorageUtils } from "../utils/localstorage";
 import { environment } from "../../environments/environment.development";
+import { LocalStorageUtils } from "../utils/localstorage";
 
 export class BaseService {
     protected UrlServiceV1: string = environment.apiUrl;
@@ -11,6 +11,15 @@ export class BaseService {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
+            })
+        }
+    }
+
+    protected GetAuthHeaderJson() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.LocalStorage.getUserToken()}`
             })
         }
     }
