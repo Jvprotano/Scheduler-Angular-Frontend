@@ -1,3 +1,5 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 :root {
     --dark-blue: #28534A;
     --light-green: #84DCC6;
@@ -56,7 +58,7 @@ body {
 }
 
 .text-footer {
-    color: var(--light-blue);
+    color: var(--dark-blue);
 }
 
 input,
@@ -94,3 +96,6 @@ textarea {
         font-size: 16px;
     }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

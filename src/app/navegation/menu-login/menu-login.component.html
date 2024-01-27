@@ -1,22 +1,21 @@
 <ul [ngSwitch]="loggedUser()" class="navbar-nav">
-    <li *ngSwitchCase="false" class="nav-item" style="padding-right: 30px;">
-        <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i class="bi bi-person">Acesse sua conta</i> </a>
-    </li>
-    <li *ngSwitchCase="false" class="nav-item" >
-        <button class="btn btn-success" routerLink="/account/register" routerLinkActive="active">Register</button>
-    </li>
-    
     <li *ngSwitchCase="true" class="nav-item">
 		<div ngbDropdown class="d-inline-block">
-            <img src="https://mdbootstrap.com/img/new/avatars/2.jpg" class="rounded-circle z-depth-0"
+            <img  src="/assets/account2.jpg" class="rounded-circle z-depth-0"
                 alt="avatar image" height="35" id="dropdownBasic1" ngbDropdownToggle>
 			<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-end">
 				<button ngbDropdownItem routerLink="user/companies">MyCompanies</button>
                 <button ngbDropdownItem>MyProfile</button>
 				<button ngbDropdownItem>Another Action</button>
                 <hr>
-				<a (click)="logout()" ngbDropdownItem>Logout <i class="bi bi-x-octagon"></i></a>
+                <button ngbDropdownItem (click)="logout()" ngbDropdownItem><i class="bi bi-x-octagon">Logout</i></button>
 			</div>
 		</div>
+    </li>
+    <li *ngSwitchCase="false" class="nav-item" style="padding-right: 30px;">
+        <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i class="bi bi-person">Acesse sua conta</i> </a>
+    </li>
+    <li *ngSwitchCase="false" class="nav-item" >
+        <button class="btn btn-success" routerLink="/account/register" routerLinkActive="active">Register</button>
     </li>
 </ul>
