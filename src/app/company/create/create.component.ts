@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocationService } from '../services/location.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StringUtils } from '../../utils/string-utils';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
+import { Company } from '../models/company';
 
 @Component({
   selector: 'app-create',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CreateComponent {
   createForm: FormGroup;
+  @Input() companyToEdit!: Company;
 
   constructor(
     private fb: FormBuilder,
@@ -64,7 +66,6 @@ export class CreateComponent {
   }
 
   onFileChange(event: any) {
-    console.log("entrou file change")
     const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {

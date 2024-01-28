@@ -1,17 +1,21 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Company } from '../../company/models/company';
+import { AccountModule } from '../../account/account.module';
 
 @Component({
   selector: 'app-companies',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterModule, AccountModule],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.css'
 })
 export class CompaniesComponent {
+
+  companyToEdit!: Company;
+  clickedEdit: boolean = false;
 
   companies: Company[] = [{
     id: 0,
@@ -82,5 +86,8 @@ export class CompaniesComponent {
       company.status = 1;
     }
   }
-
+  editCompany(id: Company) {
+    this.companyToEdit = id;
+    this.clickedEdit = true;
+  }
 }

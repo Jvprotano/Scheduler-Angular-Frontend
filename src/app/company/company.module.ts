@@ -17,5 +17,6 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     MatNativeDateModule,
     NgbModalModule,
   ],
+  exports: [CreateComponent]
 })
 export class CompanyModule { }
