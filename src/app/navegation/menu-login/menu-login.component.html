@@ -1,10 +1,12 @@
 <ul [ngSwitch]="loggedUser()" class="navbar-nav">
+    <li *ngSwitchCase="true" class="nav-item access">
+        <a class="btn-access" routerLink="user/companies"><i class="bi bi-building">Minhas Empresas</i> </a>
+    </li>
     <li *ngSwitchCase="true" class="nav-item">
 		<div ngbDropdown class="d-inline-block">
             <img  src="/assets/account2.jpg" class="rounded-circle z-depth-0"
                 alt="avatar image" height="35" id="dropdownBasic1" ngbDropdownToggle>
 			<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-end">
-				<button ngbDropdownItem routerLink="user/companies">MyCompanies</button>
                 <button ngbDropdownItem>Profile</button>
                 <hr>
                 <button ngbDropdownItem (click)="logout()" id="btnLogout" ngbDropdownItem>
@@ -13,7 +15,7 @@
 			</div>
 		</div>
     </li>
-    <li *ngSwitchCase="false" class="nav-item login">
+    <li *ngSwitchCase="false" class="nav-item access">
         <a [routerLink]="['/account/login']" class="btn-access" 
             routerLinkActive="router-link-active"><i class="bi bi-person">Acesse sua conta</i> </a>
     </li>
