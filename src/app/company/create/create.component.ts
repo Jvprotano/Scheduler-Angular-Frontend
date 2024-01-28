@@ -42,7 +42,7 @@ export class CreateComponent {
     this.spinner.show();
     setTimeout(() => {
       this.spinner.hide();
-    }, 500);
+    }, 1000);
   }
 
   locationService = inject(LocationService);

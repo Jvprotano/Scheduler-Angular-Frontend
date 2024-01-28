@@ -10,14 +10,15 @@ import { EditComponent } from './company/edit/edit.component';
 import { CreateComponent } from './company/create/create.component';
 import { ScheduleComponent } from './company/schedule/schedule.component';
 import { CompanyComponent } from './company/company.component';
+import { accountGuard } from './account/services/account.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     {
         path: 'account', component: AccountAppComponent, children: [
-            { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
+            { path: 'login', component: LoginComponent, canActivate: [accountGuard] },
+            { path: 'register', component: RegisterComponent, canActivate: [accountGuard] },
         ]
     },
     {
