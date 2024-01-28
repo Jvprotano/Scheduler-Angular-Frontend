@@ -10,6 +10,7 @@ import { EditComponent } from './company/edit/edit.component';
 import { CreateComponent } from './company/create/create.component';
 import { ScheduleComponent } from './company/schedule/schedule.component';
 import { CompanyComponent } from './company/company.component';
+import { ProfileComponent } from './user/profile/profile.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     {
         path: 'user', component: UserComponent, children: [
             { path: 'companies', component: CompaniesComponent },
+            { path: 'profile', component: ProfileComponent }
         ]
     },
     {
