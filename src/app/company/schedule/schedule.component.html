@@ -185,7 +185,7 @@
     </table>
   </div> -->
   
-  <!-- <ng-template #modalContent let-close="close">
+  <ng-template #modalContent let-close="close">
     <div class="modal-header">
       <h5 class="modal-title">Event action occurred</h5>
       <button type="button" class="close" (click)="close()">
@@ -193,13 +193,13 @@
       </button>
     </div>
     <div class="modal-body">
-      <div>
+      <!-- <div>
         Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
+        <pre>{{ modalData.action }}</pre>
+      </div> -->
       <div>
         Event:
-        <pre>{{ modalData?.event | json }}</pre>
+        <pre>{{ modalData.event | json }}</pre>
       </div>
     </div>
     <div class="modal-footer">
@@ -207,5 +207,5 @@
         OK
       </button>
     </div>
-  </ng-template> -->
+  </ng-template>
   

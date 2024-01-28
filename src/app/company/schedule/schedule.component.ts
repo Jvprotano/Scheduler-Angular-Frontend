@@ -51,12 +51,7 @@ const colors: Record<string, EventColor> = {
   },
 };
 
-import { NgModule } from '@angular/core';
-// import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-// import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-
-
 
 @Component({
   selector: 'mwl-demo-component',
@@ -96,7 +91,7 @@ export class ScheduleComponent {
   @ViewChild('modalContent', { static: true })
   modalContent!: TemplateRef<any>;
 
-  view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Week;
 
   CalendarView = CalendarView;
 
@@ -170,7 +165,7 @@ export class ScheduleComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) { }
+  constructor(private modal: NgbModal) {  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

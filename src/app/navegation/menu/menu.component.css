@@ -1,0 +1,15 @@
+.navbar-brand{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-blue);
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.navbar {
+    background-color: transparent;
+    border-radius: 150px;
+    margin: 1%;
+}

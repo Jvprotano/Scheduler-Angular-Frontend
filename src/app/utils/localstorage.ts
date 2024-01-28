@@ -7,8 +7,6 @@ export class LocalStorageUtils {
         }
 
     public saveUserLocalData(response: any) {
-        console.log("Save user local data")
-        console.log(response)
             this.saveUserToken(response.accessToken);
             this.saveUser(response.userToken);
     }

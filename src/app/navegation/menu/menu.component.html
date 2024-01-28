@@ -1,20 +1,55 @@
-<header>
+<header *ngIf="mobile">
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
-    <div class="container">
-      <a class="navbar-brand"  routerLink="/home">Book it Easy [BiE]</a>
+    <div class="container flex-row justify-content-around">
+
       <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse"
         data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed">
         <ul class="navbar-nav flex-grow-1">
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/home">Home</a>
+            <a class="nav-link text-dark" routerLink="/home">Preço</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/home">Funcionalidades</a>
           </li>
         </ul>
       </div>
-      
+
+      <a class="navbar-brand" routerLink="/home">Agende</a>
+
+
+      <app-menu-login></app-menu-login>
+
+    </div>
+  </nav>
+</header>
+<header *ngIf="!mobile">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+    <div class="container flex-row justify-content-around">
+
+      <a class="navbar-brand" routerLink="/home">Agende</a>
+
+      <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse"
+        data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed">
+        <ul class="navbar-nav flex-grow-1">
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/home">Preço</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/home">Funcionalidades</a>
+          </li>
+        </ul>
+      </div>
+
       <app-menu-login></app-menu-login>
 
     </div>

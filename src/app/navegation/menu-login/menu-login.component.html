@@ -5,17 +5,19 @@
                 alt="avatar image" height="35" id="dropdownBasic1" ngbDropdownToggle>
 			<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-end">
 				<button ngbDropdownItem routerLink="user/companies">MyCompanies</button>
-                <button ngbDropdownItem>MyProfile</button>
-				<button ngbDropdownItem>Another Action</button>
+                <button ngbDropdownItem>Profile</button>
                 <hr>
-                <button ngbDropdownItem (click)="logout()" ngbDropdownItem><i class="bi bi-x-octagon">Logout</i></button>
+                <button ngbDropdownItem (click)="logout()" id="btnLogout" ngbDropdownItem>
+                    <i class="bi bi-box-arrow-left"></i> Logout
+                    </button>
 			</div>
 		</div>
     </li>
-    <li *ngSwitchCase="false" class="nav-item" style="padding-right: 30px;">
-        <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i class="bi bi-person">Acesse sua conta</i> </a>
+    <li *ngSwitchCase="false" class="nav-item login">
+        <a [routerLink]="['/account/login']" class="btn-access" 
+            routerLinkActive="router-link-active"><i class="bi bi-person">Acesse sua conta</i> </a>
     </li>
     <li *ngSwitchCase="false" class="nav-item" >
-        <button class="btn btn-success" routerLink="/account/register" routerLinkActive="active">Register</button>
+        <button class="btn btn-outline-primary" routerLink="/account/register" routerLinkActive="active">Experimente grátis</button>
     </li>
 </ul>

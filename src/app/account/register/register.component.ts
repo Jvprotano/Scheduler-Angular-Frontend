@@ -16,6 +16,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
   imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
   providers: [AccountService]
 })
