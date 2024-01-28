@@ -13,5 +13,5 @@ import { FooterComponent } from './navegation/footer/footer.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'SchedulerFront';
+  title = 'Agende';
 }
