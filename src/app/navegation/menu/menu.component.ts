@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkScreenSize();
+    
     this.eventService.subscribe('hide-header', value => this.hideHeader = value);
 
     if (typeof window !== 'undefined') {

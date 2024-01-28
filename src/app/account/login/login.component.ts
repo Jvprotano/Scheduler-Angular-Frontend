@@ -17,12 +17,12 @@ import { EventService } from '../../services/event.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup = new FormGroup({});
   user!: User;
   name: string = "";
-  // serve = inject(AccountService);
   errors = [];
   displayMessage: DisplayMessage = {};
   formSubmited: boolean = false;
@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private accountService: AccountService,
     private eventService: EventService,
-    // @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit() {
@@ -48,39 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]]
     });
     // this.changeLoginText();
-  }
-
-  changeLoginText() {
-    // const text: any = this.document?.getElementById('login-text');
-    // const texts = {
-    //   '1': 'Simplifique',
-    //   '2': 'Modernize',
-    //   '3': 'Agende',
-    // };
-    // if (text) {
-
-    //   setTimeout(() => {
-    //     text.textContent = texts[1];
-    //   }, 0);
-    //   setTimeout(() => {
-    //     text.textContent = texts[2];
-    //   }, 4000);
-    //   setTimeout(() => {
-    //     text.textContent = texts[3];
-    //   }, 8000);
-
-    //   this.textInterval = setInterval(() => {
-    //     setTimeout(() => {
-    //       text.textContent = texts[1];
-    //     }, 0);
-    //     setTimeout(() => {
-    //       text.textContent = texts[2];
-    //     }, 4000);
-    //     setTimeout(() => {
-    //       text.textContent = texts[3];
-    //     }, 8000);
-    //   }, 12000);
-    // }
   }
 
   get form() {
@@ -115,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.accountService.LocalStorage.saveUserLocalData(result);
 
     this.router.navigate(['/home']).then(() => {
-      let toast = this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!');
+      let toast = this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', {positionClass: 'toast-top-center'});
 
       if (toast) {
         toast.onHidden.subscribe(() => {
