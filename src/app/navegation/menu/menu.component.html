@@ -1,4 +1,4 @@
-<header *ngIf="mobile">
+<header *ngIf="mobile && !hideHeader">
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
     <div class="container flex-row justify-content-around">
 
@@ -27,7 +27,7 @@
     </div>
   </nav>
 </header>
-<header *ngIf="!mobile">
+<header *ngIf="!mobile && !hideHeader">
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
     <div class="container flex-row justify-content-around">
 
