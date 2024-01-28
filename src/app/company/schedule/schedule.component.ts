@@ -54,21 +54,9 @@ const colors: Record<string, EventColor> = {
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @Component({
-  selector: 'mwl-demo-component',
+  selector: 'app-schedule',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      h3 {
-        margin: 0 0 10px;
-      }
-
-      pre {
-        background-color: #f5f5f5;
-        padding: 15px;
-      }
-    `,
-  ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -92,22 +80,18 @@ export class ScheduleComponent {
   modalContent!: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Week;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   modalData!: {
     action: string;
     event: CalendarEvent;
   };
-
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+        this.handleEvent('edit', event);
       },
     },
     {
@@ -115,7 +99,7 @@ export class ScheduleComponent {
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        this.handleEvent('delete', event);
       },
     },
   ];
@@ -162,10 +146,9 @@ export class ScheduleComponent {
       draggable: true,
     },
   ];
-
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {  }
+  constructor(private modal: NgbModal) { }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -196,7 +179,7 @@ export class ScheduleComponent {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+    this.handleEvent('drop', event);
   }
 
   handleEvent(action: string, event: CalendarEvent): void {

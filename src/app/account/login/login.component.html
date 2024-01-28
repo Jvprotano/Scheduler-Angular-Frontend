@@ -1,38 +1,68 @@
-<div class="container d-flex">
-    <div class="container-info col-md-6">
-        <hr>
-        <div class="content-info">
-            <h1>Bem vindo!</h1>
-            <h2>Acesse agora o maior sistema de agendamento do sul do mundo!</h2>
-            <img src="https://img.freepik.com/fotos-premium/conceito-de-estilo-de-vida-negocios-e-pessoas-homem-de-negocios-fazendo-sinal-positivo-isolado-no-branco_118342-17877.jpg" 
-                alt="Login" class="img-fluid">
+<div class="row w-100">
+  <div class="col-md-6 container-info p-md-4">
+    <!-- <hr> -->
+    <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
+    <div class="content-info float-end mt-5 w-75">
+      <h1 class="mt-4 mb-3"><span>Bem vindo</span> de volta!</h1>
+      <h2 class="mb-1">Estamos felizes por vê-lo novamente no maior sistema de agendamento do sul do mundo. </h2>
+      <h2>Vamos tornar sua experiência ainda mais simples e eficaz. Faça login e <span>Agende!</span></h2>
+      <img src="assets/login.png" alt="Login" class="img-fluid w-75">
+      <!-- <img
+        src="https://img.freepik.com/fotos-premium/conceito-de-estilo-de-vida-negocios-e-pessoas-homem-de-negocios-fazendo-sinal-positivo-isolado-no-branco_118342-17877.jpg"
+        alt="Login" class="img-fluid w-75"> -->
+    </div>
+  </div>
+
+  <div class="align-items-center col-md-6 container-login d-flex flex-column justify-content-center">
+    <h1 class="text-center mb-0">Entre em sua conta</h1>
+    <form novalidate (ngSubmit)="login()" class="col-6" [formGroup]="loginForm">
+      <hr>
+      <div class="form-group">
+        <label class="control-label mb-2">E-mail</label>
+        <input [ngClass]="{
+            'is-invalid': formSubmited && form['email'].errors
+          }" class="form-control shadow-none" id="email" type="text" placeholder="E-mail (requerido)"
+          formControlName="email" />
+        <div *ngIf="formSubmited && form['email'].errors" class="invalid-feedback">
+          <div *ngIf="form['email'].errors['required']">
+            O e-mail é obrigatório
+          </div>
+          <div *ngIf="form['email'].errors['email']">
+            O e-mail precisa ser válido
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="container-login col-md-6">
-        <h1 class="text-center">Entre em sua conta</h1>
-        <form novalidate (ngSubmit)="login()" class="d-grid justify-content-center" [formGroup]="loginForm">
-            <hr>
-            <div class="form-group">
-                <label class="control-label">E-mail</label>
-                <input class="form-control" id="email" type="text" placeholder="E-mail (requerido)"
-                    formControlName="email" />
-            </div>
+      <div class="form-group">
+        <label class="control-label mb-2">Senha</label>
+        <input [ngClass]="{
+            'is-invalid': formSubmited && form['password'].errors
+          }" class="form-control shadow-none" id="password" type="password" placeholder="Senha (requerido)"
+          formControlName="password" />
+        <div *ngIf="formSubmited && form['password'].errors" class="invalid-feedback">
+          <div *ngIf="form['password'].errors['required']">
+            A senha é obrigatória
+          </div>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label class="control-label">Senha</label>
-                <input class="form-control" id="password" type="password" placeholder="Senha (requerido)"
-                    formControlName="password" /> 
-            </div>
+      <div class="form-group d-flex justify-content-end">
+        <button class="btn btn-login w-50" id="Login" type="submit">{{!isDisabled ?
+          'Acessar' : ''}}
+          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabled">
+            <span class="me-2">
+              Acessando...
+            </span>
+            <span class="spinner-border flex-shrink-0" role="status">
+              <span class="visually-hidden">Sign In...</span>
+            </span>
+          </span></button>
+      </div>
 
-            <div class="form-group">
-                <button class="btn btn-outline-primary" id="Login" type="submit">Acessar</button>
-            </div>
-
-            <h3 class="text-center">Ainda não tem uma conta?</h3>
-            <div class="form-group">
-                <a class="btn btn-outline-dark" id="Register" [routerLink]="['/account/register']">Registrar</a>
-            </div>
-        </form>
-    </div>
+      <div class="form-group d-flex justify-content-end align-items-center mt-4">
+        <p class="text-center me-2 mb-0">Ainda não tem uma conta?</p>
+        <a class="btn btn-outline-dark w-auto" id="Register" [routerLink]="['/account/register']">Registre-se</a>
+      </div>
+    </form>
+  </div>
 </div>
