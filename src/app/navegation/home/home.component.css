@@ -33,7 +33,7 @@
 #price {
   font-size: x-large;
   margin: 0;
-  color: var(--verde-conci);
+  color: var(--green-conci);
 }
 
 hr {
@@ -60,7 +60,7 @@ hr {
 }
 
 .card {
-  border-top-color: var(--verde-conci);
+  border-top-color: var(--green-conci);
   border-top-width: thick;
   border-bottom: none;
   border-left: none;

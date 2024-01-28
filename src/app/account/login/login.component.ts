@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
     this.eventService.broadcast('hide-header', true);
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -90,8 +92,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isDisabled = true;
     if (this.loginForm.valid) {
       this.user = Object.assign({}, this.user, this.loginForm.value);
-      console.log("entrou ação login")
-      console.log(this.user)
 
       // Forma de usar o error no subscribe
       // this.serve.login(this.user).subscribe({ next: (result) => { result.token }, error: err => { } })
@@ -104,7 +104,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         // error => { this.fail(error) }
       );
     } else {
-      console.log(this.form['email']);
       this.isDisabled = false;
       // this.formSubmited = false
     }

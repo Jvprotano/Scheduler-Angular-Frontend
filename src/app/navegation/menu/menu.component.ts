@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { MenuLoginComponent } from "../menu-login/menu-login.component";
-import { Observable, Subscription, debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+import { Observable, Subscription, debounceTime, fromEvent } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event.service';
 

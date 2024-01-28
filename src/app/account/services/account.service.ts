@@ -30,7 +30,7 @@ export class AccountService extends BaseService {
         "email": "teste@atrono.com"
       },
       accessToken: '12345',
-    }).pipe(delay(5000));
+    }).pipe(delay(3000));
 
     // let response = this.http.post(this.UrlServiceV1 + 'login', user, this.GetHeaderJson())
     //     .pipe(
