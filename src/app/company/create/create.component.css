@@ -1,10 +1,28 @@
-form {
-    max-width: 500px;
-    margin: 20px auto;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
+/* form {
+  max-width: 500px;
+  margin: 20px auto;
+} */
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.company-modal input.form-control {
+  padding: 7px !important;
+  max-width: none;
+}
+
+.company-modal .image-label {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(243,246,249);
+  cursor: pointer;
+}

@@ -4,19 +4,23 @@
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
-    <h1 class="modal-title text-center">{{companyToEdit ? "Editar empresa" : "Criar empresa" }}</h1>
-    <button type="button" class="close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
+    <h1 class="modal-title text-center mb-0">{{companyToEdit ? "Editar empresa" : "Criar empresa" }}</h1>
+    <button type="button" class="btn btn-close" (click)="close()">
     </button>
   </div>
-  <div class="modal-body">
-
-
-    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <!-- Invertendo o modal-body com o form (form antes do modal-body) você consegue usar o botão de submit no modal-footer-->
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body company-modal">
       <div class="row">
-        <div class="form-group">
-          <input class="form-control" type="file" *ngIf="!hasImage()" (change)="onFileChange($event)" />
-          <img [src]="createForm.get('image')?.value" *ngIf="hasImage()" alt="image" width="250" height="250" />
+        <div class="d-flex form-group justify-content-center mb-4">
+          <div class="bg-light p-2 position-relative">
+            <input class="form-control d-none" id="company-image" type="file" (change)="onFileChange($event)" />
+            <img [src]="hasImage() ? createForm.get('image')?.value : 'assets/not-found.png'" alt="image" width="200"
+              height="160" />
+            <label for="company-image" class="image-label">
+              <i class="bi bi-camera-fill"></i>
+            </label>
+          </div>
         </div>
       </div>
       <div class="row" style="text-align: center;">
@@ -24,70 +28,65 @@
           <button type="button" class="btn btn-danger" (click)="removeImage()" *ngIf="hasImage()">Remove</button>
         </div>
       </div>
-    
-      <div class="row">
+
+      <div class="row mb-1">
         <div class="form-group col-md-4">
-          <label for="name">Name:</label>
+          <label class="form-label" for="name">Name:</label>
           <input class="form-control" type="text" id="name" formControlName="name" />
         </div>
         <div class="form-group col-md-4">
-          <label for="email">Email:</label>
+          <label class="form-label" for="email">Email:</label>
           <input class="form-control" type="text" id="email" formControlName="email" />
         </div>
         <div class="form-group col-md-4">
-          <label for="cnpj">CNPJ:</label>
+          <label class="form-label" for="cnpj">CNPJ:</label>
           <input class="form-control" type="text" id="cnpj" formControlName="cnpj" />
         </div>
       </div>
-    
-      <div class="row">
+
+      <div class="row mb-1">
         <div class="form-group col-md-6">
-          <label>Categories:</label>
+          <label class="form-label">Categories:</label>
           <!-- <select class="form-select" formControlName="companyType"> -->
           <select class="form-select">
             <!-- <option *ngFor="[let type of companyTypes]" [value]="type.id">{{type.name}}</option> -->
-             <option value="1">Categoria 1</option>
+            <option value="1">Categoria 1</option>
             <option value="2">Categoria 2</option>
           </select>
         </div>
         <div class="form-group col-md-6">
-          <label>Services Offered:</label>
-           <!-- <select class="form-select" formControlName="companyType"> -->
-           <select class="form-select">
-             <!-- <option *ngFor="[let type of companyTypes]" [value]="type.id">{{type.name}}</option> -->
-             <option value="1">Service 1</option>
+          <label class="form-label">Services Offered:</label>
+          <!-- <select class="form-select" formControlName="companyType"> -->
+          <select class="form-select">
+            <!-- <option *ngFor="[let type of companyTypes]" [value]="type.id">{{type.name}}</option> -->
+            <option value="1">Service 1</option>
             <option value="2">Service 2</option>
           </select>
         </div>
       </div>
-      <br />
-    
-      <div class="col-md-12 form-check">
-        <input class="form-check-input" type="checkbox" formControlName="isPhysicalCompany" />
-        <label class="form-check-label"> Is physical Company </label>
-      </div>
-    
+
       <div *ngIf="createForm.get('isPhysicalCompany')?.value">
-        <div class="row">
-          <div class="form-group col-md-4">
+        <div class="row mb-1">
+          <div class="form-group col-md-3">
             <label class="form-label" for="cep">CEP:</label>
             <input class="form-control" type="text" (blur)="searchCEP()" id="cep" formControlName="cep" />
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label class="form-label" for="city">City:</label>
             <input class="form-control" type="text" id="city" formControlName="city" />
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label class="form-label" for="state">State:</label>
             <input class="form-control" type="text" id="state" formControlName="state" />
           </div>
-        </div>
-        <div class="row">
           <div class="form-group col-md-3">
             <label class="form-label" for="neighborhood">Neighborhood:</label>
             <input class="form-control" type="text" id="neighborhood" formControlName="neighborhood" />
           </div>
-          <div class="form-group col-md-4">
+        </div>
+        <div class="row">
+
+          <div class="form-group col-md-7">
             <label class="form-label" for="street">Street:</label>
             <input class="form-control" type="text" id="street" formControlName="street" />
           </div>
@@ -101,21 +100,22 @@
           </div>
         </div>
       </div>
-      <br />
-      <div class="form-group" style="text-align: center;">
+      <div class="align-items-center col-md-12 d-flex form-check form-switch fs-6 ms-1 mt-2">
+        <input class="form-check-input me-2" type="checkbox" formControlName="isPhysicalCompany" />
+        <label class="form-check-label mb-0"> Is physical Company </label>
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button> -->
+      <div class="form-group m-0" style="text-align: center;">
         <button class="btn btn-success" type="submit">Save</button>
       </div>
-    </form>
-
-
-    <div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">
-      OK
-    </button>
-  </div>
+  </form>
 </ng-template>
 
 

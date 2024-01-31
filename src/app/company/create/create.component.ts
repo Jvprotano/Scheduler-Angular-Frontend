@@ -17,7 +17,7 @@ import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './create.component.css'
 })
 export class CreateComponent {
-  createForm: FormGroup;
+  createForm!: FormGroup;
   @Input() companyToEdit!: Company;
 
   @ViewChild('modalContent', { static: true })
@@ -26,27 +26,31 @@ export class CreateComponent {
   constructor(
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private locationService: LocationService
   ) {
 
-    this.createForm = this.fb.group({
-      cep: ['', Validators.required],
-      city: [''],
-      street: [''],
-      state: [''],
-      neighborhood: [''],
-      complement: [''],
-      number: [''],
-      isPhysicalCompany: true,
-      image: [''],
-      cnpj: [''],
-      name: [''],
-      email: [''],
-    });
-  }
+    /**
+     * Ao invés de iniciar o form aqui, você pode criar uma função e chamá-la no onInit,
+     * assim você consegue preencher com os dados que vem do Input() companyToEdit
+     * ou preencher como null (quando for create)
+     * Exemplo no OnInit
+     */
 
-  openModal() {
-    this.modalService.open(this.modalContent, { size: 'lg' });
+    // this.createForm = this.fb.group({
+    //   cep: ['', Validators.required],
+    //   city: [''],
+    //   street: [''],
+    //   state: [''],
+    //   neighborhood: [''],
+    //   complement: [''],
+    //   number: [''],
+    //   isPhysicalCompany: true,
+    //   image: [''],
+    //   cnpj: [''],
+    //   name: [''],
+    //   email: [''],
+    // });
   }
 
   ngOnInit(): void {
@@ -55,9 +59,41 @@ export class CreateComponent {
     setTimeout(() => {
       this.spinner.hide();
     }, 1000);
+    /**
+     * Inicializa o form com os dados
+     */
+    this.initFormValidation(this.companyToEdit);
   }
 
-  locationService = inject(LocationService);
+  initFormValidation(company: Company | null) {
+    // Se preencher os dados com ? após o "company" significa que caso não exista aquele valor, será null
+    this.createForm = this.fb.group({
+      cep: [company?.zip, Validators.required],
+      city: [company?.city],
+      street: [company?.address],
+      state: [company?.state],
+      neighborhood: [''],
+      complement: [''],
+      number: [''],
+      isPhysicalCompany: [true],
+      image: [''],
+      cnpj: [''],
+      name: [company?.name],
+      email: [company?.email],
+    });
+  }
+
+  /**
+   * Tentar manter o OnInit como primeira função, na hora de corrigir algo vai ser mais fácil pra analisar o ciclo de execução
+   */
+  openModal() {
+    this.modalService.open(this.modalContent, { size: 'lg' });
+  }
+
+  /**
+   * Incluir os serviços no constructor é uma boa prática e garante que você tem acesso ao serviço em todo o componente
+   */
+  // locationService = inject(LocationService);
 
 
   searchCEP(): void {
@@ -110,6 +146,7 @@ export class CreateComponent {
   }
 
   onSubmit(): void {
+    console.log('submit');
     // Lógica para enviar dados do formulário para o backend
   }
 }
