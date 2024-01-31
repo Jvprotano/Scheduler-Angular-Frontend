@@ -1,61 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Company } from '../../company/models/company';
-import { AccountModule } from '../../account/account.module';
+import { CreateComponent } from '../../company/create/create.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-companies',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterModule, AccountModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterModule, CreateComponent],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.css'
 })
-export class CompaniesComponent {
+export class CompaniesComponent implements OnInit {
+
+  ngOnInit(): void {
+    this.generateTestCompanies();
+  }
 
   companyToEdit!: Company;
   clickedEdit: boolean = false;
 
-  companies: Company[] = [{
-    id: 0,
-    name: 'Cartucho',
-    description: 'Melhor restaurante do vale',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
-    status: 1,
-    openSchedule: true,
-  },
-  {
-    id: 1,
-    name: 'Conciflex',
-    description: 'Conciliadora de cartões',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
-    status: 1,
-    openSchedule: true,
-  },
-  {
-    id: 2,
-    name: 'Ponta',
-    description: 'Soluções para o Agronegócio',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
-    status: 1,
-    openSchedule: true,
-  }];
+  companies: Company[] = [];
 
 
   scheduleOpen: boolean = true;
@@ -71,7 +38,6 @@ export class CompaniesComponent {
       // altere o valor de openSchedule na lista de companies
       company.openSchedule = !company.openSchedule;
     }
-    console.log(this.companies)
   }
 
   deleteCompany(id: number) {
@@ -86,8 +52,58 @@ export class CompaniesComponent {
       company.status = 1;
     }
   }
-  editCompany(id: Company) {
-    this.companyToEdit = id;
+  editCompany(company: Company) {
+    this.companyToEdit = company;
     this.clickedEdit = true;
+    this.setTimeout();
+  }
+
+  setTimeout() {
+    setTimeout(() => {
+      console.log("settimeout")
+      this.clickedEdit = false;
+    }, 5000);
+  }
+
+  generateTestCompanies(): void {
+    this.companies = [{
+      id: 0,
+      name: 'Cartucho',
+      description: 'Melhor restaurante do vale',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      status: 1,
+      openSchedule: true,
+    },
+    {
+      id: 1,
+      name: 'Conciflex',
+      description: 'Conciliadora de cartões',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      status: 1,
+      openSchedule: true,
+    },
+    {
+      id: 2,
+      name: 'Ponta',
+      description: 'Soluções para o Agronegócio',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      status: 1,
+      openSchedule: true,
+    }];
   }
 }

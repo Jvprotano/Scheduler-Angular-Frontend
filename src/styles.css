@@ -1,5 +1,16 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 
+input.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    box-shadow: inset -5px 0px teal;
+
+    
+}
+
 :root {
     --green-conci: #3F869C;
     --dark-blue: #28534A;

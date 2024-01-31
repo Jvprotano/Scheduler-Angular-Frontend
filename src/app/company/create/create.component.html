@@ -2,10 +2,9 @@
   <p style="color: white">Carregando...</p>
 </ngx-spinner>
 
-
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
-    <h5 class="modal-title">{{companyToEdit ? "Editar empresa" : "Criar empresa" }}</h5>
+    <h1 class="modal-title text-center">{{companyToEdit ? "Editar empresa" : "Criar empresa" }}</h1>
     <button type="button" class="close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -13,12 +12,7 @@
   <div class="modal-body">
 
 
-
-
-
-
     <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-      <h1>Create Company</h1>
       <div class="row">
         <div class="form-group">
           <input class="form-control" type="file" *ngIf="!hasImage()" (change)="onFileChange($event)" />
@@ -52,16 +46,16 @@
           <!-- <select class="form-select" formControlName="companyType"> -->
           <select class="form-select">
             <!-- <option *ngFor="[let type of companyTypes]" [value]="type.id">{{type.name}}</option> -->
-            <option value="1">Categoria 1</option>
+             <option value="1">Categoria 1</option>
             <option value="2">Categoria 2</option>
           </select>
         </div>
         <div class="form-group col-md-6">
           <label>Services Offered:</label>
-          <!-- <select class="form-select" formControlName="companyType"> -->
-          <select class="form-select">
-            <!-- <option *ngFor="[let type of companyTypes]" [value]="type.id">{{type.name}}</option> -->
-            <option value="1">Service 1</option>
+           <!-- <select class="form-select" formControlName="companyType"> -->
+           <select class="form-select">
+             <!-- <option *ngFor="[let type of companyTypes]" [value]="type.id">{{type.name}}</option> -->
+             <option value="1">Service 1</option>
             <option value="2">Service 2</option>
           </select>
         </div>
@@ -114,11 +108,6 @@
     </form>
 
 
-
-
-
-
-
     <div>
     </div>
   </div>
@@ -129,3 +118,23 @@
   </div>
 </ng-template>
 
+
+<!-- <ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Event action occurred</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Event:
+      <pre>{{ companyToEdit.name }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+      OK
+    </button>
+  </div>
+</ng-template> -->
