@@ -1,0 +1,45 @@
+<div class="row mb-1">
+    <div class="form-group col-md-6">
+      <label class="form-label">Categories:</label>
+      <select class="form-select">
+        <option value="1">Categoria 1</option>
+        <option value="2">Categoria 2</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label class="form-label">Services Offered:</label>
+      <select class="form-select">
+        <option value="1">Service 1</option>
+        <option value="2">Service 2</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mb-1">
+      <div class="form-group col-md-6">
+        <label class="form-label">Horário de funcionamento</label>
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label">Monday</label>
+            <input class="form-control" type="time" formControlName="mondayOpen" />
+          </div>
+          <div class="col-md-6">
+            <input class="form-control" type="time" formControlName="mondayClose" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label">Tuesday</label>
+            <input class="form-control" type="time" formControlName="tuesdayOpen" />
+          </div>
+          <div class="col-md-6">
+            <input class="form-control" type="time" formControlName="tuesdayClose" />
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <button (click)="onPrevious()">Anterior</button>
+  <button (click)="onNext()">Próximo</button>
