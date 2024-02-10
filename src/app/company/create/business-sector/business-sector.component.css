@@ -1,0 +1,226 @@
+.date-input {
+  height: 38px !important;
+}
+
+::ng-deep.flatpickr-calendar {
+  background: transparent;
+  opacity: 0;
+  display: none;
+  text-align: center;
+  visibility: hidden;
+  padding: 0;
+  -webkit-animation: none;
+  animation: none;
+  direction: ltr;
+  border: 0;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 5px;
+  position: absolute;
+  width: 307.875px;
+  box-sizing: border-box;
+  touch-action: manipulation;
+  background: #fff;
+  background: #fff;
+  box-shadow: 1px 0 #e9ebec, -1px 0 #e9ebec, 0 1px #e9ebec, 0 -1px #e9ebec, 0 3px 13px #00000014;
+  box-shadow: 1px 0 0 #e9ebec, -1px 0 0 #e9ebec, 0 1px 0 #e9ebec, 0 -1px 0 #e9ebec, 0 3px 13px #00000014;
+}
+
+::ng-deep.flatpickr-time {
+  text-align: center;
+  outline: 0;
+  display: block;
+  height: 0;
+  line-height: 40px;
+  max-height: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+}
+
+::ng-deep.flatpickr-calendar.hasTime .flatpickr-time {
+  height: 40px;
+  border-top: 1px solid #e9ebec;
+  border-top: 1px solid #e9ebec;
+}
+
+::ng-deep.flatpickr-time.time24hr .numInputWrapper {
+  width: 49%;
+}
+
+::ng-deep.flatpickr-time .numInputWrapper {
+  flex: 1;
+  width: 40%;
+  height: 40px;
+  float: left;
+}
+
+::ng-deep.flatpickr-time input.flatpickr-hour {
+  font-weight: 700;
+}
+
+::ng-deep.flatpickr-time input {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: inherit;
+  line-height: inherit;
+  color: #212529;
+  color: #212529;
+  font-size: 14px;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  outline: none;
+}
+
+::ng-deep.numInputWrapper span.arrowUp {
+  top: 0;
+  border-bottom: 0;
+}
+
+::ng-deep.numInputWrapper span {
+  position: absolute;
+  right: 0;
+  width: 14px;
+  padding: 0 4px 0 2px;
+  height: 50%;
+  line-height: 50%;
+  opacity: 0;
+  cursor: pointer;
+  border: 1px solid rgba(33, 37, 41, .15);
+  border: 1px solid rgba(33, 37, 41, .15);
+  box-sizing: border-box;
+}
+
+::ng-deep.numInputWrapper span.arrowDown {
+  top: 50%;
+}
+
+::ng-deep.numInputWrapper span {
+  position: absolute;
+  right: 0;
+  width: 14px;
+  padding: 0 4px 0 2px;
+  height: 50%;
+  line-height: 50%;
+  opacity: 0;
+  cursor: pointer;
+  border: 1px solid rgba(33, 37, 41, .15);
+  border: 1px solid rgba(var(--vz-dark-rgb), .15);
+  box-sizing: border-box;
+}
+
+::ng-deep.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+  height: inherit;
+  float: left;
+  line-height: inherit;
+  color: #212529;
+  color: var(--vz-body-color);
+  font-weight: 700;
+  width: 2%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  align-self: center;
+}
+
+::ng-deep.flatpickr-calendar.animate.open {
+  -webkit-animation: fpFadeInDown .3s cubic-bezier(.23, 1, .32, 1);
+  animation: fpFadeInDown .3s cubic-bezier(.23, 1, .32, 1);
+}
+
+::ng-deep.flatpickr-calendar.open {
+  z-index: 1061;
+}
+
+::ng-deep.flatpickr-calendar.open {
+  display: inline-block;
+  z-index: 1056;
+}
+
+::ng-deep.flatpickr-calendar.open,
+.flatpickr-calendar.inline {
+  opacity: 1;
+  max-height: 640px;
+  visibility: visible;
+}
+
+::ng-deep.flatpickr-time .numInputWrapper span.arrowUp:after,
+.flatpickr-time .numInputWrapper span.arrowDown:after {
+  border-bottom-color: #e9ebec;
+  border-bottom-color: var(--vz-border-color);
+}
+
+::ng-deep.numInputWrapper span.arrowUp:after {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid rgba(57, 57, 57, .6);
+  top: 26%;
+}
+
+::ng-deep.numInputWrapper span:after {
+  display: block;
+  content: "";
+  position: absolute;
+}
+
+::ng-deep.numInputWrapper span.arrowDown:after {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid rgba(57, 57, 57, .6);
+  top: 40%;
+}
+
+::ng-deep.numInputWrapper input {
+  width: 100%;
+}
+
+::ng-deep.numInputWrapper input,
+.numInputWrapper span {
+  display: inline-block;
+}
+
+::ng-deep.flatpickr-calendar:before,
+.flatpickr-calendar:after {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  left: 22px;
+}
+
+::ng-deep.input-group-text {
+  margin-left: -10px !important;
+  z-index: 9 !important;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.flatpickr-input {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ced4da !important;
+  cursor: pointer;
+}
+
+.day-closed {
+  color: #757676;
+}

@@ -9,7 +9,8 @@
     </button>
   </div>
 
-  <mat-progress-bar mode="determinate" value="{{this.currentStep == 0 ? 33 : this.currentStep == 1 ? 66 : 100}}"></mat-progress-bar>
+  <mat-progress-bar mode="determinate"
+    value="{{this.currentStep == 0 ? 33 : this.currentStep == 1 ? 66 : 100}}"></mat-progress-bar>
 
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
     <div class="modal-body company-modal">
@@ -156,7 +157,11 @@
         <label class="form-check-label mb-0"> Possui local físico </label>
       </div> -->
     </div>
-    <div class="modal-footer">
+    <div class="float-end justify-content-between modal-footer w-100">
+      <div *ngIf="currentStep === 0"></div>
+      <button *ngIf="currentStep != 0" class="btn btn-outline-secondary"
+        (click)="currentStep = currentStep - 1">Anterior</button>
+      <button *ngIf="currentStep != 2" class="btn btn-success" (click)="currentStep = currentStep + 1">Próximo</button>
       <div class="form-group m-0" style="text-align: center;" *ngIf="currentStep == 2">
         <button class="btn btn-success" type="submit">Save</button>
       </div>
