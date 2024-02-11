@@ -87,3 +87,8 @@
   ::ng-deep.dropdown-menu-end hr {
     margin: 0.3rem 0 !important;
   }
+
+  .options i {
+    width: 15px;
+    display: inline-block;
+  }

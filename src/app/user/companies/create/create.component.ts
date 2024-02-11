@@ -1,16 +1,15 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LocationService } from '../services/location.service';
 import { HttpClientModule } from '@angular/common/http';
-import { StringUtils } from '../../utils/string-utils';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
-import { Company } from '../models/company';
 import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { BusinessSectorComponent } from './business-sector/business-sector.component';
+import { LocationService } from '../../../company/services/location.service';
+import { Company } from '../../../company/models/company';
 import { BasicInfoComponent } from './basic-info/basic-info.component';
 import { ShareInfoComponent } from './share-info/share-info.component';
-import { BusinessSectorComponent } from './business-sector/business-sector.component';
 
 @Component({
   selector: 'app-create',
@@ -72,6 +71,9 @@ export class CreateComponent {
       cnpj: [''],
       name: [company?.name],
       email: [company?.email],
+      instagram: [''],
+      site: [''],
+      description: ['']
     });
   }
 
@@ -136,6 +138,7 @@ export class CreateComponent {
 
   onSubmit(): void {
     console.log('submit');
+    console.log(this.createForm.value)
     // Lógica para enviar dados do formulário para o backend
   }
 }

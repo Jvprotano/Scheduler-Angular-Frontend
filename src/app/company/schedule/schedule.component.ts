@@ -52,6 +52,7 @@ const colors: Record<string, EventColor> = {
 };
 
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-schedule',
@@ -64,6 +65,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     CalendarModule,
     NgbModalModule,
     CalendarModule,
+    SidebarComponent
   ],
   providers: [
     CalendarDateFormatter,

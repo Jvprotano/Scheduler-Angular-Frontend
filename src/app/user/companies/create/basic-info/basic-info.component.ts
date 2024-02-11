@@ -1,19 +1,22 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { StringUtils } from '../../../utils/string-utils';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocationService } from '../../services/location.service';
+import { LocationService } from '../../../../company/services/location.service';
+import { StringUtils } from '../../../../utils/string-utils';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-basic-info',
   standalone: true,
-  imports: [CommonModule],
-  providers: [LocationService],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe],
+  providers: [LocationService, provideNgxMask()],
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.css'
 })
-export class BasicInfoComponent {
+export class BasicInfoComponent implements OnInit {
   @Output() next: EventEmitter<any> = new EventEmitter();
 
+  @Input() form!: FormGroup;
   name: string = '';
   cnpj: string = '';
   email: string = '';
@@ -22,6 +25,11 @@ export class BasicInfoComponent {
   cep: string = '';
 
   constructor(private locationService: LocationService) { }
+
+  ngOnInit(): void {
+    console.log(this.form);
+    // this.form.controls['name'].setValue('abc');
+  }
 
 
   onNext() {

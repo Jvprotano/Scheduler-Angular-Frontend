@@ -1,0 +1,8 @@
+.sidebar-menu {
+  width: 70px;
+}
+
+::ng-deep.company-area {
+  width: calc(100% - 90px);
+  margin-left: 20px;
+}

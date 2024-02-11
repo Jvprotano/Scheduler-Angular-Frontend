@@ -15,12 +15,12 @@
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
     <div class="modal-body company-modal">
 
-      <app-basic-info *ngIf="currentStep == 0" (next)="onNextStep($event)"></app-basic-info>
+      <app-basic-info *ngIf="currentStep == 0" (next)="onNextStep($event)" [form]="createForm"></app-basic-info>
 
-      <app-business-sector *ngIf="currentStep == 1" [data]="createForm" (previous)="onPreviousStep()"
+      <app-business-sector *ngIf="currentStep == 1" [form]="createForm" (previous)="onPreviousStep()"
         (next)="onNextStep($event)"></app-business-sector>
 
-      <app-share-info *ngIf="currentStep == 2" [data]="createForm" (previous)="onPreviousStep()"></app-share-info>
+      <app-share-info *ngIf="currentStep == 2" [form]="createForm" (previous)="onPreviousStep()"></app-share-info>
 
       <!-- <div class="row">
         <div class="d-flex form-group justify-content-center mb-4">

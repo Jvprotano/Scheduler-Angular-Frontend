@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Company } from '../../company/models/company';
-import { CreateComponent } from '../../company/create/create.component';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateComponent } from './create/create.component';
 
 @Component({
   selector: 'app-companies',
@@ -52,8 +52,9 @@ export class CompaniesComponent implements OnInit {
       company.status = 1;
     }
   }
-  editCompany(company: Company) {
-    this.companyToEdit = company;
+  editCompany(company: Company | null) {
+    if (company)
+      this.companyToEdit = company;
     this.clickedEdit = true;
     this.setTimeout();
   }

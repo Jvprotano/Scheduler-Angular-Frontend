@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FlatpickrDefaults, FlatpickrModule } from 'angularx-flatpickr';
 
@@ -14,7 +14,7 @@ import { FlatpickrDefaults, FlatpickrModule } from 'angularx-flatpickr';
 })
 export class BusinessSectorComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() form!: FormGroup;
   @Output() previous: EventEmitter<any> = new EventEmitter();
   @Output() next: EventEmitter<any> = new EventEmitter();
   weekdays: any[] = [
