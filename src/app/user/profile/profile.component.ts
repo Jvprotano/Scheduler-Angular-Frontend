@@ -19,6 +19,7 @@ export class ProfileComponent {
   user: User = {
     id: 0,
     email: "123@gmail.com",
+    phone: "43 34531600",
     password: "123",
     confirmPassword: "123"
   };

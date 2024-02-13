@@ -1,0 +1,82 @@
+<div class="scheduling-container container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Agendamento - {{name}}</h1>
+        </div>
+        <div class="card-body">
+            <div class="row" style="display: flex; flex-direction: column; height: 180px; overflow-y: auto;">
+                <div class="form-group">
+                    <button *ngFor="let professional of profissionais" class="professional bg-transparent" href="javascript:void(0);"
+                        (click)="selecionarProfissional(professional)" [disabled]="professionalSelected && professionalSelected != professional">
+                        <div class="professional-avatar">
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="{{professional.name}}"
+                                style="width: 100%; height: auto;">
+                        </div>
+                        <div class="professional-name">
+                            {{professional.name}} - {{professional.description}}
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div *ngFor="let service of services" class="service" (click)="selectService(service)">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="javascript:void(0);">
+                            <div class="card card-services">
+                                <div class="service-name">
+                                    {{service.name}}
+                                </div>
+                                <div class="service-price">
+                                    R$ {{service.price}}
+                                </div>
+                                <div class="service-description card-subtitle mb-2 text-muted">
+                                    {{service.description}}
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="serviceSelected && professionalSelected">
+
+    <div class="form-group">
+        <label for="data">Data</label>
+        <input type="date" id="data" class="form-control" [(ngModel)]="dateSelected" (change)="atualizarHorarios()">
+    </div>
+
+    <div class="form-group">
+        <label for="time">Horário</label>
+        <select id="time" class="form-control" [(ngModel)]="timeSelected">
+            <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="name">Nome</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="name">
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Sobrename</label>
+        <input type="text" id="lastName" class="form-control" [(ngModel)]="lastName">
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Telefone</label>
+        <input type="tel" id="phone" class="form-control" [(ngModel)]="phone">
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="email">
+    </div>
+
+    <button class="btn btn-primary" (click)="agendar()">Agendar</button>
+</div>
+</div>

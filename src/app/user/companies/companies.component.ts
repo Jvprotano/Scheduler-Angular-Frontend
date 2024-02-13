@@ -58,12 +58,15 @@ export class CompaniesComponent implements OnInit {
     this.clickedEdit = true;
     this.setTimeout();
   }
+  createCompany(){
+    this.clickedEdit = true;
+    this.setTimeout();
+  }
 
   setTimeout() {
     setTimeout(() => {
-      console.log("settimeout")
       this.clickedEdit = false;
-    }, 5000);
+    }, 1000);
   }
 
   generateTestCompanies(): void {

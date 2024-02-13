@@ -9,26 +9,31 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" disabled class="form-label">Name</label>
                 <input class="form-control" type="text" formControlName="name" />
             </div>
             <div class="col-md-6">
+                <label for="name" disabled class="form-label">Sobrenome</label>
+                <input class="form-control" type="text" formControlName="name" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
                 <label for="email" class="form-label">Email</label>
-                <input class="form-control" type="email" value="{{this.user.email}}" />
+                <input class="form-control" disabled type="email" value="{{this.user.email}}" />
+            </div>
+            <div class="col-md-4">
+                <label for="email" class="form-label">Telefone</label>
+                <input class="form-control" disabled type="email" value="{{this.user.phone}}" />
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-md btn-outline-success" style="margin-top: 30px;">Confirmar telefone</button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="password" class="form-label">Password</label>
-                <input class="form-control" type="password" formControlName="password" />
+                <button class="btn btn-light">Change password</button>
             </div>
-            <div class="col-md-6">
-                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                <input class="form-control" type="password" formControlName="confirmPassword" />
-            </div>
-        </div>
-        <div class="text-center">
-            <input type="submit" class="btn btn-conci" value="Create" />
         </div>
     </form>
 </div>
