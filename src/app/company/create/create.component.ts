@@ -16,7 +16,7 @@ import { BusinessSectorComponent } from './business-sector/business-sector.compo
   selector: 'app-create',
   standalone: true,
   providers: [LocationService],
-  imports: [ReactiveFormsModule, HttpClientModule, NgxSpinnerModule, CommonModule, 
+  imports: [ReactiveFormsModule, HttpClientModule, NgxSpinnerModule, CommonModule,
     FormsModule, NgbModalModule, MatProgressBarModule, BasicInfoComponent, ShareInfoComponent, BusinessSectorComponent],
   templateUrl: './create.component.html',
   styleUrl: './create.component.css'
@@ -76,7 +76,7 @@ export class CreateComponent {
   }
 
   openModal() {
-    this.modalService.open(this.modalContent, { size: 'lg' });
+    this.modalService.open(this.modalContent, { size: 'lg', centered: true });
   }
 
   /**

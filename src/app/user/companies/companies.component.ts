@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Company } from '../../company/models/company';
 import { CreateComponent } from '../../company/create/create.component';
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-companies',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterModule, CreateComponent],
+  imports: [CommonModule, FormsModule, RouterLink, RouterModule, CreateComponent, NgbDropdownModule],
   templateUrl: './companies.component.html',
   styleUrl: './companies.component.css'
 })

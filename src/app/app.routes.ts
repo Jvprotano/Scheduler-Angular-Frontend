@@ -12,10 +12,12 @@ import { ScheduleComponent } from './company/schedule/schedule.component';
 import { CompanyComponent } from './company/company.component';
 import { accountGuard } from './account/services/account.guard';
 import { ProfileComponent } from './user/profile/profile.component';
+import { SchedulingComponent } from './scheduling/scheduling.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
+    { path: 'scheduling', component: SchedulingComponent },
     {
         path: 'account', component: AccountAppComponent, children: [
             { path: 'login', component: LoginComponent, canActivate: [accountGuard] },

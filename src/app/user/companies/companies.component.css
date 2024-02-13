@@ -3,7 +3,7 @@
     padding: 20px;
     color: #333;
   }
-  
+
   .row {
     display: flex;
     flex-wrap: wrap;
@@ -11,14 +11,14 @@
     margin: 0 auto;
     padding: 20px;
   }
-  
+
   @media (max-width: 768px) {
     .column {
       flex: 1 0 100%;
       max-width: 100%;
     }
   }
-  
+
   .card {
     border: none;
     border-radius: 10px;
@@ -26,21 +26,21 @@
     overflow: hidden;
     background-color: #fff;
   }
-  
+
   .card-body {
     padding: 20px;
-  } 
-  
+  }
+
   .card-title {
     margin-bottom: 20px;
     color: #333;
   }
-  
+
   .card-text {
     color: #666;
     line-height: 1.6;
   }
-  
+
   .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -48,4 +48,42 @@
     text-decoration: none;
     transition: background-color 0.3s ease;
     margin: 5px;
+  }
+
+  .options .delete {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #ff000017;
+  }
+
+  .options .more-options {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d6efd;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #0d6efd2b;
+  }
+
+  .dropdown-toggle::after {
+    content: none;
+  }
+
+  ::ng-deep.dropdown-menu-end {
+    position: absolute;
+    right: 0px;
+    top: 110%;
+  }
+
+  ::ng-deep.dropdown-menu-end hr {
+    margin: 0.3rem 0 !important;
   }
