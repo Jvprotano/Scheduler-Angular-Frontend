@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Company } from '../../company/models/company';
 import { CreateComponent } from '../../company/create/create.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-companies',
@@ -57,12 +56,15 @@ export class CompaniesComponent implements OnInit {
     this.clickedEdit = true;
     this.setTimeout();
   }
+  createCompany(){
+    this.clickedEdit = true;
+    this.setTimeout();
+  }
 
   setTimeout() {
     setTimeout(() => {
-      console.log("settimeout")
       this.clickedEdit = false;
-    }, 5000);
+    }, 1000);
   }
 
   generateTestCompanies(): void {
