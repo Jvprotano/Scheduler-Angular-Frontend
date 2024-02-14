@@ -17,14 +17,14 @@
       <div class="form-group">
         <label class="control-label mb-2">E-mail</label>
         <input [ngClass]="{
-            'is-invalid': formSubmited && form['email'].errors
-          }" class="form-control shadow-none" id="email" type="text" placeholder="E-mail (requerido)"
-          formControlName="email" />
-        <div *ngIf="formSubmited && form['email'].errors" class="invalid-feedback">
-          <div *ngIf="form['email'].errors['required']">
+            'is-invalid': formSubmited && form['emailOrPhone'].errors
+          }" class="form-control shadow-none" id="emailOrPhone" type="text" placeholder="E-mail (requerido)"
+          formControlName="emailOrPhone" />
+        <div *ngIf="formSubmited && form['emailOrPhone'].errors" class="invalid-feedback">
+          <div *ngIf="form['emailOrPhone'].errors['required']">
             O e-mail é obrigatório
           </div>
-          <div *ngIf="form['email'].errors['email']">
+          <div *ngIf="form['emailOrPhone'].errors['emailOrPhone']">
             O e-mail precisa ser válido
           </div>
         </div>

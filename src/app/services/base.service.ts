@@ -1,9 +1,13 @@
-import { HttpErrorResponse, HttpHeaders } from "@angular/common/http"
-import { throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http"
+import { catchError, map, throwError } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { LocalStorageUtils } from "../utils/localstorage";
 
 export class BaseService {
+
+    constructor(private httpClient: HttpClient) {
+
+    }
     protected UrlServiceV1: string = environment.apiUrl;
     public LocalStorage = new LocalStorageUtils();
 
@@ -24,12 +28,27 @@ export class BaseService {
         }
     }
 
+    protected get(route: string, authenticated: boolean = false) {
+        return this.httpClient.get(`${this.UrlServiceV1}${route}`, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(this.serviceError)
+            );
+    }
+    protected post(route: string, data: any, authenticated: boolean = false) {
+        return this.httpClient.post(`${this.UrlServiceV1}${route}`, data, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(this.serviceError)
+            );
+    }
+
     protected extractData(response: any) {
         return response.data || {};
     }
 
     protected serviceError(response: Response | any) {
-        let customError: string[] = []
+        let customError: string[] = [];
         if (response instanceof HttpErrorResponse) {
             if (response.statusText === "Unknown Error") {
                 customError.push("Ocorreu um erro desconhecido");
@@ -37,8 +56,6 @@ export class BaseService {
             }
         }
 
-        console.error(response);
-
-        return throwError(() => new Error('Something bad happened; please try again later.'));
+        return throwError(() => new Error(response));
     }
 }

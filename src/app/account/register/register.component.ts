@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
 
-import { User } from '../models/user';
+import { User } from '../../user/models/user';
 import { AccountService } from '../services/account.service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from '../../utils/generic-form-validation';
 import { HttpClientModule } from '@angular/common/http';

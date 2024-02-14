@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User } from '../../account/models/user';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-profile',
