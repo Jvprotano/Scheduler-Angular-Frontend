@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     debugger;
     this.registerForm.reset();
     this.errors = [];
-
+ 
     // this.accountService.LocalStorage.saveUserLocalData(response);
     // this.router.navigate(['/home'])
 
