@@ -11,39 +11,22 @@ export class AccountService extends BaseService {
   constructor(private http: HttpClient) { super(http) }
 
   registerUser(user: User): Observable<User> {
-    let response = this.http.post(this.UrlServiceV1 + 'register', user, this.GetHeaderJson())
-      .pipe(
-        map(this.extractData),
-        catchError((error: any) => {
-          this.serviceError(error);
-          return error(error);
-        })
-      );
+    return this.post('register', user);
+    
+    // let response = this.http.post(this.UrlServiceV1 + 'register', user, this.GetHeaderJson())
+    //   .pipe(
+    //     map(this.extractData),
+    //     catchError((error: any) => {
+    //       this.serviceError(error);
+    //       return error(error);
+    //     })
+    //   );
 
-    return response;
+    // return response;
   }
 
   login(user: Login): Observable<any> {
 
     return this.post('login', user);
-
-    // return of({
-    //   userToken: {
-    //     "id": 1,
-    //     "email": "teste@atrono.com"
-    //   },
-    //   accessToken: '12345',
-    // }).pipe(delay(3000));
-
-    // let response = this.http.post(this.UrlServiceV1 + 'login', user, this.GetHeaderJson())
-    //     .pipe(
-    //         map(this.extractData),
-    //         catchError((error: any) => {
-    //             this.serviceError(error);
-    //             return error(error);
-    //         })
-    //     );
-
-    // return response;
   }
 }

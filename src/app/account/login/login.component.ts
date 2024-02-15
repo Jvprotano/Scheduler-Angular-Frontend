@@ -72,14 +72,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         }, error: err => { this.errorResponse(err) }
       })
 
-      this.accountService.login(this.user).subscribe(
-        result => {
-          this.success(result);
-          this.formSubmited = false,
-            this.isDisabled = false;
-        },
-        // error => { this.fail(error) }
-      );
+      // this.accountService.login(this.user).subscribe(
+      //   result => {
+      //     this.success(result);
+      //     this.formSubmited = false,
+      //       this.isDisabled = false;
+      //   },
+      //   // error => { this.fail(error) }
+      // );
+      
     } else {
       this.isDisabled = false;
       // this.formSubmited = false
@@ -88,7 +89,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   success(result: any) {
-    debugger;
     this.isDisabled = false;
     this.errors = [];
     this.accountService.LocalStorage.saveUserLocalData(result);
@@ -96,11 +96,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home']).then(() => {
       let toast = this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
 
-      if (toast) {
-        toast.onHidden.subscribe(() => {
-          // Additional logic after toast is hidden
-        });
-      }
+      // if (toast) {
+      //   toast.onHidden.subscribe(() => {
+      //     // Additional logic after toast is hidden
+      //   });
+      // }
     })
 
   }
