@@ -136,7 +136,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     // }
 
     // Redirecionar e depois mostrar o toast na tela home
-    this.router.navigate(['/login']).then(() => {
+    this.router.navigate(['account/login']).then(() => {
       let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
 
       if (toast) {
