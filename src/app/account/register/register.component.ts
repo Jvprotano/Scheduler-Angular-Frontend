@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     debugger;
     this.registerForm.reset();
     this.errors = [];
- 
+
     // this.accountService.LocalStorage.saveUserLocalData(response);
     // this.router.navigate(['/home'])
 
@@ -137,13 +137,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     // Redirecionar e depois mostrar o toast na tela home
     this.router.navigate(['account/login']).then(() => {
-      let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
-
-      if (toast) {
-        toast.onHidden.subscribe(() => {
-          // Additional logic after toast is hidden
-        });
-      }
+      this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
     })
   }
 }

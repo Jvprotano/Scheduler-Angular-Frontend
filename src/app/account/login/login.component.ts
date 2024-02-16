@@ -61,9 +61,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       this.user = Object.assign({}, this.user, this.loginForm.value);
 
-      // Forma de usar o error no subscribe
-      // this.serve.login(this.user).subscribe({ next: (result) => { result.token }, error: err => { } })
-
       this.accountService.login(this.user).subscribe({
         next: (result) => {
           this.success(result);
@@ -72,15 +69,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         }, error: err => { this.errorResponse(err) }
       })
 
-      // this.accountService.login(this.user).subscribe(
-      //   result => {
-      //     this.success(result);
-      //     this.formSubmited = false,
-      //       this.isDisabled = false;
-      //   },
-      //   // error => { this.fail(error) }
-      // );
-      
     } else {
       this.isDisabled = false;
       // this.formSubmited = false
