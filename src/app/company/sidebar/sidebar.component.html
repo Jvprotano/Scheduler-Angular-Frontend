@@ -1,3 +1,31 @@
 <div class="sidebar-menu">
-
+  <div class="user-img d-flex justify-content-center">
+    <img src="assets/default-user.jpg" width="40" height="40" />
+  </div>
+  <ul class="align-items-center d-flex flex-column list-unstyled mt-4">
+    <li
+      ngbTooltip="Dashboard"
+      placement="right"
+      [routerLink]="['/company/0/dashboard']"
+      routerLinkActive="active"
+      class="menu-item"
+    >
+      <i class="bi-bar-chart-line menu-icon fs-3"></i>
+    </li>
+    <li
+      ngbTooltip="Agenda"
+      placement="right"
+      [routerLink]="['/company/0/schedule']"
+      routerLinkActive="active"
+      class="menu-item"
+    >
+      <i class="bi-calendar-date menu-icon fs-3"></i>
+    </li>
+    <li ngbTooltip="Serviços" placement="right" class="menu-item">
+      <i class="bi-tags menu-icon fs-3"></i>
+    </li>
+    <li ngbTooltip="Editar Empresa" placement="right" class="menu-item">
+      <i class="bi-pencil menu-icon fs-3"></i>
+    </li>
+  </ul>
 </div>
