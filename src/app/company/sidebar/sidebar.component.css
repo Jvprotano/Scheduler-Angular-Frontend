@@ -1,0 +1,49 @@
+.sidebar-menu {
+  position: fixed;
+  width: 65px;
+  height: 100%;
+  background-color: var(--green-conci);
+  transition: 1s;
+  /* overflow: hidden; */
+  z-index: 99;
+  left: 0;
+}
+
+::ng-deep.company-area {
+  width: calc(100% - 90px);
+  margin-left: 80px;
+  margin-top: 40px;
+}
+
+.sidebar-menu .user-img img {
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.sidebar-menu .menu-item {
+  line-height: 40px;
+  padding: 10px 0 10px 0;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-menu .menu-item i {
+  font-weight: 400;
+  color: #74b7cd;
+}
+
+.sidebar-menu .menu-item:not(.active):hover i {
+  color: #fff;
+}
+
+.sidebar-menu .menu-item.active {
+  background-color: #fff;
+}
+
+::ng-deep.tooltip {
+  width: 110px !important;
+}
