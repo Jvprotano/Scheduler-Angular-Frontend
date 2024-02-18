@@ -28,15 +28,22 @@ export class BaseService {
         }
     }
 
-    protected get(route: string, authenticated: boolean = false) {
+    protected get(route: string, authenticated: boolean = true) {
         return this.httpClient.get(`${this.UrlServiceV1}${route}`, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError)
             );
     }
-    protected post(route: string, data: any, authenticated: boolean = false) {
+    protected post(route: string, data: any, authenticated: boolean = true) {
         return this.httpClient.post(`${this.UrlServiceV1}${route}`, data, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(this.serviceError)
+            );
+    }
+    protected put(route: string, data: any, authenticated: boolean = true) {
+        return this.httpClient.put(`${this.UrlServiceV1}${route}`, data, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
             .pipe(
                 map(this.extractData),
                 catchError(this.serviceError)
@@ -49,8 +56,6 @@ export class BaseService {
 
     protected serviceError(response: HttpErrorResponse) {
         let customErrorMessage: string;
-
-        debugger;
 
         switch (response.status) {
             case 400:

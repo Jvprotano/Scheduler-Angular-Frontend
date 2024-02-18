@@ -7,8 +7,9 @@ export class LocalStorageUtils {
     }
 
     public saveUserLocalData(response: any) {
+        
         this.saveUserToken(response.bearer);
-        this.saveUser(response.bearer);
+        this.saveUser(response.userName);
     }
 
     public getUserToken() {

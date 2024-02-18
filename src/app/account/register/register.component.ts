@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   addAccount() {
     if (this.registerForm.dirty && this.registerForm.valid && this.registerUserInfoForm.valid) {
-      debugger;
+      
       this.usuario = Object.assign({}, this.usuario, this.registerForm.value);
       this.usuario = Object.assign(this.usuario, this.registerUserInfoForm.value);
       // this.accountService.registerUser(this.usuario)
@@ -120,7 +120,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   processarSucesso(response: any) {
-    debugger;
+    
     this.registerForm.reset();
     this.errors = [];
 

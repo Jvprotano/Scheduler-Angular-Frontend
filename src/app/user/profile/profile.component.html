@@ -1,30 +1,31 @@
 <div class="container d-flex justify-content-center align-items-center">
-    <form [formGroup]="profileForm" class="w-50">
+    <form [formGroup]="profileForm" class="w-50" (ngSubmit)="onSubmit()">
         <div class="text-center mb-4">
             <input class="form-control d-none" id="fileInput" type="file" *ngIf="!hasImage()"
                 (change)="onFileChange($event)" />
-            <img [src]="hasImage() ? this.profileForm.get('image')?.value : 'assets/user-icon.svg'"
-                onclick="fileInput.click()" alt="image" width="250" height="250" style="cursor: pointer;"
-                class="mb-3" />
+            <img [src]="hasImage() ? this.profileForm.get('imageUrl')?.value : 'assets/user-icon.svg'"
+                onclick="fileInput.click()" alt="image" class="mb-3" />
+            <a class="btn btn-danger" (click)="removeImage()" *ngIf="hasImage()">Remover imagem</a>
         </div>
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="name" disabled class="form-label">Name</label>
-                <input class="form-control" type="text" formControlName="name" />
+                <label for="firstName" disabled class="form-label">Nome</label>
+                <input class="form-control" type="text" formControlName="firstName" />
             </div>
             <div class="col-md-6">
-                <label for="name" disabled class="form-label">Sobrenome</label>
-                <input class="form-control" type="text" formControlName="name" />
+                <label for="lastName" disabled class="form-label">Sobrenome</label>
+                <input class="form-control" type="text" formControlName="lastName" />
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="email" class="form-label">Email</label>
-                <input class="form-control" disabled type="email" value="{{this.user.email}}" />
+                <input class="form-control" [readOnly]="true" type="email" formControlName="email" />
             </div>
             <div class="col-md-4">
-                <label for="email" class="form-label">Telefone</label>
-                <input class="form-control" disabled type="email" value="{{this.user.phone}}" />
+                <label for="phoneNumber" class="form-label">Telefone</label>
+                <input class="form-control" type="phoneNumber" formControlName="phoneNumber"
+                    placeholder="(99) 9 9999-9999" />
             </div>
             <div class="col-md-4">
                 <button class="btn btn-md btn-outline-success" style="margin-top: 30px;">Confirmar telefone</button>
@@ -34,6 +35,9 @@
             <div class="col-md-6">
                 <button class="btn btn-light">Change password</button>
             </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-conci">Salvar</button>
         </div>
     </form>
 </div>

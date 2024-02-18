@@ -3,8 +3,10 @@ export interface User {
     firstName: string,
     lastName: string,
     email: string,
-    phone: string,
+    phoneNumber: string,
     birthDate?: Date,
     password: string,
     confirmPassword: string,
+    imageBase64?: string,
+    imageUrl?: string 
 }
