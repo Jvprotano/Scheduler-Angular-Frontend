@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User } from '../../account/models/user';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -13,22 +13,15 @@ import { User } from '../../account/models/user';
 export class ProfileComponent {
 
   profileForm!: FormGroup;
+  user!: User;
 
   rand: number = Math.floor(Math.random() * 1000);
 
-  user: User = {
-    id: 0,
-    email: "123@gmail.com",
-    phone: "43 34531600",
-    password: "123",
-    confirmPassword: "123"
-  };
-
   constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
-      name: ['José Vinícius'],
-      password: ['123'],
-      confirmPassword: ['123'],
+      name: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
       image: this.rand % 2 === 0 ? [''] : ['https://www.w3schools.com/w3images/avatar2.png']
     });
   }

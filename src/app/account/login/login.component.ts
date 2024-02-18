@@ -1,13 +1,13 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, inject, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DisplayMessage } from '../../utils/generic-form-validation';
 import { AccountService } from '../services/account.service';
-import { User } from '../models/user';
-import { FormBuilder, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 import { EventService } from '../../services/event.service';
+import { Login } from '../models/login';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ import { EventService } from '../../services/event.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup = new FormGroup({});
-  user!: User;
+  user!: Login;
   name: string = "";
   errors = [];
   displayMessage: DisplayMessage = {};
@@ -43,8 +43,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.eventService.broadcast('hide-header', true);
 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      emailOrPhone: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      rememberMe: [false]
     });
     // this.changeLoginText();
   }
@@ -56,19 +57,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     this.formSubmited = true;
     this.isDisabled = true;
+
     if (this.loginForm.valid) {
       this.user = Object.assign({}, this.user, this.loginForm.value);
 
-      // Forma de usar o error no subscribe
-      // this.serve.login(this.user).subscribe({ next: (result) => { result.token }, error: err => { } })
-
-      this.accountService.login(this.user).subscribe(
-        result => {
-          this.success(result); this.formSubmited = false,
+      this.accountService.login(this.user).subscribe({
+        next: (result) => {
+          this.success(result);
+          this.formSubmited = false,
             this.isDisabled = false;
-        },
-        // error => { this.fail(error) }
-      );
+        }, error: err => { this.errorResponse(err) }
+      })
+
     } else {
       this.isDisabled = false;
       // this.formSubmited = false
@@ -77,19 +77,25 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   success(result: any) {
+    this.isDisabled = false;
     this.errors = [];
     this.accountService.LocalStorage.saveUserLocalData(result);
 
     this.router.navigate(['/home']).then(() => {
-      let toast = this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', {positionClass: 'toast-top-center'});
+      let toast = this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
 
-      if (toast) {
-        toast.onHidden.subscribe(() => {
-          // Additional logic after toast is hidden
-        });
-      }
+      // if (toast) {
+      //   toast.onHidden.subscribe(() => {
+      //     // Additional logic after toast is hidden
+      //   });
+      // }
     })
 
+  }
+  errorResponse(err: any) {
+    debugger;
+    this.isDisabled = false;
+    this.toastr.error(err.message, 'Ops! :(');
   }
 
   ngOnDestroy(): void {

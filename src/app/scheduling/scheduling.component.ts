@@ -11,10 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class SchedulingComponent {
 
-  serviceSelected!: Service;
-  professionalSelected!: Professional;  
+  serviceSelected?: Service;
+  professionalSelected?: Professional;
   dateSelected: string = '';
-  times: string[] = [];
+  times: string[] = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
   timeSelected: string = '';
   name: string = 'Empresa do Vitão';
   lastName: string = '';
@@ -25,11 +25,26 @@ export class SchedulingComponent {
   }
 
 
-  selecionarProfissional(professional : any) {
-    this.professionalSelected = professional;
+  selecionarProfissional(professional: any) {
+    if (this.professionalSelected == professional) {
+      this.professionalSelected = undefined;
+    } else {
+      this.professionalSelected = professional;
+    }
   }
-  selectService(service : any) {
+  selectService(service: any) {
+    if (this.serviceSelected == service) {
+      this.serviceSelected = undefined;
+      return;
+    }
     this.serviceSelected = service;
+  }
+  selectTime(time: any) {
+    if (this.timeSelected == time) {
+      this.timeSelected = '';
+      return;
+    }
+    this.timeSelected = time;
   }
 
   atualizarHorarios() {
@@ -42,17 +57,17 @@ export class SchedulingComponent {
     {
       name: 'Corte de Cabelo',
       description: 'Corte de Cabelo na tesoura e na máquina',
-      price: 50
+      price: 50.00
     },
     {
       name: 'Manicure',
       description: 'Unhas das mãos e dos pés',
-      price: 30
+      price: 30.00
     },
     {
       name: 'Consulta Psicológica',
       description: 'Consulta com psicólogo(a) para tratamento de problemas emocionais e psicológicos',
-      price: 100
+      price: 100.00
     }
   ];
   profissionais: Professional[] = [

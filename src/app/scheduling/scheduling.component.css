@@ -1,6 +1,20 @@
 a{
     text-decoration: none;
 }
+:disabled{
+    cursor: not-allowed;
+    color: #b3b0b0;
+    opacity: 0.7;
+    transform: none !important;
+    transition: none !important;
+}
+.company-logo{
+    max-width: 100px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    margin-right: 10px;
+}
 .agendamento-container {
     max-width: 400px;
     margin: 0 auto;
@@ -13,8 +27,7 @@ a{
 }
 
 .professional-avatar img {
-    width: 100%;
-    height: auto;
+    width: 100%; height: auto; border-radius: 50px;
 }
 
 .professional {
@@ -33,6 +46,16 @@ a{
     transform: scale(1.02);
 }
 
+.custom-header {
+    background-color: var(--green-conci); 
+    color: rgb(229, 221, 230);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
 .professional-name {
     text-align: center;
     margin: 10px 0;
@@ -43,7 +66,7 @@ a{
 
 .form-group {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     text-align: center;
 }
 
@@ -74,8 +97,4 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-}
-
-button:hover {
-    background-color: #0056b3;
 }

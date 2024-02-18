@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
 
-import { User } from '../models/user';
+import { User } from '../../user/models/user';
 import { AccountService } from '../services/account.service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from '../../utils/generic-form-validation';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +28,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   errors: any[] = [];
 
   registerForm!: FormGroup;
+  registerUserInfoForm!: FormGroup;
   usuario!: User;
+  registerInfoField: boolean = false;
 
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
@@ -64,14 +66,19 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
 
-    // let senha = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15])]);
-    // let senhaConfirm = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15]), CustomValidators.equalTo(senha)]);
-    let senha = new FormControl('', [Validators.required]);
-    let senhaConfirm = new FormControl('', [Validators.required]);
+    let passwordValidate = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
+    let confirmPasswordValidate = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
+
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: senha,
-      confirmPassword: senhaConfirm
+      password: passwordValidate,
+      confirmPassword: confirmPasswordValidate
+    });
+    this.registerUserInfoForm = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
     });
   }
 
@@ -87,49 +94,50 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   addAccount() {
-    if (this.registerForm.dirty && this.registerForm.valid) {
+    if (this.registerForm.dirty && this.registerForm.valid && this.registerUserInfoForm.valid) {
+      debugger;
       this.usuario = Object.assign({}, this.usuario, this.registerForm.value);
+      this.usuario = Object.assign(this.usuario, this.registerUserInfoForm.value);
+      // this.accountService.registerUser(this.usuario)
+      //   .subscribe(
+      //     sucesso => { this.processarSucesso(sucesso) }
+      //     // falha => {this.processarFalha(falha)}
+      //   );
 
-      this.accountService.registerUser(this.usuario)
-        .subscribe(
-          sucesso => { this.processarSucesso(sucesso) }
-          // falha => {this.processarFalha(falha)}
-        );
+      this.accountService.registerUser(this.usuario).subscribe({
+        next: (result) => {
+          this.processarSucesso(result);
+        }, error: err => { this.processarFalha(err) }
+      })
     }
   }
 
-  processarFalha(fail: any) {
-    this.errors = fail.error.errors;
-    this.toastr.error('Ocorreu um erro!', 'Opa :(');
+  processarFalha(response: any) {
+    if (response.error)
+      this.toastr.error(response.error, 'Opa :(');
+    else
+      this.toastr.error('Ocorreu um erro!', 'Opa :(');
   }
 
   processarSucesso(response: any) {
+    debugger;
     this.registerForm.reset();
     this.errors = [];
 
-    this.accountService.LocalStorage.saveUserLocalData(response);
+    // this.accountService.LocalStorage.saveUserLocalData(response);
     // this.router.navigate(['/home'])
 
-    //https://www.npmjs.com/package/ngx-toastr - Na DOC tem uma demo
+    // let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!'); // Essa é uma mensagem que aparece do lado verde ou vermelha
 
-    let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!'); // Essa é uma mensagem que aparece do lado verde ou vermelha
-
-    if (toast) { // Adiciona um evento para quando a mensagem sumir, redirecionar para a home
-      toast.onHidden.subscribe(() => {
-        this.router.navigate(['/home']);
-      });
-    }
+    // if (toast) { // Adiciona um evento para quando a mensagem sumir, redirecionar para a home
+    //   toast.onHidden.subscribe(() => {
+    //     this.router.navigate(['/home']);
+    //   });
+    // }
 
     // Redirecionar e depois mostrar o toast na tela home
-
-    this.router.navigate(['/home']).then(() => {
-      let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
-
-      if (toast) {
-        toast.onHidden.subscribe(() => {
-          // Additional logic after toast is hidden
-        });
-      }
+    this.router.navigate(['account/login']).then(() => {
+      this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
     })
   }
 }

@@ -62,7 +62,7 @@ textarea {
 }
 
 .card {
-    border: 1px solid var(--dark-blue);
+    border: 1px solid #28534a7a;
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 20px;
