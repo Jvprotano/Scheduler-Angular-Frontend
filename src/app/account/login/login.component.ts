@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this.accountService.login(this.user).subscribe({
         next: (result) => {
-          
           this.success(result);
           this.formSubmited = false,
             this.isDisabled = false;
@@ -81,16 +80,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     
     this.isDisabled = false;
     this.errors = [];
-    this.accountService.LocalStorage.saveUserLocalData(result);
 
     this.router.navigate(['/home']).then(() => {
-      let toast = this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
-
-      // if (toast) {
-      //   toast.onHidden.subscribe(() => {
-      //     // Additional logic after toast is hidden
-      //   });
-      // }
+      this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
     })
 
   }

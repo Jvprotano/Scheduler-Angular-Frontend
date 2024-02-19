@@ -1,8 +1,8 @@
-<ul [ngSwitch]="loggedUser()" class="navbar-nav">
-  <li *ngSwitchCase="true" class="nav-item access">
+<ul class="navbar-nav" *ngIf="isLoggedIn$ | async">
+  <li class="nav-item access">
     <a class="btn-access" routerLink="user/companies"><i class="bi bi-building me-1"></i>Minhas Empresas </a>
   </li>
-  <li *ngSwitchCase="true" class="nav-item">
+  <li class="nav-item">
     <div ngbDropdown class="d-inline-block">
       <img src="/assets/account2.jpg" class="rounded-circle z-depth-0" alt="avatar image" height="35"
         id="dropdownBasic1" ngbDropdownToggle>
@@ -16,11 +16,14 @@
       </div>
     </div>
   </li>
-  <li *ngSwitchCase="false" class="nav-item access">
+</ul>
+
+<ul class="navbar-nav" *ngIf="!(isLoggedIn$ | async)">
+  <li class="nav-item access">
     <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i
         class="bi bi-person">Acesse sua conta</i> </a>
   </li>
-  <li *ngSwitchCase="false" class="nav-item">
+  <li class="nav-item">
     <button class="btn btn-outline-primary" routerLink="/account/register" routerLinkActive="active">Experimente
       grátis</button>
   </li>

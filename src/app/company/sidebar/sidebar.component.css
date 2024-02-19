@@ -44,6 +44,34 @@
   background-color: #fff;
 }
 
+.menu-item-exit {
+  position: absolute;
+  bottom: 0;
+}
+
+.sidebar-menu .menu-item.menu-item-exit i {
+  font-weight: 400;
+  color: #e5abab;
+}
+
+.sidebar-menu .menu-item.menu-item-exit:not(.active):hover i {
+  color: #ba0505;
+}
+
+.sidebar-menu .menu-item.menu-item-exit.active {
+  background-color: #fff;
+}
+
+.agende-logo{
+  position: absolute;
+  left: 75px;
+  top: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-blue);
+}
+
 ::ng-deep.tooltip {
   width: 110px !important;
 }

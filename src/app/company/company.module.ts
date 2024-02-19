@@ -1,22 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CreateComponent } from './create/create.component';
-import { EditComponent } from './edit/edit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateComponent } from '../user/companies/create/create.component';
 
 @NgModule({
   declarations: [],
   providers: [MatDatepickerModule],
-  imports: [
-    CommonModule,
-    CreateComponent,
-    EditComponent,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgbModalModule,
-  ],
+  imports: [CreateComponent],
   exports: [CreateComponent]
 })
 export class CompanyModule { }

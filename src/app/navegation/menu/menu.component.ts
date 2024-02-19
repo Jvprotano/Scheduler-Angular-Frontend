@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { MenuLoginComponent } from "../menu-login/menu-login.component";
 import { Observable, Subscription, debounceTime, fromEvent } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event.service';
+import { AccountService } from '../../account/services/account.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,8 +21,11 @@ export class MenuComponent implements OnInit {
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
   hideHeader: boolean = false;
+  isLoggedIn$: Observable<boolean>;
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private accountService : AccountService) { 
+    this.isLoggedIn$ = this.accountService.userIsLogged;
+  }
 
   ngOnInit(): void {
     this.checkScreenSize();
@@ -55,5 +59,4 @@ export class MenuComponent implements OnInit {
     };
     this.mobile = width > 480 ? false : true;
   }
-
 }

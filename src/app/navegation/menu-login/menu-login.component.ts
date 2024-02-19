@@ -3,6 +3,8 @@ import { LocalStorageUtils } from '../../utils/localstorage';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccountService } from '../../account/services/account.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -16,26 +18,15 @@ export class MenuLoginComponent {
 
   token: string | null = "";
   user: any;
-  email: string = "";
   localStorageUtils = new LocalStorageUtils();
+  isLoggedIn$: Observable<boolean>;
 
-
-  constructor(private router: Router) { }
-
-
-  loggedUser(): boolean {
-    this.token = this.localStorageUtils.getUserToken();
-    this.user = this.localStorageUtils.getUser();
-
-    if (this.user)
-      this.email = this.user.email;
-
-    return this.token != null;
+  constructor(private router: Router, private accountService: AccountService) { 
+    this.isLoggedIn$ = this.accountService.userIsLogged;
   }
 
   logout() {
-    this.localStorageUtils.clearUserLocalData();
+    this.accountService.logout();
     this.router.navigate(['/home']);
   }
-
 }
