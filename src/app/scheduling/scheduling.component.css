@@ -46,7 +46,7 @@ a{
     transform: scale(1.02);
 }
 
-.custom-header {
+/* .custom-header {
     background-color: var(--green-conci); 
     color: rgb(229, 221, 230);
     padding: 10px;
@@ -54,7 +54,7 @@ a{
     text-align: center;
     display: flex;
     align-items: center;
-}
+} */
 
 .professional-name {
     text-align: center;
@@ -87,7 +87,7 @@ select {
     box-sizing: border-box;
 }
 
-button {
+.card-option {
     display: block;
     width: 100%;
     padding: 10px;

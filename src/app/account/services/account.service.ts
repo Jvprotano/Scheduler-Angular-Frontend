@@ -14,8 +14,8 @@ export class AccountService extends BaseService {
   // localStorageUtils = new LocalStorageUtils();
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private localStorageUtils: LocalStorageUtils) {
-    super(http);
+  constructor(private localStorageUtils: LocalStorageUtils) {
+    super();
     this.loggedIn.next(!StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? ""));
   }
 

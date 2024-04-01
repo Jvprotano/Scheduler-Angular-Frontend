@@ -38,7 +38,6 @@ export const routes: Routes = [
             // { path: 'edit/:id', component: EditComponent },
             { path: ':id/schedule', component: ScheduleComponent },
             { path: ':id/finantial', component: FinantialComponent }
-
         ]
     },
 

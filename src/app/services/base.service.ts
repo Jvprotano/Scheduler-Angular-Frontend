@@ -2,11 +2,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { catchError, map, throwError } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { LocalStorageUtils } from "../utils/localstorage";
+import { inject } from "@angular/core";
 
 export class BaseService {
 
-    constructor(private httpClient: HttpClient) {
+    protected httpClient: HttpClient;
 
+    constructor() {
+        this.httpClient = inject(HttpClient);
     }
     protected UrlServiceV1: string = environment.apiUrl;
     public LocalStorage = new LocalStorageUtils();
