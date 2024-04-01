@@ -37,7 +37,7 @@
                                             {{service.name}}
                                         </div>
                                         <div class="service-price">
-                                            R$ {{service.price}}
+                                            R${{service.price}}
                                         </div>
                                         <div class="service-description card-subtitle mb-2 text-muted">
                                             {{service.description}}
@@ -52,8 +52,8 @@
             <div *ngIf="countSteps == 2 && serviceSelected && professionalSelected">
                 <div class="row">
                     <div class="col-md-3">
-                        <label for="data" class="form-label" for="dateSelected">Data</label>
-                        <input type="date" form class="form-control" required="true" formControlName="dateSelected"
+                        <label for="data" class="form-label" for="date">Data</label>
+                        <input type="date" form class="form-control" required="true" formControlName="date"
                             (change)="atualizarHorarios()">
                     </div>
                 </div>
@@ -99,7 +99,7 @@
 
                 <p>Serviço selecionado: {{ serviceSelected?.name }} - {{ serviceSelected?.description }}</p>
                 <p>Profissional selecionado: {{ professionalSelected?.name }}</p>
-                <p>Data: {{ schedulingForm.get('dateSelected')?.value | date:'dd/MM/yyyy' }}</p>
+                <p>Data: {{ schedulingForm.get('date')?.value | date:'dd/MM/yyyy' }}</p>
                 <p>Nome: {{ schedulingForm.get('name')?.value + " " + schedulingForm.get('lastName')?.value }}</p>
                 <p>Horário selecionado: {{ timeSelected }}</p>
             </div>

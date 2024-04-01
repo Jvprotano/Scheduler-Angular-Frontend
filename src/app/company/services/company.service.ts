@@ -7,4 +7,7 @@ export class CompanyService extends BaseService {
     getAllByUserId(userId: string): Observable<Company> {
         return this.get('company/getByUserId/' + userId, true);
     }
+    getById(id: string): Observable<Company> {
+        return this.get(`company/${id}`);
+    }
 }

@@ -14,11 +14,18 @@ import { authGuard } from './account/services/auth.guard';
 import { ProfileComponent } from './user/profile/profile.component';
 import { SchedulingComponent } from './scheduling/scheduling.component';
 import { FinantialComponent } from './company/finantial/finantial.component';
+import { SuccessComponent } from './scheduling/success/success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'scheduling', component: SchedulingComponent },
+    {
+        path: 'scheduling', children: [
+            { path: '', redirectTo: '/home', pathMatch: 'full' },
+            { path: 'success', component: SuccessComponent },
+            { path: ':id', component: SchedulingComponent }
+        ]
+    },
     {
         path: 'account', component: AccountAppComponent, children: [
             { path: 'login', component: LoginComponent, canActivate: [authGuard] },
