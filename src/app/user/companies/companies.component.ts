@@ -82,6 +82,7 @@ export class CompaniesComponent implements OnInit {
       zip: '',
       status: 1,
       openSchedule: true,
+      schedulingUrl: 'cartucho'
     },
     {
       id: 1,
@@ -95,6 +96,7 @@ export class CompaniesComponent implements OnInit {
       zip: '',
       status: 1,
       openSchedule: true,
+      schedulingUrl: 'conciflex'
     },
     {
       id: 2,
@@ -108,6 +110,7 @@ export class CompaniesComponent implements OnInit {
       zip: '',
       status: 1,
       openSchedule: true,
+      schedulingUrl: 'ponta'
     }];
   }
 }

@@ -66,20 +66,23 @@ export class CreateComponent {
       neighborhood: [''],
       complement: [''],
       number: [''],
-      isPhysicalCompany: [true],
+      isPhysicalCompany: [false],
       image: [''],
       cnpj: [''],
       name: [company?.name],
       email: [company?.email],
       instagram: [''],
       site: [''],
-      description: ['']
+      description: [''],
+      schedulingUrl: [company?.schedulingUrl],
     });
   }
 
   openModal() {
     this.modalService.open(this.modalContent, { size: 'lg', centered: true });
   }
+
+
 
   /**
    * Incluir os serviços no constructor é uma boa prática e garante que você tem acesso ao serviço em todo o componente

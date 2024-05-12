@@ -67,7 +67,7 @@
   </div>
 
   <div class="align-items-center col-md-12 d-flex form-check form-switch fs-6 ms-1 mt-2">
-    <input class="form-check-input me-2" type="checkbox" formControlName="isPhysicalCompany" />
+    <input class="form-check-input me-2" type="checkbox" (change)="onCheckboxChange()" formControlName="isPhysicalCompany" />
     <label class="form-check-label mb-0"> Possui local físico </label>
   </div>
 </form>

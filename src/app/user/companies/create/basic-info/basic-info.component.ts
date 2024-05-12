@@ -31,6 +31,9 @@ export class BasicInfoComponent implements OnInit {
     // this.form.controls['name'].setValue('abc');
   }
 
+  onCheckboxChange() {
+    this.isPhysicalCompany = !this.isPhysicalCompany;
+  }
 
   onNext() {
     // Validar os campos do formulário, se necessário

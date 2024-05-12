@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -9,9 +9,16 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './share-info.component.html',
   styleUrl: './share-info.component.css'
 })
-export class ShareInfoComponent {
+export class ShareInfoComponent implements OnInit {
   @Input() form!: FormGroup;
   @Output() previous: EventEmitter<any> = new EventEmitter();
+
+
+  prefix!: string;
+
+  ngOnInit(): void {
+    this.prefix = 'agende.com/'
+  }
 
   onPrevious() {
     this.previous.emit();

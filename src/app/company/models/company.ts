@@ -1,5 +1,3 @@
-import { Observable } from "rxjs";
-
 export interface Company {
     id: number,
     name: string,
@@ -11,5 +9,6 @@ export interface Company {
     state: string,
     zip: string,
     status: number,
-    openSchedule: boolean
+    openSchedule: boolean,
+    schedulingUrl: string,
 }
