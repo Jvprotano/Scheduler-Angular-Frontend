@@ -11,11 +11,13 @@ import { ServiceOffered } from './models/service_offered';
 
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CompanyService } from '../company/services/company.service';
+import { EventService } from '../services/event.service';
+import { CurrencyFormatPipe } from '../utils/currency-format.pipe';
 
 @Component({
   selector: 'app-scheduling',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, NgxSpinnerModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, NgxSpinnerModule, CurrencyFormatPipe],
   providers: [SchedulingService, CompanyService],
   templateUrl: './scheduling.component.html',
   styleUrl: './scheduling.component.css'
@@ -23,7 +25,7 @@ import { CompanyService } from '../company/services/company.service';
 export class SchedulingComponent implements OnInit {
   serviceSelected?: ServiceOffered;
   professionalSelected?: Professional;
-  times: string[] = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+  times: string[] = [];
   timeSelected: string = '';
   companyName: string = '';
 
@@ -35,10 +37,13 @@ export class SchedulingComponent implements OnInit {
   constructor(private fb: FormBuilder, private schedulingService: SchedulingService,
     private companyService: CompanyService,
     private toastr: ToastrService, private router: Router, private route: ActivatedRoute,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private eventService: EventService) {
   }
 
   ngOnInit(): void {
+
+    this.eventService.broadcast('hide-header', true);
 
     this.spinner.show();
 
@@ -115,8 +120,32 @@ export class SchedulingComponent implements OnInit {
     this.timeSelected = time;
   }
 
+  isStepValid(){
+    if (this.countSteps == 1){
+      if (this.professionalSelected && this.serviceSelected)
+        return true;
+      
+      return false;
+    }
+    if (this.countSteps == 2){
+      if (this.hasDateSelected() && this.timeSelected)
+        return true;
+
+      return false;
+    }
+
+    return false;
+  }
+
   atualizarHorarios() {
     let date = this.schedulingForm.get('date')?.value;
+
+    if (new Date(date).getDate() == new Date().getDate()){
+      this.times = []
+      this.timeSelected = ""
+    }else{
+      this.times = this.getTestTimes()
+    }
 
     // this.schedulingService.getAvailableTimes(date, this.professionalSelected?.id ?? '', this.companyId, this.serviceSelected?.id ?? '')
     // .subscribe({
@@ -124,6 +153,10 @@ export class SchedulingComponent implements OnInit {
     //     this.times = result;
     //   }, error: () => { this.toastr.error('Erro ao obter os horários disponíveis') }
     // });
+  }
+
+  getTestTimes(){
+    return ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00']
   }
 
   agendar() {

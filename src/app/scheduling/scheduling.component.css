@@ -46,15 +46,9 @@ a{
     transform: scale(1.02);
 }
 
-/* .custom-header {
-    background-color: var(--green-conci); 
-    color: rgb(229, 221, 230);
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-} */
+.service-name{
+    font-family: cursive;
+}
 
 .professional-name {
     text-align: center;
@@ -97,4 +91,10 @@ select {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .card-services {
+        margin-bottom: -9px;
+    }
 }

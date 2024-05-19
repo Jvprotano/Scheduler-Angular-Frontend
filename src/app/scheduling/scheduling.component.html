@@ -37,7 +37,7 @@
                                             {{service.name}}
                                         </div>
                                         <div class="service-price">
-                                            R${{service.price}}
+                                            {{service.price | currencyFormat}}
                                         </div>
                                         <div class="service-description card-subtitle mb-2 text-muted">
                                             {{service.description}}
@@ -59,7 +59,7 @@
                 </div>
                 <div class="row" *ngIf="hasDateSelected()">
                     <h2 style="color: var(--green-conci);" *ngIf="!times">Desculpe. A agenda na data selecionada já está
-                        cheia! :( Altere o filtro de data para obter as horários disponíveis. </h2>
+                        cheia ou fechada! :( Altere o filtro de data para obter os horários disponíveis. </h2>
                     <div *ngFor="let time of times" class="col-md-2">
                         <button class="card-option bg-transparent" href="javascript:void(0);" (click)="selectTime(time)"
                             [disabled]="timeSelected && timeSelected != time">
