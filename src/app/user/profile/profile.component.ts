@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../models/user';
+import { AppUser } from '../models/user';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   }
 
   profileForm!: FormGroup;
-  user!: User;
+  user!: AppUser;
 
   rand: number = Math.floor(Math.random() * 1000);
 

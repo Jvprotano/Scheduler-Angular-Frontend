@@ -1,17 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { User } from "../../user/models/user";
+import { AppUser } from "../../user/models/user";
 import { BaseService } from "../../services/base.service";
 import { BehaviorSubject, Observable, catchError, delay, map, of, tap } from "rxjs";
 import { Login } from "../models/login";
 import { LocalStorageUtils } from "../../utils/localstorage";
 import { StringUtils } from '../../utils/string-utils';
-import { debug } from "console";
 
 @Injectable()
 export class AccountService extends BaseService {
 
-  // localStorageUtils = new LocalStorageUtils();
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private localStorageUtils: LocalStorageUtils) {
@@ -19,16 +17,18 @@ export class AccountService extends BaseService {
     this.loggedIn.next(!StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? ""));
   }
 
-
-  // private loggedIn = new BehaviorSubject<boolean>(!StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? ""));
-
-  registerUser(user: User): Observable<User> {
+  registerUser(user: AppUser): Observable<AppUser> {
     return this.post('register', user);
   }
 
-  get userIsLogged() {
+  get userIsLoggedObs() {
     this.loggedIn.next(!StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? ""));
     return this.loggedIn.asObservable();
+  }
+
+  isLoggedUser() : boolean{
+    return !StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? "") 
+      && StringUtils.isNullOrEmpty(this.localStorageUtils.getUser() ?? "")
   }
 
   login(user: Login): Observable<any> {
@@ -44,5 +44,10 @@ export class AccountService extends BaseService {
   logout() {
     this.localStorageUtils.clearUserLocalData();
     this.loggedIn.next(false);
+  }
+  
+  fakeLogin(){ // TODO: REMOVE
+    this.localStorageUtils.saveUserToken("token");
+    this.localStorageUtils.saveUser("user");
   }
 }

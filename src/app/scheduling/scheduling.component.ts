@@ -13,6 +13,10 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CompanyService } from '../company/services/company.service';
 import { EventService } from '../services/event.service';
 import { CurrencyFormatPipe } from '../utils/currency-format.pipe';
+import { AccountService } from '../account/services/account.service';
+import { RedirectService } from '../services/redirect.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from '../account/login/login.component';
 
 @Component({
   selector: 'app-scheduling',
@@ -31,17 +35,26 @@ export class SchedulingComponent implements OnInit {
 
   schedulingForm!: FormGroup;
   Scheduling!: Scheduling;
-
   companyId: string = '';
+  countSteps = 1;
 
   constructor(private fb: FormBuilder, private schedulingService: SchedulingService,
     private companyService: CompanyService,
     private toastr: ToastrService, private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private accountService : AccountService,
+    private redirectService : RedirectService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
+    if(!this.accountService.isLoggedUser()){
+      // this.redirectService.setReturnRoute(this.router.url);
+      // this.router.navigate(['/login-scheduling']);
+
+      this.openLoginModal()
+    }
 
     this.eventService.broadcast('hide-header', true);
 
@@ -78,7 +91,19 @@ export class SchedulingComponent implements OnInit {
     this.spinner.hide();
   }
 
-  countSteps = 1;
+  openLoginModal(): void {
+    this.redirectService.setReturnRoute(this.router.url);
+
+    const modalRef = this.modalService.open(LoginComponent, { centered: true, backdrop: 'static', keyboard: false });
+    modalRef.result.then(() => {
+      console.log("entrou 1")
+      // O modal foi fechado, reative a interação com a tela de agendamento
+    }, () => {
+      console.log("entrou 1")
+      // O modal foi fechado, reative a interação com a tela de agendamento
+    });
+  }
+
 
   atualizarProfissionais() {
   }

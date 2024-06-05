@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
 
-import { User } from '../../user/models/user';
+import { AppUser } from '../../user/models/user';
 import { AccountService } from '../services/account.service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from '../../utils/generic-form-validation';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   registerForm!: FormGroup;
   registerUserInfoForm!: FormGroup;
-  usuario!: User;
+  usuario!: AppUser;
   registerInfoField: boolean = false;
 
   validationMessages: ValidationMessages;

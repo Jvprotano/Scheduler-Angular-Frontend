@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 import { EventService } from '../../services/event.service';
 import { Login } from '../models/login';
+import { RedirectService } from '../../services/redirect.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   textInterval: any;
   @ViewChild('textLogin') textLogin!: HTMLElement;
   isDisabled: boolean = false;
+  isScheduling: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,9 +38,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private accountService: AccountService,
     private eventService: EventService,
+    private redirectService: RedirectService
   ) { }
 
   ngOnInit() {
+
+    this.isScheduling = this.redirectService.getReturnRoute()?.includes('scheduling') ?? false;
 
     this.eventService.broadcast('hide-header', true);
 

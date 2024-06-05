@@ -22,7 +22,7 @@ export class MenuLoginComponent {
   isLoggedIn$: Observable<boolean>;
 
   constructor(private router: Router, private accountService: AccountService) { 
-    this.isLoggedIn$ = this.accountService.userIsLogged;
+    this.isLoggedIn$ = this.accountService.userIsLoggedObs;
   }
 
   logout() {

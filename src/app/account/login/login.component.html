@@ -1,7 +1,7 @@
 <div class="row w-100">
   <div class="col-md-6 container-info p-md-4">
+  <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
     <!-- <hr> -->
-    <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
     <div class="content-info float-end mt-5 w-75">
       <h1 class="mt-4 mb-3"><span>Bem vindo</span> de volta!</h1>
       <h2 class="mb-1">Estamos felizes por vê-lo novamente no maior sistema de agendamento do sul do mundo. </h2>
@@ -11,8 +11,9 @@
   </div>
 
   <div class="align-items-center col-md-6 container-login d-flex flex-column justify-content-center">
+    <a class="navbar-brand navbar-brand-mobile ps-4" style="display: none;" routerLink="/home">Agende</a>
     <h1 class="text-center mb-0">Entre em sua conta</h1>
-    <form novalidate (ngSubmit)="login()" class="col-6" [formGroup]="loginForm">
+    <form novalidate (ngSubmit)="login()" [ngClass]="isScheduling ? 'col-12' : 'col-6'" [formGroup]="loginForm">
       <hr>
       <div class="form-group">
         <label class="control-label mb-2">E-mail</label>
@@ -44,8 +45,19 @@
       </div>
 
       <div class="form-group d-flex justify-content-end">
-        <button class="btn btn-login w-50" id="Login" type="submit">{{!isDisabled ?
+        <button [ngClass]=" isScheduling ? 'btn btn-login' : 'btn btn-login w-50'" id="Login" type="submit">{{!isDisabled ?
           'Acessar' : ''}}
+          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabled">
+            <span class="me-2">
+              Acessando...
+            </span>
+            <span class="spinner-border flex-shrink-0" role="status">
+              <span class="visually-hidden">Sign In...</span>
+            </span>
+          </span></button>
+      </div>
+      <div class="form-group d-flex justify-content-end" *ngIf="isScheduling">
+        <button class="btn btn-login" id="Login" type="submit"> Acessar sem login
           <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabled">
             <span class="me-2">
               Acessando...

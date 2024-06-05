@@ -58,6 +58,12 @@ img {
   .container-info {
     display: none;
   }
+
+  .navbar-brand-mobile {
+    display: block !important;
+    margin-bottom: 2%;
+    margin-top: 5%;
+  }
 }
 
 .navbar-brand {

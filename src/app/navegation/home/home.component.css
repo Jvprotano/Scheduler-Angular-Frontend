@@ -2,7 +2,16 @@
   position: relative;
   height: 400px;
   overflow: hidden;
+  background: url('/assets/fundo1.jpg') bottom fixed;
 }
+
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-size: cover;
+  color: #333;
+} */
 
 .header img {
   width: 100%;
@@ -11,6 +20,9 @@
 }
 
 .header-text {
+  padding: 50px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semi-transparente para o conteúdo */
+  
   position: absolute;
   top: 50%;
   left: 50%;
@@ -22,12 +34,41 @@
 .header-text h1 {
   font-size: 3rem;
   margin-bottom: 20px;
+  font-family: 'Abril Fatface', serif;
+}
+
+.header-text span{
+  /* font-family: 'Satisfy', cursive; */
+  font-family: 'Pacifico', cursive;
 }
 
 .header-text p {
   opacity: 0.8;
   font-size: 1.2rem;
   margin-bottom: 30px;
+}
+
+.container-price{
+  background: url('/assets/fundo2.jpg') bottom fixed;
+
+  position: relative;
+  /* height: 400px; */
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+  /* font-family: Arial, sans-serif; */
+  /* background: url('caminho/para/sua/imagem.jpg') no-repeat center center fixed; */
+  background-size: cover;
+  /* color: #333; */
+}
+
+#planos{
+  text-align: center;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: var(--dark-blue);
+  font-family: "Abril Fatface", serif;
 }
 
 #price {
