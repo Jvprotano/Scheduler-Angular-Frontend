@@ -95,11 +95,14 @@ export class SchedulingComponent implements OnInit {
     this.redirectService.setReturnRoute(this.router.url);
 
     const modalRef = this.modalService.open(LoginComponent, { centered: true, backdrop: 'static', keyboard: false });
+    
     modalRef.result.then(() => {
+      debugger
       console.log("entrou 1")
       // O modal foi fechado, reative a interação com a tela de agendamento
     }, () => {
-      console.log("entrou 1")
+      console.log("entrou 2")
+      debugger
       // O modal foi fechado, reative a interação com a tela de agendamento
     });
   }

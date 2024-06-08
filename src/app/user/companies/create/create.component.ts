@@ -10,6 +10,7 @@ import { LocationService } from '../../../company/services/location.service';
 import { Company } from '../../../company/models/company';
 import { BasicInfoComponent } from './basic-info/basic-info.component';
 import { ShareInfoComponent } from './share-info/share-info.component';
+import { CompanyService } from '../../../company/services/company.service';
 
 @Component({
   selector: 'app-create',
@@ -32,8 +33,7 @@ export class CreateComponent {
   constructor(
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private modalService: NgbModal,
-    private locationService: LocationService
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +77,8 @@ export class CreateComponent {
       schedulingUrl: [company?.schedulingUrl],
     });
   }
+
+
 
   openModal() {
     this.modalService.open(this.modalContent, { size: 'lg', centered: true });

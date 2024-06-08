@@ -2,7 +2,7 @@
   position: relative;
   height: 400px;
   overflow: hidden;
-  background: url('/assets/fundo1.jpg') bottom fixed;
+  background: url('/assets/predios.jpg') center no-repeat fixed;
 }
 
 /* body {
@@ -49,7 +49,7 @@
 }
 
 .container-price{
-  background: url('/assets/fundo2.jpg') bottom fixed;
+  background: url('/assets/barbeiro.png') bottom fixed;
 
   position: relative;
   /* height: 400px; */

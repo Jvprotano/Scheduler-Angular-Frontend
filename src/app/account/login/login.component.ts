@@ -9,6 +9,7 @@ import { Router, RouterModule } from '@angular/router';
 import { EventService } from '../../services/event.service';
 import { Login } from '../models/login';
 import { RedirectService } from '../../services/redirect.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private accountService: AccountService,
     private eventService: EventService,
-    private redirectService: RedirectService
+    private redirectService: RedirectService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -82,17 +84,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   success(result: any) {
-    
+
     this.isDisabled = false;
     this.errors = [];
 
-    this.router.navigate(['/home']).then(() => {
-      this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
-    })
+    if (!this.isScheduling) {
+      this.router.navigate(['/home']).then(() => {
+        this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
+      })
+    }
 
+    this.modalService.dismissAll();
   }
   errorResponse(err: any) {
-    
+
     this.isDisabled = false;
     this.toastr.error(err.message, 'Ops! :(');
   }

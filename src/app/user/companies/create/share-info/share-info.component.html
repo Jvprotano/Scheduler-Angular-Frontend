@@ -27,7 +27,8 @@
       </div>
       <div class="form-group col-md-6" style="display: flex;">
         <input class="form-control"  type="text" value="{{prefix}}" [readOnly]="true" [disabled]="true" style="flex: 0 0 auto; width: 32%;">
-        <input class="form-control"  type="text" id="usernameInput" name="usernameInput" formControlName="schedulingUrl" style="flex: 1;">
+        <input class="form-control" (keyup)="checkUrlIsValid()"  type="text" id="usernameInput" name="usernameInput" formControlName="schedulingUrl" style="flex: 1;">
+        <i style="font-size: small;" [ngClass]="{'message-error' : this.urlErrorMessage}" [ngClass]="{'message-success' : this.urlSuccessMessage}">{{this.urlSuccessMessage ?? this.urlErrorMessage}}</i>
       </div>
     </div>
   </div>

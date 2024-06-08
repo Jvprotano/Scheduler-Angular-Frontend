@@ -10,4 +10,14 @@ export class CompanyService extends BaseService {
     getById(id: string): Observable<Company> {
         return this.get(`company/${id}`);
     }
+    checkUrlIsValid(id: string | "", url : string) : boolean{
+         this.get(`company/checkurlisvalid/${url}/${id}`).subscribe({
+            next: (result) => {
+                debugger
+              return result === true
+            } 
+          });
+
+          return false;
+    }
 }
