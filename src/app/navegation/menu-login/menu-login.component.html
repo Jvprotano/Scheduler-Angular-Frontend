@@ -1,30 +1,21 @@
 <ul class="navbar-nav" *ngIf="isLoggedIn$ | async">
   <li class="nav-item access">
-    <a class="btn-access" routerLink="user/companies"><i class="bi bi-building me-1"></i>Minhas Empresas </a>
+    <a class="btn-access" routerLink="user/companies"><i class="bi bi-building me-1"></i>Acessar meu negócio </a>
   </li>
-  <li class="nav-item">
-    <div ngbDropdown class="d-inline-block">
-      <img src="/assets/account2.jpg" class="rounded-circle z-depth-0" alt="avatar image" height="35"
-        id="dropdownBasic1" ngbDropdownToggle>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-end">
-        <button ngbDropdownItem [routerLink]="['/user/profile']"><i class="bi bi-person-circle"></i>
-          Profile</button>
-        <hr>
-        <button ngbDropdownItem (click)="logout()" id="btnLogout" ngbDropdownItem>
-          <i class="bi bi-box-arrow-left"></i> Logout
-        </button>
-      </div>
-    </div>
+  <li class="nav-item logout">
+    <a (click)="logout()" title="Sair" id="btnLogout">
+      <i class="bi bi-box-arrow-left"></i>
+    </a>
   </li>
 </ul>
 
 <ul class="navbar-nav" *ngIf="!(isLoggedIn$ | async)">
-  <li class="nav-item access">
-    <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i
-        class="bi bi-person">Acesse sua conta</i> </a>
-  </li>
   <li class="nav-item">
     <button class="btn btn-outline-conci" routerLink="/account/register" routerLinkActive="active">Experimente
       grátis</button>
+  </li>
+  <li class="nav-item access">
+    <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i
+        class="bi bi-person">Acesse sua conta</i> </a>
   </li>
 </ul>

@@ -54,37 +54,43 @@ export class BaseService {
     }
 
     protected extractData(response: any) {
+        debugger
         return response.data || {};
     }
 
     protected serviceError(response: HttpErrorResponse) {
+        debugger
         let customErrorMessage: string;
 
-        switch (response.status) {
-            case 400:
-                customErrorMessage = 'Dados incorretos ou inválidos';
-                break;
-            case 401:
-                customErrorMessage = 'Você não está autorizado a acessar este recurso';
-                break;
-            case 403:
-                customErrorMessage = 'Você não tem permissão para acessar este recurso';
-                break;
-            case 404:
-                customErrorMessage = 'Opção não encontrada, por favor tente novamente mais tarde';
-                break;
-            case 500:
-                customErrorMessage = 'Ocorreu um erro interno no servidor, por favor tente novamente mais tarde';
-                break;
-            default:
-                customErrorMessage = 'Erro ao processar a requisição, por favor tente novamente mais tarde';
-                break;
-        }
+        if (!response)
+            customErrorMessage = "Erro ao processar a requisição, por favor tente novamente mais tarde";
+        else
+            switch (response.status) {
+                case 400:
+                    customErrorMessage = 'Dados incorretos ou inválidos';
+                    break;
+                case 401:
+                    customErrorMessage = 'Você não está autorizado a acessar este recurso';
+                    break;
+                case 403:
+                    customErrorMessage = 'Você não tem permissão para acessar este recurso';
+                    break;
+                case 404:
+                    customErrorMessage = 'Opção não encontrada, por favor tente novamente mais tarde';
+                    break;
+                case 500:
+                    customErrorMessage = 'Ocorreu um erro interno no servidor, por favor tente novamente mais tarde';
+                    break;
+                default:
+                    customErrorMessage = 'Erro ao processar a requisição, por favor tente novamente mais tarde';
+                    break;
+            }
 
+        debugger
         return throwError(() => new HttpErrorResponse({
             ...response,
             error: customErrorMessage,
-            url: response.url || undefined
+            url: response?.url || undefined
         }));
     }
 }

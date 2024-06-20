@@ -15,6 +15,7 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { SchedulingComponent } from './scheduling/scheduling.component';
 import { FinantialComponent } from './company/finantial/finantial.component';
 import { SuccessComponent } from './scheduling/success/success.component';
+import { DashboardComponent } from './company/dashboard/dashboard.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -44,7 +45,8 @@ export const routes: Routes = [
             // { path: 'edit', component: EditComponent },
             // { path: 'edit/:id', component: EditComponent },
             { path: ':id/schedule', component: ScheduleComponent },
-            { path: ':id/finantial', component: FinantialComponent }
+            { path: ':id/finantial', component: FinantialComponent },
+            { path: ':id/dashboard', component: DashboardComponent }
         ]
     },
 

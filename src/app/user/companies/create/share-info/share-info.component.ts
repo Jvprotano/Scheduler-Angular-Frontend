@@ -42,10 +42,14 @@ export class ShareInfoComponent implements OnInit {
       return
     }
 
-    let urlIsValid = !this.companyService.checkUrlIsValid("", this.urlToCheck)
+    let urlIsValid = this.companyService.checkUrlIsValid("", this.urlToCheck)
+
+    debugger
 
     if (urlIsValid)
       this.urlSuccessMessage = "Url válido."
+    else 
+      this.urlErrorMessage = "Url inválido ou já utilizado."
   }
 
   onPrevious() {

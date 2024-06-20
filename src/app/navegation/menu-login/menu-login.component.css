@@ -1,9 +1,14 @@
 .btn-access {
     text-decoration: none;
-    color: var(--green-conci);
+    color: var(--dark-blue);;
     font-size: 16px;
-    font-weight: 400;
-    padding-right: 30px;
+    font-weight: 500;
+    padding-left: 30px;
+}
+
+.logout{
+    padding-left: 10px;
+    padding-top: 7px;
 }
 
 .nav-item.access {
@@ -11,7 +16,7 @@
 }
 
 .btn-access:hover {
-    font-weight: 500;
+    color: #398776;
 }
 
 .dropdown-item:active {
@@ -24,8 +29,7 @@
 
 #btnLogout {
     color: red;
-    font-family: monospace;
-    font-weight: 500;
+    font-size: x-large;
 }
 
 @media(max-width: 480px) {

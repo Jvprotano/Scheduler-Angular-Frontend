@@ -124,6 +124,7 @@ hr {
 .card-title {
   margin-bottom: 20px;
   color: #333;
+  font-weight: 500
 }
 
 .card-text {
@@ -145,6 +146,16 @@ hr {
 .text-block-16,
 .text-block-17 {
   line-height: 18px;
+}
+
+.div-icons{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 11px;
+}
+
+.card-icon{
+  font-size: xx-large;
 }
 
 @media (max-width: 768px) {
