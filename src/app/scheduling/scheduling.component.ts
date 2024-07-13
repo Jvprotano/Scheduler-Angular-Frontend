@@ -43,27 +43,24 @@ export class SchedulingComponent implements OnInit {
     private toastr: ToastrService, private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private eventService: EventService,
-    private accountService : AccountService,
-    private redirectService : RedirectService,
+    private accountService: AccountService,
+    private redirectService: RedirectService,
     private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
-    if(!this.accountService.isLoggedUser()){
+    if (!this.accountService.isLoggedUser()) {
       // this.redirectService.setReturnRoute(this.router.url);
       // this.router.navigate(['/login-scheduling']);
 
       this.openLoginModal()
     }
 
-    this.eventService.broadcast('hide-header', true);
+    // this.eventService.broadcast('hide-header', true);
 
     this.spinner.show();
 
     this.companyId = this.route.snapshot.params['id'];
-
-    console.log("empresaa")
-    console.log(this.companyId)
 
     this.companyService.getById(this.companyId).subscribe({
       next: (result) => {
@@ -95,15 +92,21 @@ export class SchedulingComponent implements OnInit {
     this.redirectService.setReturnRoute(this.router.url);
 
     const modalRef = this.modalService.open(LoginComponent, { centered: true, backdrop: 'static', keyboard: false });
-    
+
     modalRef.result.then(() => {
-      debugger
       console.log("entrou 1")
-      // O modal foi fechado, reative a interação com a tela de agendamento
+      // this.eventService.broadcast('hide-header', true);
+
     }, () => {
       console.log("entrou 2")
-      debugger
-      // O modal foi fechado, reative a interação com a tela de agendamento
+      // this.eventService.broadcast('hide-header', true);
+
+      if (this.accountService.isLoggedUser()) {
+        console.log("Carregar informações do usuário para preenchimento" +
+          "automático dos dados pessoais e do último agendamento, caso exista.")
+      }
+
+      // Quando clica em login ou convidado ele cai aqui
     });
   }
 
@@ -148,14 +151,14 @@ export class SchedulingComponent implements OnInit {
     this.timeSelected = time;
   }
 
-  isStepValid(){
-    if (this.countSteps == 1){
+  isStepValid() {
+    if (this.countSteps == 1) {
       if (this.professionalSelected && this.serviceSelected)
         return true;
-      
+
       return false;
     }
-    if (this.countSteps == 2){
+    if (this.countSteps == 2) {
       if (this.hasDateSelected() && this.timeSelected)
         return true;
 
@@ -168,10 +171,10 @@ export class SchedulingComponent implements OnInit {
   atualizarHorarios() {
     let date = this.schedulingForm.get('date')?.value;
 
-    if (new Date(date).getDate() == new Date().getDate()){
+    if (new Date(date).getDate() == new Date().getDate()) {
       this.times = []
       this.timeSelected = ""
-    }else{
+    } else {
       this.times = this.getTestTimes()
     }
 
@@ -183,7 +186,7 @@ export class SchedulingComponent implements OnInit {
     // });
   }
 
-  getTestTimes(){
+  getTestTimes() {
     return ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00']
   }
 

@@ -1,6 +1,6 @@
 <div class="row w-100">
   <div class="col-md-6 container-info p-md-4">
-  <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
+    <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
     <!-- <hr> -->
     <div class="content-info float-end mt-5 w-75">
       <h1 class="mt-4 mb-3"><span>Bem vindo</span> de volta!</h1>
@@ -45,9 +45,10 @@
       </div>
 
       <div class="form-group d-flex justify-content-end">
-        <button [ngClass]=" isScheduling ? 'btn btn-login' : 'btn btn-login w-50'" id="Login" type="submit">{{!isDisabled ?
+        <button [ngClass]=" isScheduling ? 'btn btn-login' : 'btn btn-login w-50'" id="Login"
+          type="submit">{{!isDisabledLogin ?
           'Acessar' : ''}}
-          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabled">
+          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabledLogin">
             <span class="me-2">
               Acessando...
             </span>
@@ -55,17 +56,21 @@
               <span class="visually-hidden">Sign In...</span>
             </span>
           </span></button>
-      </div>
+        </div>
+        <div class="form-group">
+          <p class="me-2 mb-0" style="font-size: 10px;">O login trará o preenchimento de seus dados automático, incluindo o último agendamento</p>
+        </div>
       <div class="form-group d-flex justify-content-end" *ngIf="isScheduling">
-        <button class="btn btn-login" id="Login" type="submit"> Acessar sem login
-          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabled">
+        <button class="btn btn-login" id="GuestLogin" (click)="guestLogin()"> Entrar como convidado
+          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabledGuest">
             <span class="me-2">
               Acessando...
             </span>
             <span class="spinner-border flex-shrink-0" role="status">
               <span class="visually-hidden">Sign In...</span>
             </span>
-          </span></button>
+          </span>
+        </button>
       </div>
 
       <div class="form-group d-flex justify-content-end align-items-center mt-4">

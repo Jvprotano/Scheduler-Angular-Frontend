@@ -1,20 +1,22 @@
 export class LocalStorageUtils {
-    public getUser() {
-        if (typeof localStorage !== 'undefined') {
-            return JSON.parse(localStorage.getItem('bie.user') as string);
-        }
-        return null;
-    }
-
     public saveUserLocalData(response: any) {
-        
+
         this.saveUserToken(response.bearer);
         this.saveUser(response.userName);
     }
 
+    public getUser() {
+        if (typeof localStorage !== 'undefined') {
+            let userJson = JSON.parse(localStorage.getItem('bie.user') as string);
+            return userJson
+        }
+        return null;
+    }
+
     public getUserToken() {
         if (typeof localStorage !== 'undefined') {
-            return localStorage.getItem('bie.token');
+            let token = localStorage.getItem('bie.token');
+            return token
         }
         return null;
     }

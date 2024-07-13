@@ -26,9 +26,12 @@ export class AccountService extends BaseService {
     return this.loggedIn.asObservable();
   }
 
-  isLoggedUser() : boolean{
-    return !StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? "") 
-      && StringUtils.isNullOrEmpty(this.localStorageUtils.getUser() ?? "")
+  isLoggedUser(): boolean {
+    let isLogged = !StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? "")
+      && !StringUtils.isNullOrEmpty(this.localStorageUtils.getUser() ?? "")
+
+      debugger
+    return isLogged;
   }
 
   login(user: Login): Observable<any> {
@@ -44,10 +47,5 @@ export class AccountService extends BaseService {
   logout() {
     this.localStorageUtils.clearUserLocalData();
     this.loggedIn.next(false);
-  }
-  
-  fakeLogin(){ // TODO: REMOVE
-    this.localStorageUtils.saveUserToken("token");
-    this.localStorageUtils.saveUser("user");
   }
 }

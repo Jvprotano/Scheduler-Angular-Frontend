@@ -10,6 +10,7 @@ import { EventService } from '../../services/event.service';
 import { Login } from '../models/login';
 import { RedirectService } from '../../services/redirect.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   formSubmited: boolean = false;
   textInterval: any;
   @ViewChild('textLogin') textLogin!: HTMLElement;
-  isDisabled: boolean = false;
+  isDisabledLogin: boolean = false;
+  isDisabledGuest: boolean = false;
   isScheduling: boolean = false;
 
   constructor(
@@ -61,9 +63,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.loginForm.controls;
   }
 
+  guestLogin(){
+    this.isDisabledGuest = true;
+    
+    this.modalService.dismissAll();
+  }
+
   login() {
+    debugger
     this.formSubmited = true;
-    this.isDisabled = true;
+    this.isDisabledLogin = true;
 
     if (this.loginForm.valid) {
       this.user = Object.assign({}, this.user, this.loginForm.value);
@@ -72,12 +81,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: (result) => {
           this.success(result);
           this.formSubmited = false,
-            this.isDisabled = false;
+            this.isDisabledLogin = false;
         }, error: err => { this.errorResponse(err) }
       })
 
     } else {
-      this.isDisabled = false;
+      this.isDisabledLogin = false;
       // this.formSubmited = false
     }
 
@@ -85,7 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   success(result: any) {
 
-    this.isDisabled = false;
+    this.isDisabledLogin = false;
     this.errors = [];
 
     if (!this.isScheduling) {
@@ -98,7 +107,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   errorResponse(err: any) {
 
-    this.isDisabled = false;
+    this.isDisabledLogin = false;
     this.toastr.error(err.error, 'Ops! :(');
   }
 
