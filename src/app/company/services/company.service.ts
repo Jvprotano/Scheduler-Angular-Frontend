@@ -13,29 +13,13 @@ export class CompanyService extends BaseService {
     getById(id: string): Observable<Company> {
         return this.get(`company/${id}`);
     }
-    checkUrlIsValid(id: string | "", url : string) : boolean{
-        let formatUrl = `company/checkurlisvalid?${!StringUtils.isNullOrEmpty(url)? `schedulingUrl=${url}` : ''}${!StringUtils.isNullOrEmpty(id) ? `&id=${id}` : ''}`
-        debugger
-         this.get(formatUrl)
-                  .subscribe({
-            next: (result: boolean) => {
-                this.extractDataUrlIsValid(result)
-            },
-            error(err) {
-                debugger
-            }, 
-          });
-        //  .pipe(
-        //     map(this.extractDataUrlIsValid),
-        //     catchError(this.serviceError)
-        // );
-         
-
-        debugger
-          return false;
+    checkUrlIsValid(id: string | "", url: string): Observable<boolean> {
+        let formatUrl = `company/checkurlisvalid?${!StringUtils.isNullOrEmpty(url) ? `schedulingUrl=${url}` : ''}${!StringUtils.isNullOrEmpty(id) ? `&id=${id}` : ''}`
+        return this.get(formatUrl);
     }
     protected extractDataUrlIsValid(response: boolean) {
         debugger
-        return response === true;
+        let isValid = response === true;
+        return isValid;
     }
 }

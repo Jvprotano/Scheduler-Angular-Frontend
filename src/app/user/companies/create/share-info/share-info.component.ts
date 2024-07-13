@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../company/services/company.service';
+import test from 'node:test';
 
 @Component({
   selector: 'app-share-info',
@@ -19,37 +20,45 @@ export class ShareInfoComponent implements OnInit {
    *
    */
   constructor(private companyService: CompanyService) {
-    
+
   }
 
   prefix!: string;
   urlToCheck!: string;
-  urlErrorMessage : string | undefined;
-  urlSuccessMessage : string | undefined;
+  urlErrorMessage: string | undefined;
+  urlSuccessMessage: string | undefined;
 
   ngOnInit(): void {
     this.prefix = 'agende.com/'
   }
 
-  checkUrlIsValid(){
+  checkUrlIsValid() {
     this.urlErrorMessage = undefined;
     this.urlSuccessMessage = undefined;
 
-    this.urlToCheck  = this.form.get('schedulingUrl')?.value;
+    this.urlToCheck = this.form.get('schedulingUrl')?.value;
 
-    if (this.urlToCheck.length <= 1){
+    if (this.urlToCheck.length <= 1) {
       this.urlErrorMessage = "Url deve ter ao menos 2 letras"
       return
     }
 
-    let urlIsValid = this.companyService.checkUrlIsValid("", this.urlToCheck)
+    let testeUrl = false;
 
-    debugger
-
-    if (urlIsValid)
-      this.urlSuccessMessage = "Url válido."
-    else 
-      this.urlErrorMessage = "Url inválido ou já utilizado."
+    this.companyService.checkUrlIsValid("", this.urlToCheck)
+      .subscribe({
+        next: (result: boolean) => {
+          if (result === true)
+            this.urlSuccessMessage = "Url válido."
+          else
+            this.urlErrorMessage = "Url inválido ou já utilizado."
+        },
+        error(err) {
+          console.log(err)
+          testeUrl = false
+          return false;
+        },
+      })
   }
 
   onPrevious() {
