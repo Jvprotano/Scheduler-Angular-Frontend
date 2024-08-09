@@ -6,14 +6,17 @@
         </div>
         <div class="card-body" [formGroup]="schedulingForm">
             <div *ngIf="countSteps == 1">
-                <div class="row" style="display: flex; flex-direction: column; height: 180px; overflow-y: auto;">
-                    <div class="form-group">
+                <div class="row-professionals">
+                    <div class="form-group div-professional-avatar">
                         <button *ngFor="let professional of professionals"
                             class="card-option professional bg-transparent" href="javascript:void(0);"
                             (click)="selecionarProfissional(professional)"
                             [disabled]="professionalSelected && professionalSelected != professional">
-                            <div class="professional-avatar">
-                                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="{{professional.userName}}">
+                            <div>
+                                <img class="professional-avatar"
+                                    [ngClass]="{'selected-border': professionalSelected === professional}"
+                                    src="{{professional.userImageUrl}}" 
+                                    alt="{{professional.userName}}">
                                 <div class="professional-name">
                                     <div class="mb-2">
                                         {{professional.userName}}
