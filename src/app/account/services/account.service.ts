@@ -30,7 +30,6 @@ export class AccountService extends BaseService {
     let isLogged = !StringUtils.isNullOrEmpty(this.localStorageUtils.getUserToken() ?? "")
       && !StringUtils.isNullOrEmpty(this.localStorageUtils.getUser() ?? "")
 
-      debugger
     return isLogged;
   }
 

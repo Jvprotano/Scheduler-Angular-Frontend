@@ -11,12 +11,12 @@ import { ServiceOffered } from './models/service_offered';
 
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CompanyService } from '../company/services/company.service';
-import { EventService } from '../services/event.service';
 import { CurrencyFormatPipe } from '../utils/currency-format.pipe';
 import { AccountService } from '../account/services/account.service';
 import { RedirectService } from '../services/redirect.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../account/login/login.component';
+import { Company } from '../company/models/company';
 
 @Component({
   selector: 'app-scheduling',
@@ -29,20 +29,22 @@ import { LoginComponent } from '../account/login/login.component';
 export class SchedulingComponent implements OnInit {
   serviceSelected?: ServiceOffered;
   professionalSelected?: Professional;
-  times: string[] = [];
+  timesAvailable: string[] = [];
   timeSelected: string = '';
   companyName: string = '';
 
   schedulingForm!: FormGroup;
   Scheduling!: Scheduling;
+  companyUrl: string = '';
   companyId: string = '';
   countSteps = 1;
+  services: ServiceOffered[] = [];
+  professionals: Professional[] = [];
 
   constructor(private fb: FormBuilder, private schedulingService: SchedulingService,
     private companyService: CompanyService,
     private toastr: ToastrService, private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private eventService: EventService,
     private accountService: AccountService,
     private redirectService: RedirectService,
     private modalService: NgbModal) {
@@ -60,12 +62,27 @@ export class SchedulingComponent implements OnInit {
 
     this.spinner.show();
 
-    this.companyId = this.route.snapshot.params['id'];
+    this.companyUrl = this.route.snapshot.params['id'];
 
-    this.companyService.getById(this.companyId).subscribe({
+    this.companyService.getBySchedulingUrl(this.companyUrl).subscribe({
       next: (result) => {
         this.companyName = result.name
-      }, error: () => this.toastr.error('Empresa não encontrada!')
+        this.companyId = result.id
+
+        if (result.id == null) {
+          this.router.navigate(['/']).then(() => {
+            this.toastr.error("Empresa não encontrada.")
+          })
+        } else if (result.scheduleStatus != 1) {
+          this.router.navigate(['/']).then(() => {
+            this.toastr.error("Empresa selecionada não se encontra com a agenda aberta")
+          })
+        }
+        // redirect to home
+
+        this.loadCompanyInformation(result)
+
+      }, error: () => this.toastr.error('Empresa não encontrada!') // redirect to home
     })
 
     // Gets ao iniciar
@@ -83,10 +100,26 @@ export class SchedulingComponent implements OnInit {
       time: [''],
     });
 
-    this.companyName = 'Salão de Beleza da Kaila';
-
     this.spinner.hide();
   }
+
+  loadCompanyInformation(companyResult: Company) {
+    // this.services = this.companyService.GetServicesOffered(this.companyId);
+    // this.professionals = this.companyService.getProfessionals(this.companyId);
+
+
+    this.services = companyResult.servicesOffered;
+    this.professionals = companyResult.employeers;
+    // console.log(companyResult)
+
+
+    // this.schedulingForm.patchValue({
+    //   name: company.name,
+    //   email: company.email,
+    //   phone: company.phone,
+    // });
+  }
+
 
   openLoginModal(): void {
     this.redirectService.setReturnRoute(this.router.url);
@@ -168,15 +201,29 @@ export class SchedulingComponent implements OnInit {
     return false;
   }
 
-  atualizarHorarios() {
+  updateTimesAvailable() {
     let date = this.schedulingForm.get('date')?.value;
 
-    if (new Date(date).getDate() == new Date().getDate()) {
-      this.times = []
-      this.timeSelected = ""
-    } else {
-      this.times = this.getTestTimes()
-    }
+
+    console.log(this.schedulingForm.get('serviceId'))
+    console.log(this.serviceSelected)
+
+    this.schedulingService.getAvailableTimes(date, this.professionalSelected?.id ?? "",
+      this.companyId, this.serviceSelected?.id ?? "").subscribe({
+        next: (result) => {
+          console.log("Result times")
+          console.log(result)
+
+          if (result.length > 0)
+          {
+            this.timesAvailable = [];
+            this.timesAvailable = result;
+          }
+
+        }, error: () => { }
+      });
+
+    this.timesAvailable = this.getTestTimes()
 
     // this.schedulingService.getAvailableTimes(date, this.professionalSelected?.id ?? '', this.companyId, this.serviceSelected?.id ?? '')
     // .subscribe({
@@ -232,57 +279,4 @@ export class SchedulingComponent implements OnInit {
   hasDateSelected(): boolean {
     return this.schedulingForm.get('date')?.value;
   }
-
-  services: ServiceOffered[] = [
-    {
-      id: '1',
-      name: 'Corte de Cabelo',
-      description: 'Corte de Cabelo na tesoura e na máquina',
-      price: 50.00
-    },
-    {
-      id: '2',
-      name: 'Manicure',
-      description: 'Unhas das mãos e dos pés',
-      price: 30.00
-    },
-    {
-      id: '3',
-      name: 'Consulta Psicológica',
-      description: 'Consulta com psicólogo(a) para tratamento de problemas emocionais e psicológicos',
-      price: 100.00
-    }
-  ];
-  profissionais: Professional[] = [
-    {
-      id: '1',
-      name: 'João',
-      description: 'Cabeleireiro'
-    },
-    {
-      id: '2',
-      name: 'Maria',
-      description: 'Manicure'
-    },
-    {
-      id: '3',
-      name: 'José',
-      description: 'Psicólogo'
-    },
-    {
-      id: '4',
-      name: 'Ana',
-      description: 'Psicóloga'
-    },
-    {
-      id: '5',
-      name: 'Pedro',
-      description: 'Cabeleireiro'
-    },
-    {
-      id: '6',
-      name: 'Paula',
-      description: 'Manicure'
-    }
-  ];
 }

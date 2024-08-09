@@ -32,21 +32,21 @@ export class CompaniesComponent implements OnInit {
     window.prompt('Copy to clipboard: Ctrl+C, Enter', link);
   }
 
-  openCloseSchedule(id: number) {
+  openCloseSchedule(id: string) {
     const company = this.companies.find(c => c.id === id);
     if (company) {
       // altere o valor de openSchedule na lista de companies
-      company.openSchedule = !company.openSchedule;
+      company.scheduleStatus = company.scheduleStatus == 0 ? 1 : 0;
     }
   }
 
-  deleteCompany(id: number) {
+  deleteCompany(id: string) {
     const company = this.companies.find(c => c.id === id);
     if (company) {
       company.status = 0;
     }
   }
-  activeCompany(id: number) {
+  activeCompany(id: string) {
     const company = this.companies.find(c => c.id === id);
     if (company) {
       company.status = 1;
@@ -70,47 +70,47 @@ export class CompaniesComponent implements OnInit {
   }
 
   generateTestCompanies(): void {
-    this.companies = [{
-      id: 0,
-      name: 'Cartucho',
-      description: 'Melhor restaurante do vale',
-      email: '',
-      phone: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      status: 1,
-      openSchedule: true,
-      schedulingUrl: 'cartucho'
-    },
-    {
-      id: 1,
-      name: 'Conciflex',
-      description: 'Conciliadora de cartões',
-      email: '',
-      phone: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      status: 1,
-      openSchedule: true,
-      schedulingUrl: 'conciflex'
-    },
-    {
-      id: 2,
-      name: 'Ponta',
-      description: 'Soluções para o Agronegócio',
-      email: '',
-      phone: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      status: 1,
-      openSchedule: true,
-      schedulingUrl: 'ponta'
-    }];
+    // this.companies = [{
+    //   id: '0',
+    //   name: 'Cartucho',
+    //   description: 'Melhor restaurante do vale',
+    //   email: '',
+    //   phone: '',
+    //   address: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   status: 1,
+    //   scheduleStatus: 1,
+    //   schedulingUrl: 'cartucho'
+    // },
+    // {
+    //   id: '1',
+    //   name: 'Conciflex',
+    //   description: 'Conciliadora de cartões',
+    //   email: '',
+    //   phone: '',
+    //   address: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   status: 1,
+    //   scheduleStatus: 1,
+    //   schedulingUrl: 'conciflex'
+    // },
+    // {
+    //   id: '2',
+    //   name: 'Ponta',
+    //   description: 'Soluções para o Agronegócio',
+    //   email: '',
+    //   phone: '',
+    //   address: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   status: 1,
+    //   scheduleStatus: 1,
+    //   schedulingUrl: 'ponta'
+    // }];
   }
 }

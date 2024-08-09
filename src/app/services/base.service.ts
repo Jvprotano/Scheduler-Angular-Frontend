@@ -54,12 +54,10 @@ export class BaseService {
     }
 
     protected extractData(response: any) {
-        debugger
         return response.data || {};
     }
 
     protected serviceError(response: HttpErrorResponse) {
-        debugger
         let customErrorMessage: string;
 
         if (!response)
@@ -86,7 +84,6 @@ export class BaseService {
                     break;
             }
 
-        debugger
         return throwError(() => new HttpErrorResponse({
             ...response,
             error: customErrorMessage,

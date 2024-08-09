@@ -1,5 +1,8 @@
+import { Professional } from "../../scheduling/models/professional";
+import { ServiceOffered } from "../../scheduling/models/service_offered";
+
 export interface Company {
-    id: number,
+    id: string,
     name: string,
     description: string,
     email: string,
@@ -9,6 +12,8 @@ export interface Company {
     state: string,
     zip: string,
     status: number,
-    openSchedule: boolean,
+    scheduleStatus: number,
     schedulingUrl: string,
+    servicesOffered: ServiceOffered[],
+    employeers: Professional[]
 }

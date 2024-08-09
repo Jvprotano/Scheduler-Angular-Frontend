@@ -1,6 +1,6 @@
 export interface Professional {
     id: string;
-    name: string;
+    userName: string;
     description: string;
     // schedule: Schedule[];
   }

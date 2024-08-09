@@ -9,10 +9,6 @@ export class SchedulingService extends BaseService{
         return this.get('services');
     }
     
-    getProfessionals() {
-        return this.get('professionals');
-    }
-    
     getAvailableTimes(date: string, professionalId: string, companyId: string, serviceId: string) {
         return this.get(`scheduling/getavailabletimeslots?date=${date}&professionalId=${professionalId}&companyId=${companyId}&serviceId=${serviceId}`);
     }

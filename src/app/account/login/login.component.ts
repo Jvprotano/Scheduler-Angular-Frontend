@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    debugger
     this.formSubmited = true;
     this.isDisabledLogin = true;
 

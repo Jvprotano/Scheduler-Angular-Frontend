@@ -8,15 +8,15 @@
             <div *ngIf="countSteps == 1">
                 <div class="row" style="display: flex; flex-direction: column; height: 180px; overflow-y: auto;">
                     <div class="form-group">
-                        <button *ngFor="let professional of profissionais"
+                        <button *ngFor="let professional of professionals"
                             class="card-option professional bg-transparent" href="javascript:void(0);"
                             (click)="selecionarProfissional(professional)"
                             [disabled]="professionalSelected && professionalSelected != professional">
                             <div class="professional-avatar">
-                                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="{{professional.name}}">
+                                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="{{professional.userName}}">
                                 <div class="professional-name">
                                     <div class="mb-2">
-                                        {{professional.name}}
+                                        {{professional.userName}}
                                     </div>
                                     <div class="mb-2 text-muted">
                                         {{professional.description}}
@@ -54,13 +54,13 @@
                     <div class="col-md-3">
                         <label for="data" class="form-label" for="date">Data</label>
                         <input type="date" form class="form-control" required="true" formControlName="date"
-                            (change)="atualizarHorarios()">
+                            (change)="updateTimesAvailable()">
                     </div>
                 </div>
                 <div class="row" *ngIf="hasDateSelected()">
-                    <h2 style="color: var(--green-conci);" *ngIf="!times">Desculpe. A agenda na data selecionada já está
+                    <h2 style="color: var(--green-conci);" *ngIf="!timesAvailable">Desculpe. A agenda na data selecionada já está
                         cheia ou fechada! :( Altere o filtro de data para obter os horários disponíveis. </h2>
-                    <div *ngFor="let time of times" class="col-md-2">
+                    <div *ngFor="let time of timesAvailable" class="col-md-2">
                         <button class="card-option bg-transparent" href="javascript:void(0);" (click)="selectTime(time)"
                             [disabled]="timeSelected && timeSelected != time">
                             <div class="card card-services">
@@ -98,7 +98,7 @@
                 <h2>Resumo</h2>
 
                 <p>Serviço selecionado: {{ serviceSelected?.name }} - {{ serviceSelected?.description }}</p>
-                <p>Profissional selecionado: {{ professionalSelected?.name }}</p>
+                <p>Profissional selecionado: {{ professionalSelected?.userName }}</p>
                 <p>Data: {{ schedulingForm.get('date')?.value | date:'dd/MM/yyyy' }}</p>
                 <p>Nome: {{ schedulingForm.get('name')?.value + " " + schedulingForm.get('lastName')?.value }}</p>
                 <p>Horário selecionado: {{ timeSelected }}</p>

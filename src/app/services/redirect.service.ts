@@ -18,7 +18,6 @@ export class RedirectService {
   }
 
   redirectToReturnRoute(): void {
-    debugger;
     if (this.returnRoute) {
       this.router.navigateByUrl(this.returnRoute);
     } else {
