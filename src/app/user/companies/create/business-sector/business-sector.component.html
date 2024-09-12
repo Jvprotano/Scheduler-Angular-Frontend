@@ -17,77 +17,61 @@
   </div>
 
   <div class="row mb-1">
+    <div *ngFor="let weekday of weekdays; let i = index" class="col-6 col-md-3 mb-2">
+      <!-- Ajuste o tamanho das colunas -->
+      <div class="d-flex align-items-center">
+        <div class="weekday">
+          <div class="form-check mb-0">
+            <input class="form-check-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="weekdays[i].checked"
+              type="checkbox" id="formCheck{{weekday.id}}" [checked]="weekday.checked">
+            <label class="form-check-label" for="formCheck{{weekday.id}}">
+              {{weekday.day}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-1">
     <div class="form-group col-12">
       <h3 class="fs-5 fw-medium my-3">Horário de funcionamento</h3>
       <div class="row d-flex gap-3 align-items-end">
         <div *ngFor="let weekday of weekdays" class="col-12">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="weekday w-75">
-              <div class="form-check mb-0">
-                <input class="form-check-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="weekday.checked" type="checkbox"
-                  id="formCheck{{weekday.id}}" [checked]="weekday.checked">
-                <label class="form-check-label" for="formCheck{{weekday.id}}">
-                  {{weekday.day}}
-                </label>
+          <div *ngIf="weekday.checked" [ngStyle]="{'background-color': weekdays.indexOf(weekday) % 2 == 0 ? '#03678514' : 'rgb(152 43 235 / 14%)'}" style="padding: 2%;" class="d-flex justify-content-between align-items-center">
+              <div class="weekday w-75">
+                <div class="form-check mb-0">
+                  <label style="font-size: large;" class="form-check-label">
+                    {{weekday.day}}
+                  </label>
+                </div>
               </div>
-            </div>
-            <div *ngIf="weekday.checked" class="times d-flex align-items-center">
-              <div class="input-group">
-                <input class="form-control flatpickr-input mb-0 py-1" type="text" mwlFlatpickr [enableTime]="true"
-                  [convertModelValue]="true" [noCalendar]="true" [dateFormat]="'H:i'" required [time24hr]="true" />
-                <span class="input-group-text"><i class="bi-clock"></i></span>
+
+              <div class="times d-flex flex-column align-items-start">
+                <!-- Loop para cada intervalo -->
+                <div *ngFor="let interval of weekday.intervals; let i = index" class="d-flex align-items-center mb-2">
+                  <div class="input-group">
+                    <button (click)="addInterval(weekday)" class="btn btn-sm btn-outline-primary">+</button>
+                    <input class="form-control flatpickr-input mb-0 py-1" [(ngModel)]="interval.start" type="text"
+                      mwlFlatpickr [enableTime]="true" [convertModelValue]="true" [noCalendar]="true"
+                      [dateFormat]="'H:i'" required [time24hr]="true" />
+                    <span class="input-group-text"><i class="bi-clock"></i></span>
+                  </div>
+                  <div class="mx-2">-</div>
+                  <div class="input-group">
+                    <input class="form-control flatpickr-input mb-0 py-1" [(ngModel)]="interval.end" type="text"
+                      mwlFlatpickr [enableTime]="true" [convertModelValue]="true" [noCalendar]="true"
+                      [dateFormat]="'H:i'" required [time24hr]="true" />
+                    <span class="input-group-text"><i class="bi-clock"></i></span>
+                  </div>
+                  <button (click)="removeInterval(weekday, i)"
+                    class="btn btn-sm btn-outline-danger mx-2">Remover</button>
+                </div>
+
               </div>
-              <div class="mx-2">-</div>
-              <div class="input-group">
-                <input class="form-control flatpickr-input mb-0 py-1" type="text" mwlFlatpickr [enableTime]="true"
-                  [convertModelValue]="true" [noCalendar]="true" [dateFormat]="'H:i'" required [time24hr]="true" />
-                <span class="input-group-text"><i class="bi-clock"></i></span>
-              </div>
-            </div>
-            <div *ngIf="!weekday.checked">
-              <span class="day-closed">Fechado neste dia</span>
-            </div>
           </div>
         </div>
-        <!-- <div class="col-md-4">
-        <div class="col-12">
-          <label class="form-label">Monday</label>
-        </div>
-        <div class="col-12 d-flex align-items-center gap-2">
-          <input class="form-control mb-0 date-input" type="time" formControlName="mondayOpen" />
-          <div>-</div>
-          <input class="form-control mb-0 date-input" type="time" formControlName="mondayClose" />
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col-12">
-          <label class="form-label">Tuesday</label>
-        </div>
-        <div class="col-12 d-flex align-items-center gap-2">
-          <input class="form-control mb-0 date-input" type="time" formControlName="tuesdayOpen" />
-          <div>-</div>
-          <input class="form-control mb-0 date-input" type="time" formControlName="tuesdayClose" />
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col-12">
-          <label class="form-label">Wednesday</label>
-        </div>
-        <div class="col-12 d-flex align-items-center gap-2">
-          <input class="form-control mb-0 date-input" type="time" formControlName="tuesdayOpen" />
-          <div>-</div>
-          <input class="form-control mb-0 date-input" type="time" formControlName="tuesdayClose" />
-        </div>
-      </div> -->
       </div>
     </div>
-    <!-- <div class="form-group col-md-6">
-    <div class="row">
-
-    </div>
-  </div> -->
   </div>
-
-  <!-- <button (click)="onPrevious()">Anterior</button>
-  <button (click)="onNext()">Próximo</button> -->
 </form>

@@ -18,17 +18,25 @@ export class BusinessSectorComponent implements OnInit {
   @Output() previous: EventEmitter<any> = new EventEmitter();
   @Output() next: EventEmitter<any> = new EventEmitter();
   weekdays: any[] = [
-    { id: 1, day: 'Segunda-feira', checked: true },
-    { id: 2, day: 'Terça-feira', checked: true },
-    { id: 3, day: 'Quarta-feira', checked: true },
-    { id: 4, day: 'Quinta-feira', checked: true },
-    { id: 5, day: 'Sexta-feira', checked: true },
-    { id: 6, day: 'Sábado', checked: false },
-    { id: 7, day: 'Domingo', checked: false },
+    { id: 1, day: 'Segunda-feira', checked: true, intervals: [{ start: '', end: '' }] },
+    { id: 2, day: 'Terça-feira', checked: true, intervals: [{ start: '', end: '' }] },
+    { id: 3, day: 'Quarta-feira', checked: true, intervals: [{ start: '', end: '' }] },
+    { id: 4, day: 'Quinta-feira', checked: true, intervals: [{ start: '', end: '' }] },
+    { id: 5, day: 'Sexta-feira', checked: true, intervals: [{ start: '', end: '' }] },
+    { id: 6, day: 'Sábado', checked: false, intervals: [{ start: '', end: '' }] },
+    { id: 7, day: 'Domingo', checked: false, intervals: [{ start: '', end: '' }] },
   ]
 
   ngOnInit(): void {
 
+  }
+
+  addInterval(weekday: any) {
+    weekday.intervals.push({ start: '', end: '' });
+  }
+  removeInterval(weekday: any, index: number) {
+    if (weekday.intervals.length > 1)
+      weekday.intervals.splice(index, 1);
   }
 
   onNext() {
