@@ -1,23 +1,21 @@
 import { CommonModule } from '@angular/common';
-
 import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormControlName, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { Observable, fromEvent, merge } from 'rxjs';
-
 import { AppUser } from '../../user/models/user';
 import { AccountService } from '../services/account.service';
 import { ValidationMessages, GenericValidator, DisplayMessage } from '../../utils/generic-form-validation';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule, TranslateModule],
   providers: [AccountService]
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
@@ -40,23 +38,24 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   constructor(private fb: FormBuilder,
     private accountService: AccountService,
-    private router: Router
-    , private toastr: ToastrService
+    private router: Router,
+    private toastr: ToastrService,
+    private translate: TranslateService
   ) {
 
     this.validationMessages = {
       email: {
-        required: 'Informe o e-mail',
-        email: 'Email inválido'
+        required: translate.instant('REGISTER.FORM.EMAIL.REQUIRED'),
+        email: translate.instant('REGISTER.FORM.EMAIL.INVALID')
       },
       password: {
-        required: 'Informe a senha',
-        rangeLength: 'A senha deve possuir entre 6 e 15 caracteres'
+        required: translate.instant('REGISTER.FORM.PASSWORD.REQUIRED'),
+        rangeLength: translate.instant('REGISTER.FORM.PASSWORD.LENGTH')
       },
       confirmPassword: {
-        required: 'Informe a senha novamente',
-        rangeLength: 'A senha deve possuir entre 6 e 15 caracteres',
-        equalTo: 'As senhas não conferem'
+        required: translate.instant('REGISTER.FORM.CONFIRM_PASSWORD.REQUIRED'),
+        rangeLength: translate.instant('REGISTER.FORM.PASSWORD.LENGTH'),
+        equalTo: translate.instant('REGISTER.FORM.CONFIRM_PASSWORD.NOT_MATCHING')
       }
     };
 
@@ -113,31 +112,25 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   processarFalha(response: any) {
-    if (response.error)
-      this.toastr.error(response.error, 'Opa :(');
-    else
-      this.toastr.error('Ocorreu um erro!', 'Opa :(');
+    if (response.error) {
+      this.toastr.error(response.error, this.translate.instant('REGISTER.ERRORS.GENERIC'));
+    } else {
+      this.toastr.error(
+        this.translate.instant('REGISTER.ERRORS.UNKNOWN'),
+        this.translate.instant('REGISTER.ERRORS.GENERIC')
+      );
+    }
   }
 
   processarSucesso(response: any) {
-    
     this.registerForm.reset();
     this.errors = [];
 
-    // this.accountService.LocalStorage.saveUserLocalData(response);
-    // this.router.navigate(['/home'])
-
-    // let toast = this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!'); // Essa é uma mensagem que aparece do lado verde ou vermelha
-
-    // if (toast) { // Adiciona um evento para quando a mensagem sumir, redirecionar para a home
-    //   toast.onHidden.subscribe(() => {
-    //     this.router.navigate(['/home']);
-    //   });
-    // }
-
-    // Redirecionar e depois mostrar o toast na tela home
     this.router.navigate(['account/login']).then(() => {
-      this.toastr.success('Registro realizado com Sucesso!', 'Bem vindo!!!');
-    })
+      this.toastr.success(
+        this.translate.instant('REGISTER.SUCCESS.MESSAGE'),
+        this.translate.instant('REGISTER.SUCCESS.TITLE')
+      );
+    });
   }
 }

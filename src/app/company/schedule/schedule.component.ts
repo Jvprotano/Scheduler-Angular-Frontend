@@ -95,7 +95,7 @@ export class ScheduleComponent implements OnInit {
 
     this.calendarOptions = {
       locales: allLocales,
-      locale: 'pt-br',
+      locale: 'en-Us',
       timeZone: 'local',
       editable: true,
       droppable: true,
@@ -109,11 +109,11 @@ export class ScheduleComponent implements OnInit {
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
       },
       buttonText: {
-        'day': 'Diário',
-        'month': 'Mensal',
-        'today': 'Hoje',
-        'week': 'Semanal',
-        'list': 'Lista'
+        'day': 'Daily',
+        'month': 'Monthly',
+        'today': 'Today',
+        'week': 'Weekly',
+        'list': 'List'
       },
       plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],
       dayMaxEventRows: 3,

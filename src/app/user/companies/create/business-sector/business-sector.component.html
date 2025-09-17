@@ -1,77 +1,12 @@
-<form [formGroup]="form">
-  <div class="row mb-1">
-    <div class="form-group col-md-6">
-      <label class="form-label">Categories:</label>
-      <ng-select>
-        <ng-option value="1">Categoria 1</ng-option>
-        <ng-option value="2">Categoria 2</ng-option>
-      </ng-select>
-    </div>
-    <div class="form-group col-md-6">
-      <label class="form-label">Services Offered:</label>
-      <ng-select id="services-select">
-        <ng-option value="1">Service 1</ng-option>
-        <ng-option value="2">Service 2</ng-option>
-      </ng-select>
-    </div>
-  </div>
-
-  <div class="row mb-1">
-    <div *ngFor="let weekday of weekdays; let i = index" class="col-6 col-md-3 mb-2">
-      <!-- Ajuste o tamanho das colunas -->
-      <div class="d-flex align-items-center">
-        <div class="weekday">
-          <div class="form-check mb-0">
-            <input class="form-check-input" [ngModelOptions]="{standalone: true}" [(ngModel)]="weekdays[i].checked"
-              type="checkbox" id="formCheck{{weekday.id}}" [checked]="weekday.checked">
-            <label class="form-check-label" for="formCheck{{weekday.id}}">
-              {{weekday.day}}
-            </label>
-          </div>
-        </div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3 class="mb-3">Dias da Semana</h3>
+  <div class="form-check mb-2" formArrayName="weekdays">
+    <div class="row">
+      <div class="align-items-center col-md-3 d-flex form-check form-switch fs-6 ms-1 mt-2" *ngFor="let control of $any(this.form.get('weekdays'))['controls']; let i = index">
+        <input class="form-check-input me-2" type="checkbox" [formControlName]="i" (change)="weekdays[i].checked = !weekdays[i].checked"/>
+        <label class="form-check-label mb-0"> {{weekdays[i].day}} </label>
       </div>
     </div>
   </div>
-
-  <div class="row mb-1">
-    <div class="form-group col-12">
-      <h3 class="fs-5 fw-medium my-3">Horário de funcionamento</h3>
-      <div class="row d-flex gap-3 align-items-end">
-        <div *ngFor="let weekday of weekdays" class="col-12">
-          <div *ngIf="weekday.checked" [ngStyle]="{'background-color': weekdays.indexOf(weekday) % 2 == 0 ? '#03678514' : 'rgb(152 43 235 / 14%)'}" style="padding: 2%;" class="d-flex justify-content-between align-items-center">
-              <div class="weekday w-75">
-                <div class="form-check mb-0">
-                  <label style="font-size: large;" class="form-check-label">
-                    {{weekday.day}}
-                  </label>
-                </div>
-              </div>
-
-              <div class="times d-flex flex-column align-items-start">
-                <!-- Loop para cada intervalo -->
-                <div *ngFor="let interval of weekday.intervals; let i = index" class="d-flex align-items-center mb-2">
-                  <div class="input-group">
-                    <button (click)="addInterval(weekday)" class="btn btn-sm btn-outline-primary">+</button>
-                    <input class="form-control flatpickr-input mb-0 py-1" [(ngModel)]="interval.start" type="text"
-                      mwlFlatpickr [enableTime]="true" [convertModelValue]="true" [noCalendar]="true"
-                      [dateFormat]="'H:i'" required [time24hr]="true" />
-                    <span class="input-group-text"><i class="bi-clock"></i></span>
-                  </div>
-                  <div class="mx-2">-</div>
-                  <div class="input-group">
-                    <input class="form-control flatpickr-input mb-0 py-1" [(ngModel)]="interval.end" type="text"
-                      mwlFlatpickr [enableTime]="true" [convertModelValue]="true" [noCalendar]="true"
-                      [dateFormat]="'H:i'" required [time24hr]="true" />
-                    <span class="input-group-text"><i class="bi-clock"></i></span>
-                  </div>
-                  <button (click)="removeInterval(weekday, i)"
-                    class="btn btn-sm btn-outline-danger mx-2">Remover</button>
-                </div>
-
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

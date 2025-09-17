@@ -11,17 +11,44 @@
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed">
         <ul class="navbar-nav flex-grow-1">
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/home">Preço</a>
+            <a class="nav-link text-dark" routerLink="/home">{{ 'NAV.MENU.PRICING' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/home">Funcionalidades</a>
+            <a class="nav-link text-dark" routerLink="/home">{{ 'NAV.MENU.FEATURES' | translate }}</a>
           </li>
         </ul>
       </div>
 
       <a class="navbar-brand" routerLink="/home">Agende</a>
 
-      <app-menu-login></app-menu-login>
+      <div class="d-flex align-items-center">
+        <div class="dropdown me-3" ngbDropdown>
+          <button class="btn btn-link dropdown-toggle" ngbDropdownToggle type="button" id="languageDropdownMobile">
+            <img [src]="'assets/flags/' + currentLang + '.svg'" alt="Current language flag" width="24" height="16" class="me-1">
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="switchLanguage('pt')">
+                <img src="assets/flags/pt.svg" alt="Portuguese" width="24" height="16" class="me-2">
+                Português
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="switchLanguage('en')">
+                <img src="assets/flags/en.svg" alt="English" width="24" height="16" class="me-2">
+                English
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="switchLanguage('es')">
+                <img src="assets/flags/es.svg" alt="Spanish" width="24" height="16" class="me-2">
+                Español
+              </a>
+            </li>
+          </ul>
+        </div>
+        <app-menu-login></app-menu-login>
+      </div>
 
     </div>
   </nav>
@@ -40,15 +67,42 @@
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngbCollapse]="isCollapsed" *ngIf="!(isLoggedIn$ | async)">
         <ul class="navbar-nav flex-grow-1">
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/home">Preço</a>
+            <a class="nav-link text-dark" routerLink="/home">{{ 'NAV.MENU.PRICING' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/home">Funcionalidades</a>
+            <a class="nav-link text-dark" routerLink="/home">{{ 'NAV.MENU.FEATURES' | translate }}</a>
           </li>
         </ul>
       </div>
 
-      <app-menu-login></app-menu-login>
+      <div class="d-flex align-items-center">
+        <div class="dropdown me-3" ngbDropdown>
+          <button class="btn btn-link dropdown-toggle" ngbDropdownToggle type="button" id="languageDropdown">
+            <img [src]="'assets/flags/' + currentLang + '.svg'" alt="Current language flag" width="24" height="16" class="me-1">
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="switchLanguage('pt')">
+                <img src="assets/flags/pt.svg" alt="Portuguese" width="24" height="16" class="me-2">
+                Português
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="switchLanguage('en')">
+                <img src="assets/flags/en.svg" alt="English" width="24" height="16" class="me-2">
+                English
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="switchLanguage('es')">
+                <img src="assets/flags/es.svg" alt="Spanish" width="24" height="16" class="me-2">
+                Español
+              </a>
+            </li>
+          </ul>
+        </div>
+        <app-menu-login></app-menu-login>
+      </div>
 
     </div>
   </nav>

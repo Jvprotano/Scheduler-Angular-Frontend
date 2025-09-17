@@ -1,18 +1,19 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapse, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuLoginComponent } from "../menu-login/menu-login.component";
 import { Observable, Subscription, debounceTime, fromEvent } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event.service';
 import { AccountService } from '../../account/services/account.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
-  imports: [NgbCollapse, RouterModule, MenuLoginComponent, CommonModule]
+  imports: [NgbCollapse, NgbDropdownModule, RouterModule, MenuLoginComponent, CommonModule, TranslateModule]
 })
 export class MenuComponent implements OnInit {
 
@@ -22,9 +23,20 @@ export class MenuComponent implements OnInit {
   resizeSubscription$!: Subscription;
   hideHeader: boolean = false;
   isLoggedIn$: Observable<boolean>;
+  currentLang: string;
 
-  constructor(private eventService: EventService, private accountService : AccountService) { 
+  constructor(
+    private eventService: EventService,
+    private accountService: AccountService,
+    private translate: TranslateService
+  ) { 
     this.isLoggedIn$ = this.accountService.userIsLoggedObs;
+    this.currentLang = this.translate.currentLang || 'pt';
+  }
+
+  switchLanguage(lang: string) {
+    this.translate.use(lang);
+    this.currentLang = lang;;
   }
 
   ngOnInit(): void {
@@ -58,5 +70,11 @@ export class MenuComponent implements OnInit {
       }
     };
     this.mobile = width > 480 ? false : true;
+  }
+
+  ngOnDestroy() {
+    if (this.resizeSubscription$) {
+      this.resizeSubscription$.unsubscribe();
+    }
   }
 }

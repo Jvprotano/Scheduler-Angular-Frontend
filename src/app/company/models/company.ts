@@ -1,5 +1,6 @@
 import { Professional } from "../../scheduling/models/professional";
 import { ServiceOffered } from "../../scheduling/models/service_offered";
+import { OpeningHours } from "./opening_hours";
 
 export interface Company {
     id: string,
@@ -15,5 +16,6 @@ export interface Company {
     scheduleStatus: number,
     schedulingUrl: string,
     servicesOffered: ServiceOffered[],
-    employeers: Professional[]
+    employeers: Professional[],
+    openingHours: OpeningHours[],
 }

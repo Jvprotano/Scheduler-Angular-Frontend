@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="600" viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg">
+  <!-- fundo vermelho -->
+  <rect width="9" height="6" fill="#bf0a30"/>
+  
+  <!-- listras brancas -->
+  <g fill="white">
+    <rect width="9" height="0.46" y="0.46"/>
+    <rect width="9" height="0.46" y="1.38"/>
+    <rect width="9" height="0.46" y="2.3"/>
+    <rect width="9" height="0.46" y="3.22"/>
+    <rect width="9" height="0.46" y="4.14"/>
+    <rect width="9" height="0.46" y="5.06"/>
+  </g>
+
+  <!-- campo azul -->
+  <rect width="3.6" height="2.46" fill="#002868"/>
+  
+  <!-- estrela (prototipo) -->
+  <polygon id="star" points="0,-0.15 0.043,-0.047 0.14,-0.047 0.058,0.018 0.09,0.118 0,0.06 -0.09,0.118 -0.058,0.018 -0.14,-0.047 -0.043,-0.047"
+    fill="white" transform="scale(0.8)"/>
+  
+  <!-- grade de estrelas (simplificada, não as 50 reais) -->
+  <g transform="translate(0.3,0.3)">
+    <use href="#star"/>
+    <use href="#star" x="0.6"/>
+    <use href="#star" x="1.2"/>
+    <use href="#star" x="1.8"/>
+    <use href="#star" x="2.4"/>
+  </g>
+  <g transform="translate(0.6,0.7)">
+    <use href="#star"/>
+    <use href="#star" x="0.6"/>
+    <use href="#star" x="1.2"/>
+    <use href="#star" x="1.8"/>
+  </g>
+</svg>

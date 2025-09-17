@@ -1,22 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FlatpickrDefaults, FlatpickrModule } from 'angularx-flatpickr';
 
 @Component({
   selector: 'app-business-sector',
   standalone: true,
-  imports: [NgSelectModule, FlatpickrModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [NgSelectModule, FlatpickrModule, CommonModule, ReactiveFormsModule],
   providers: [FlatpickrDefaults],
   templateUrl: './business-sector.component.html',
   styleUrl: './business-sector.component.css'
 })
-export class BusinessSectorComponent implements OnInit {
 
+export class BusinessSectorComponent implements OnInit {
   @Input() form!: FormGroup;
   @Output() previous: EventEmitter<any> = new EventEmitter();
   @Output() next: EventEmitter<any> = new EventEmitter();
+
   weekdays: any[] = [
     { id: 1, day: 'Segunda-feira', checked: true, intervals: [{ start: '', end: '' }] },
     { id: 2, day: 'Terça-feira', checked: true, intervals: [{ start: '', end: '' }] },
@@ -27,16 +28,32 @@ export class BusinessSectorComponent implements OnInit {
     { id: 7, day: 'Domingo', checked: false, intervals: [{ start: '', end: '' }] },
   ]
 
+  dayNames = [
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+    'Sábado',
+    'Domingo',
+  ];
+
+  constructor(private fb: FormBuilder) {}
+
   ngOnInit(): void {
-
-  }
-
-  addInterval(weekday: any) {
-    weekday.intervals.push({ start: '', end: '' });
-  }
-  removeInterval(weekday: any, index: number) {
-    if (weekday.intervals.length > 1)
-      weekday.intervals.splice(index, 1);
+    // Inicializa o formulário com um FormArray para os dias da semana
+    this.form = this.fb.group({
+      weekdays: new FormArray(
+        [
+          new FormControl(null), 
+          new FormControl(null), 
+          new FormControl(null),
+          new FormControl(null),
+          new FormControl(null),
+          new FormControl(null),
+          new FormControl(null),
+        ]),
+    });
   }
 
   onNext() {
@@ -48,5 +65,10 @@ export class BusinessSectorComponent implements OnInit {
   }
   onPrevious() {
     this.previous.emit();
+  }
+
+  onSubmit(): void {
+    console.log(this.form.value);
+    console.log(this.weekdays);
   }
 }

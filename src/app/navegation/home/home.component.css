@@ -5,14 +5,6 @@
   background: url('/assets/predios.jpg') center no-repeat fixed;
 }
 
-/* body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-size: cover;
-  color: #333;
-} */
-
 .header img {
   width: 100%;
   height: auto;
@@ -38,7 +30,6 @@
 }
 
 .header-text span{
-  /* font-family: 'Satisfy', cursive; */
   font-family: 'Pacifico', cursive;
 }
 
@@ -52,15 +43,11 @@
   background: url('/assets/barbeiro.png') bottom fixed;
 
   position: relative;
-  /* height: 400px; */
   overflow: hidden;
 
   margin: 0;
   padding: 0;
-  /* font-family: Arial, sans-serif; */
-  /* background: url('caminho/para/sua/imagem.jpg') no-repeat center center fixed; */
   background-size: cover;
-  /* color: #333; */
 }
 
 #planos{

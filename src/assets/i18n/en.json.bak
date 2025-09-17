@@ -1,0 +1,137 @@
+{
+  "NAV": {
+    "MENU": {
+      "PRICING": "Pricing",
+      "FEATURES": "Features",
+      "ACCESS_BUSINESS": "Access my business",
+      "LOGOUT": "Logout",
+      "TRY_FREE": "Try it free",
+      "LOGIN": "Login to your account"
+    }
+  },
+  "REGISTER": {
+    "TITLE": "Create your account",
+    "WELCOME": {
+      "TITLE": "Welcome!",
+      "DESCRIPTION": "Create your account and start simplifying how your clients make appointments!"
+    },
+    "FORM": {
+      "EMAIL": {
+        "LABEL": "Email",
+        "PLACEHOLDER": "Email (required)"
+      },
+      "PASSWORD": {
+        "LABEL": "Password",
+        "PLACEHOLDER": "Password (required)"
+      },
+      "CONFIRM_PASSWORD": {
+        "LABEL": "Confirm your password",
+        "PLACEHOLDER": "Confirm password (required)"
+      },
+      "FIRST_NAME": {
+        "LABEL": "First name",
+        "PLACEHOLDER": "First name (required)"
+      },
+      "LAST_NAME": {
+        "LABEL": "Last name",
+        "PLACEHOLDER": "Last name (required)"
+      },
+      "PHONE": {
+        "LABEL": "Phone",
+        "PLACEHOLDER": "Phone (required)"
+      },
+      "BIRTH_DATE": {
+        "LABEL": "Birth date",
+        "PLACEHOLDER": "Birth date (required)"
+      }
+    },
+    "BUTTONS": {
+      "CONTINUE": "Continue",
+      "BACK": "Back",
+      "REGISTER": "Register"
+    },
+    "ERRORS": {
+      "TITLE": "Oops! Something went wrong:",
+      "GENERIC": "Oops!",
+      "UNKNOWN": "An error occurred!",
+      "EMAIL": {
+        "REQUIRED": "Email is required",
+        "INVALID": "Please enter a valid email"
+      },
+      "PASSWORD": {
+        "REQUIRED": "Password is required",
+        "LENGTH": "Password must be between 6 and 15 characters"
+      },
+      "CONFIRM_PASSWORD": {
+        "REQUIRED": "Please confirm your password",
+        "NOT_MATCHING": "Passwords do not match"
+      }
+    },
+    "SUCCESS": {
+      "TITLE": "Welcome!",
+      "MESSAGE": "Registration completed successfully!"
+    }
+  },
+  "LOGIN": {
+    "TITLE": "Login",
+    "WELCOME_BACK": "Welcome back!",
+    "WELCOME_TEXT": "We're glad to see you again.",
+    "WELCOME_TEXT_2": "Continue to",
+    "LOGIN_ACCOUNT": "Login to your account",
+    "EMAIL": {
+      "LABEL": "Email",
+      "PLACEHOLDER": "Enter your email",
+      "REQUIRED": "Email is required",
+      "INVALID": "Please enter a valid email"
+    },
+    "PASSWORD": {
+      "LABEL": "Password",
+      "PLACEHOLDER": "Enter your password",
+      "REQUIRED": "Password is required"
+    },
+    "ACCESS": "Login",
+    "ACCESSING": "Logging in...",
+    "AUTO_FILL": "Your browser may offer to save this password",
+    "GUEST_LOGIN": "Continue as guest",
+    "NO_ACCOUNT": "Don't have an account?",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "SIGN_IN": "Sign in",
+    "REGISTER": "Create an account",
+    "CONTINUE_AS_GUEST": "Continue as guest",
+    "ERRORS": {
+      "REQUIRED_EMAIL": "Email is required",
+      "INVALID_EMAIL": "Please enter a valid email",
+      "REQUIRED_PASSWORD": "Password is required",
+      "INVALID_CREDENTIALS": "Invalid email or password"
+    },
+    "SUCCESS": "Login successful",
+    "WELCOME": "Welcome"
+  },
+  "HOME": {
+    "TITLE": "More than just a schedule",
+    "DESCRIPTION": "Streamline how your clients schedule their services while providing a complete management platform.",
+    "FEATURES": {
+      "ACCESS_ANYWHERE": "Access Anywhere",
+      "ACCESS_ANYWHERE_DESC": "No need to install an app. Available on any platform: iPhone, Android, Windows, among others...",
+      "NOTIFICATIONS": "Notifications",
+      "NOTIFICATIONS_DESC": "Send notifications to remind your clients about their appointments, reducing no-show rates and increasing revenue.",
+      "SIMPLE": "Simple and Complete",
+      "SIMPLE_DESC": "Your clients don't want to waste time with excessive information. Offer them a simple and straightforward platform that also provides you with complete management of your business."
+    },
+    "PRICING": {
+      "TITLE": "Plans",
+      "PER_MONTH": "per month",
+      "FEATURES": {
+        "BOOKING_LINK": "Unique booking link",
+        "NOTIFICATIONS": "Send notifications to your clients",
+        "REPORTS": "Booking reports",
+        "FINANCIAL": "Financial report including earnings, expenses, and forecasts",
+        "UNLIMITED": "Unlimited bookings",
+        "RECURRING": "Recurring appointments"
+      },
+      "SIGN_UP": "Sign up now",
+      "FREE_TRIAL": "7-day free trial with no upfront credit card registration"
+    }
+  }
+}

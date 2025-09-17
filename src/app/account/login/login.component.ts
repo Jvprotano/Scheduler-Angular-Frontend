@@ -10,12 +10,12 @@ import { EventService } from '../../services/event.service';
 import { Login } from '../models/login';
 import { RedirectService } from '../../services/redirect.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { delay } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule, TranslateModule],
   providers: [AccountService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -42,8 +42,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private eventService: EventService,
     private redirectService: RedirectService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    public translate: TranslateService
+  ) { 
+    translate.setDefaultLang('pt');
+    translate.use('pt');
+  }
 
   ngOnInit() {
 
@@ -92,14 +96,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   success(result: any) {
-
     this.isDisabledLogin = false;
     this.errors = [];
 
     if (!this.isScheduling) {
       this.router.navigate(['/home']).then(() => {
-        this.toastr.success('Login realizado com sucesso!', 'Bem vindo!!!', { positionClass: 'toast-top-center' });
-      })
+        this.translate.get(['LOGIN.SUCCESS', 'LOGIN.WELCOME']).subscribe((translations) => {
+          this.toastr.success(translations['LOGIN.SUCCESS'], translations['LOGIN.WELCOME'], { positionClass: 'toast-top-center' });
+        });
+      });
     }
 
     this.modalService.dismissAll();

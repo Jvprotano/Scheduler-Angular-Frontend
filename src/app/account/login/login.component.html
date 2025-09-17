@@ -1,45 +1,47 @@
 <div class="row w-100">
   <div class="col-md-6 container-info p-md-4">
     <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
-    <!-- <hr> -->
     <div class="content-info float-end mt-5 w-75">
-      <h1 class="mt-4 mb-3"><span>Bem vindo</span> de volta!</h1>
-      <h2 class="mb-1">Estamos felizes por vê-lo novamente no maior sistema de agendamento do sul do mundo. </h2>
-      <h2>Vamos tornar sua experiência ainda mais simples e eficaz. Faça login e <span>Agende!</span></h2>
+      <h1 class="mt-4 mb-3"><span>{{ 'LOGIN.WELCOME_BACK' | translate }}</span></h1>
+      <h2 class="mb-1">{{ 'LOGIN.WELCOME_TEXT' | translate }}</h2>
+      <h2>{{ 'LOGIN.WELCOME_TEXT_2' | translate }} <span>Agende</span></h2>
       <img src="assets/login.png" alt="Login" class="img-fluid w-75">
     </div>
+
   </div>
 
   <div class="align-items-center col-md-6 container-login d-flex flex-column justify-content-center">
     <a class="navbar-brand navbar-brand-mobile ps-4" style="display: none;" routerLink="/home">Agende</a>
-    <h1 class="text-center mb-0">Entre em sua conta</h1>
+    <h1 class="text-center mb-0">{{ 'LOGIN.LOGIN_ACCOUNT' | translate }}</h1>
     <form novalidate (ngSubmit)="login()" [ngClass]="isScheduling ? 'col-12' : 'col-6'" [formGroup]="loginForm">
       <hr>
       <div class="form-group">
-        <label class="control-label mb-2">E-mail</label>
+        <label class="control-label mb-2">{{ 'LOGIN.EMAIL.LABEL' | translate }}</label>
         <input [ngClass]="{
             'is-invalid': formSubmited && form['emailOrPhone'].errors
-          }" class="form-control shadow-none" id="emailOrPhone" type="text" placeholder="E-mail (requerido)"
+          }" class="form-control shadow-none" id="emailOrPhone" type="text" 
+          [placeholder]="'LOGIN.EMAIL.PLACEHOLDER' | translate"
           formControlName="emailOrPhone" />
         <div *ngIf="formSubmited && form['emailOrPhone'].errors" class="invalid-feedback">
           <div *ngIf="form['emailOrPhone'].errors['required']">
-            O e-mail é obrigatório
+            {{ 'LOGIN.EMAIL.REQUIRED' | translate }}
           </div>
           <div *ngIf="form['emailOrPhone'].errors['emailOrPhone']">
-            O e-mail precisa ser válido
+            {{ 'LOGIN.EMAIL.INVALID' | translate }}
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="control-label mb-2">Senha</label>
+        <label class="control-label mb-2">{{ 'LOGIN.PASSWORD.LABEL' | translate }}</label>
         <input [ngClass]="{
             'is-invalid': formSubmited && form['password'].errors
-          }" class="form-control shadow-none" id="password" type="password" placeholder="Senha (requerido)"
+          }" class="form-control shadow-none" id="password" type="password" 
+          [placeholder]="'LOGIN.PASSWORD.PLACEHOLDER' | translate"
           formControlName="password" />
         <div *ngIf="formSubmited && form['password'].errors" class="invalid-feedback">
           <div *ngIf="form['password'].errors['required']">
-            A senha é obrigatória
+            {{ 'LOGIN.PASSWORD.REQUIRED' | translate }}
           </div>
         </div>
       </div>
@@ -47,35 +49,35 @@
       <div class="form-group d-flex justify-content-end">
         <button [ngClass]=" isScheduling ? 'btn btn-login' : 'btn btn-login w-50'" id="Login"
           type="submit">{{!isDisabledLogin ?
-          'Acessar' : ''}}
+          ('LOGIN.ACCESS' | translate) : ''}}
           <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabledLogin">
             <span class="me-2">
-              Acessando...
+              {{ 'LOGIN.ACCESSING' | translate }}
             </span>
             <span class="spinner-border flex-shrink-0" role="status">
-              <span class="visually-hidden">Sign In...</span>
+              <span class="visually-hidden">{{ 'LOGIN.ACCESSING' | translate }}</span>
             </span>
           </span></button>
         </div>
         <div class="form-group">
-          <p class="me-2 mb-0" style="font-size: 10px;">O login trará o preenchimento de seus dados automático, incluindo o último agendamento</p>
+          <p class="me-2 mb-0" style="font-size: 10px;">{{ 'LOGIN.AUTO_FILL' | translate }}</p>
         </div>
       <div class="form-group d-flex justify-content-end" *ngIf="isScheduling">
-        <button class="btn btn-login" id="GuestLogin" (click)="guestLogin()"> Entrar como convidado
+        <button class="btn btn-login" id="GuestLogin" (click)="guestLogin()">{{ 'LOGIN.GUEST_LOGIN' | translate }}
           <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabledGuest">
             <span class="me-2">
-              Acessando...
+              {{ 'LOGIN.ACCESSING' | translate }}
             </span>
             <span class="spinner-border flex-shrink-0" role="status">
-              <span class="visually-hidden">Sign In...</span>
+              <span class="visually-hidden">{{ 'LOGIN.ACCESSING' | translate }}</span>
             </span>
           </span>
         </button>
       </div>
 
       <div class="form-group d-flex justify-content-end align-items-center mt-4">
-        <p class="text-center me-2 mb-0">Ainda não tem uma conta?</p>
-        <a class="btn btn-outline-dark w-auto" id="Register" [routerLink]="['/account/register']">Registre-se</a>
+        <p class="text-center me-2 mb-0">{{ 'LOGIN.NO_ACCOUNT' | translate }}</p>
+        <a class="btn btn-outline-dark w-auto" id="Register" [routerLink]="['/account/register']">{{ 'LOGIN.REGISTER' | translate }}</a>
       </div>
     </form>
   </div>

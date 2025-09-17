@@ -159,7 +159,7 @@ export class SchedulingComponent implements OnInit {
   }
 
 
-  selecionarProfissional(professional: any) {
+  selecionarProfissional(professional: Professional) {
     if (this.professionalSelected == professional) {
       this.professionalSelected = undefined;
       return;
@@ -168,7 +168,7 @@ export class SchedulingComponent implements OnInit {
     this.professionalSelected = professional;
     this.checkProfessionalAndServiceAreSelected();
   }
-  selectService(service: any) {
+  selectService(service: ServiceOffered) {
     if (this.serviceSelected == service) {
       this.serviceSelected = undefined;
       return;
@@ -176,7 +176,7 @@ export class SchedulingComponent implements OnInit {
     this.serviceSelected = service;
     this.checkProfessionalAndServiceAreSelected();
   }
-  selectTime(time: any) {
+  selectTime(time: string) {
     if (this.timeSelected == time) {
       this.timeSelected = '';
       return;
@@ -202,35 +202,29 @@ export class SchedulingComponent implements OnInit {
   }
 
   updateTimesAvailable() {
-    let date = this.schedulingForm.get('date')?.value;
+    const date = this.schedulingForm.get('date')?.value;
+    if (!date) return;
 
-
-    console.log(this.schedulingForm.get('serviceId'))
-    console.log(this.serviceSelected)
-
-    this.schedulingService.getAvailableTimes(date, this.professionalSelected?.id ?? "",
-      this.companyId, this.serviceSelected?.id ?? "").subscribe({
-        next: (result) => {
-          console.log("Result times")
-          console.log(result)
-
-          if (result.length > 0)
-          {
-            this.timesAvailable = [];
-            this.timesAvailable = result;
-          }
-
-        }, error: () => { }
-      });
-
-    this.timesAvailable = this.getTestTimes()
-
-    // this.schedulingService.getAvailableTimes(date, this.professionalSelected?.id ?? '', this.companyId, this.serviceSelected?.id ?? '')
-    // .subscribe({
-    //   next: (result) => {
-    //     this.times = result;
-    //   }, error: () => { this.toastr.error('Erro ao obter os horários disponíveis') }
-    // });
+    this.schedulingService.getAvailableTimes(
+      date,
+      this.professionalSelected?.id ?? "",
+      this.companyId,
+      this.serviceSelected?.id ?? ""
+    ).subscribe({
+      next: (result) => {
+        if (result.length > 0) {
+          this.timesAvailable = result;
+        } else {
+          // If no times are available from API, use test times
+          this.timesAvailable = this.getTestTimes();
+        }
+      },
+      error: () => {
+        this.toastr.error('Erro ao obter os horários disponíveis');
+        // Fallback to test times on error
+        this.timesAvailable = this.getTestTimes();
+      }
+    });
   }
 
   getTestTimes() {

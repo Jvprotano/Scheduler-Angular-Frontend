@@ -1,9 +1,11 @@
 <ul class="navbar-nav" *ngIf="isLoggedIn$ | async">
   <li class="nav-item access">
-    <a class="btn-access" routerLink="user/companies"><i class="bi bi-building me-1"></i>Acessar meu negócio </a>
+    <a class="btn-access" routerLink="user/companies">
+      <i class="bi bi-building me-1"></i>{{ 'NAV.MENU.ACCESS_BUSINESS' | translate }}
+    </a>
   </li>
   <li class="nav-item logout">
-    <a (click)="logout()" title="Sair" id="btnLogout">
+    <a (click)="logout()" [title]="'NAV.MENU.LOGOUT' | translate" id="btnLogout">
       <i class="bi bi-box-arrow-left"></i>
     </a>
   </li>
@@ -11,11 +13,13 @@
 
 <ul class="navbar-nav" *ngIf="!(isLoggedIn$ | async)">
   <li class="nav-item">
-    <button class="btn btn-outline-conci" routerLink="/account/register" routerLinkActive="active">Experimente
-      grátis</button>
+    <button class="btn btn-outline-conci" routerLink="/account/register" routerLinkActive="active">
+      {{ 'NAV.MENU.TRY_FREE' | translate }}
+    </button>
   </li>
   <li class="nav-item access">
-    <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active"><i
-        class="bi bi-person">Acesse sua conta</i> </a>
+    <a [routerLink]="['/account/login']" class="btn-access" routerLinkActive="router-link-active">
+      <i class="bi bi-person">{{ 'NAV.MENU.LOGIN' | translate }}</i>
+    </a>
   </li>
 </ul>

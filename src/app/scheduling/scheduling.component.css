@@ -22,28 +22,26 @@ a{
 }
 
 .div-professional-avatar {
-    width: 180px; /* Fixed width */
-    height: 180px; /* Fixed height */
-    flex-shrink: 0; /* Prevent the size from shrinking */
-    margin: 10px; /* Space between the items */
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+    margin: 10px;
 }
 
 .professional-avatar {
-    aspect-ratio: 1 / 1; /* Forces a square aspect ratio */
-
-
-    width: 100px; /* Ajuste conforme necessário */
-    height: 100px; /* Ajuste conforme necessário */
-    border-radius: 50%; /* Mantém a forma redonda */
-    object-fit: cover; /* Garante que a imagem preencha o contêiner sem distorção */
+    aspect-ratio: 1 / 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .row-professionals {
     display: flex;
-    flex-direction: row; /* Horizontal layout */
+    flex-direction: row;
     height: 100%;
     overflow-x: auto; 
-    white-space: nowrap; /* Prevent wrapping to the next line */
+    white-space: nowrap;
     padding: 10px;
     align-items: center; justify-content: center;
 }
@@ -76,12 +74,11 @@ a{
     text-decoration: none;
 }
 
-/* Border animation */
 .selected-border {
     position: relative;
     z-index: 1;
-    border: 2px solid transparent; /* Start with a transparent border */
-    animation: border-fill 1s ease forwards; /* Apply the animation */
+    border: 2px solid transparent;
+    animation: border-fill 1s ease forwards;
 }
 
 @keyframes border-fill {
@@ -101,11 +98,10 @@ a{
 
 .form-group {
     display: flex;
-    justify-content: flex-start; /* Align items to the start */
+    justify-content: flex-start;
     align-items: center; 
-    /* overflow-x: auto;  */
-    white-space: nowrap; /* Prevent items from wrapping */
-    width: 98%; /* Ensure it takes the full width */
+    white-space: nowrap;
+    width: 98%;
 }
 
 label {

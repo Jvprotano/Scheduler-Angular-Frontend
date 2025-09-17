@@ -1,0 +1,74 @@
+{
+  "NAV": {
+    "MENU": {
+      "PRICING": "Preços",
+      "FEATURES": "Funcionalidades",
+      "ACCESS_BUSINESS": "Acessar meu negócio",
+      "LOGOUT": "Sair",
+      "TRY_FREE": "Experimente grátis",
+      "LOGIN": "Entre na sua conta"
+    }
+  },
+  "LOGIN": {
+    "TITLE": "Login",
+    "WELCOME_BACK": "Bem-vindo de volta!",
+    "WELCOME_TEXT": "Estamos felizes em vê-lo novamente.",
+    "WELCOME_TEXT_2": "Continue to",
+    "LOGIN_ACCOUNT": "Entre na sua conta",
+    "EMAIL": {
+      "LABEL": "Email",
+      "PLACEHOLDER": "Insira seu email",
+      "REQUIRED": "Email é obrigatório",
+      "INVALID": "Por favor, insira um email válido"
+    },
+    "PASSWORD": {
+      "LABEL": "Senha",
+      "PLACEHOLDER": "Insira sua senha",
+      "REQUIRED": "Senha é obrigatória"
+    },
+    "ACCESS": "Login",
+    "ACCESSING": "Entrando...",
+    "AUTO_FILL": "Seu navegador pode oferecer para salvar esta senha",
+    "GUEST_LOGIN": "Continuar como convidado",
+    "NO_ACCOUNT": "Não tem uma conta?",
+    "REMEMBER_ME": "Lembrar-me",
+    "FORGOT_PASSWORD": "Esqueceu sua senha?",
+    "SIGN_IN": "Entrar",
+    "REGISTER": "Criar uma conta",
+    "CONTINUE_AS_GUEST": "Entrar como convidado",
+    "ERRORS": {
+      "REQUIRED_EMAIL": "Email é obrigatório",
+      "INVALID_EMAIL": "Por favor, insira um email válido",
+      "REQUIRED_PASSWORD": "Senha é obrigatória",
+      "INVALID_CREDENTIALS": "Email ou senha inválidos"
+    },
+    "SUCCESS": "Login bem-sucedido",
+    "WELCOME": "Bem-vindo"
+  },
+  "HOME": {
+    "TITLE": "Mais que uma agenda",
+    "DESCRIPTION": "Simplifique a forma como seus clientes agendam seus serviços enquanto fornece uma plataforma completa de gestão.",
+    "FEATURES": {
+      "ACCESS_ANYWHERE": "Acesse de Qualquer Lugar",
+      "ACCESS_ANYWHERE_DESC": "Não é necessário instalar um aplicativo. Disponível em qualquer plataforma: iPhone, Android, Windows, entre outros...",
+      "NOTIFICATIONS": "Notificações",
+      "NOTIFICATIONS_DESC": "Envie notificações para lembrar seus clientes sobre seus agendamentos, reduzindo faltas e aumentando a receita.",
+      "SIMPLE": "Simples e Completo",
+      "SIMPLE_DESC": "Seus clientes não querem perder tempo com informações excessivas. Ofereça a eles uma plataforma simples e direta que também fornece a você uma gestão completa do seu negócio."
+    },
+    "PRICING": {
+      "TITLE": "Planos",
+      "PER_MONTH": "por mês",
+      "FEATURES": {
+        "BOOKING_LINK": "Link único de agendamento",
+        "NOTIFICATIONS": "Envie notificações para seus clientes",
+        "REPORTS": "Relatórios de agendamentos",
+        "FINANCIAL": "Relatório financeiro incluindo ganhos, despesas e previsões",
+        "UNLIMITED": "Agendamentos ilimitados",
+        "RECURRING": "Agendamentos recorrentes"
+      },
+      "SIGN_UP": "Cadastre-se agora",
+      "FREE_TRIAL": "7 dias de teste grátis sem necessidade de cartão de crédito"
+    }
+  }
+}

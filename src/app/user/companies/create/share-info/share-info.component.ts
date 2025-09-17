@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../company/services/company.service';
-import test from 'node:test';
 
 @Component({
   selector: 'app-share-info',

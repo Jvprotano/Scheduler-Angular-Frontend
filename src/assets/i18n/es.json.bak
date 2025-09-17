@@ -1,0 +1,74 @@
+{
+    "NAV": {
+        "MENU": {
+            "PRICING": "Precios",
+            "FEATURES": "Funcionalidades",
+            "ACCESS_BUSINESS": "Acceder a mi negocio",
+            "LOGOUT": "Salir",
+            "TRY_FREE": "Prueba gratis",
+            "LOGIN": "Inicia sesión"
+        }
+    },
+    "LOGIN": {
+        "TITLE": "Iniciar sesión",
+        "WELCOME_BACK": "¡Bienvenido de nuevo!",
+        "WELCOME_TEXT": "Nos alegra verte nuevamente.",
+        "WELCOME_TEXT_2": "Continuar a",
+        "LOGIN_ACCOUNT": "Inicia sesión en tu cuenta",
+        "EMAIL": {
+            "LABEL": "Correo electrónico",
+            "PLACEHOLDER": "Ingresa tu correo electrónico",
+            "REQUIRED": "El correo electrónico es obligatorio",
+            "INVALID": "Por favor, ingresa un correo electrónico válido"
+        },
+        "PASSWORD": {
+            "LABEL": "Contraseña",
+            "PLACEHOLDER": "Ingresa tu contraseña",
+            "REQUIRED": "La contraseña es obligatoria"
+        },
+        "ACCESS": "Iniciar sesión",
+        "ACCESSING": "Iniciando sesión...",
+        "AUTO_FILL": "Tu navegador puede ofrecer guardar esta contraseña",
+        "GUEST_LOGIN": "Continuar como invitado",
+        "NO_ACCOUNT": "¿No tienes una cuenta?",
+        "REMEMBER_ME": "Recuérdame",
+        "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
+        "SIGN_IN": "Ingresar",
+        "REGISTER": "Crear una cuenta",
+        "CONTINUE_AS_GUEST": "Continuar como invitado",
+        "ERRORS": {
+            "REQUIRED_EMAIL": "El correo electrónico es obligatorio",
+            "INVALID_EMAIL": "Por favor, ingresa un correo electrónico válido",
+            "REQUIRED_PASSWORD": "La contraseña es obligatoria",
+            "INVALID_CREDENTIALS": "Correo electrónico o contraseña inválidos"
+        },
+        "SUCCESS": "Inicio de sesión exitoso",
+        "WELCOME": "Bienvenido"
+    },
+    "HOME": {
+        "TITLE": "Más que una agenda",
+        "DESCRIPTION": "Simplifica la forma en que tus clientes programan sus servicios mientras proporcionas una plataforma completa de gestión.",
+        "FEATURES": {
+            "ACCESS_ANYWHERE": "Accede desde Cualquier Lugar",
+            "ACCESS_ANYWHERE_DESC": "No es necesario instalar una aplicación. Disponible en cualquier plataforma: iPhone, Android, Windows, entre otros...",
+            "NOTIFICATIONS": "Notificaciones",
+            "NOTIFICATIONS_DESC": "Envía notificaciones para recordar a tus clientes sobre sus citas, reduciendo las ausencias y aumentando los ingresos.",
+            "SIMPLE": "Simple y Completo",
+            "SIMPLE_DESC": "Tus clientes no quieren perder tiempo con información excesiva. Ofréceles una plataforma simple y directa que también te proporciona una gestión completa de tu negocio."
+        },
+        "PRICING": {
+            "TITLE": "Planes",
+            "PER_MONTH": "por mes",
+            "FEATURES": {
+                "BOOKING_LINK": "Enlace único de reserva",
+                "NOTIFICATIONS": "Envía notificaciones a tus clientes",
+                "REPORTS": "Informes de reservas",
+                "FINANCIAL": "Informe financiero incluyendo ganancias, gastos y previsiones",
+                "UNLIMITED": "Reservas ilimitadas",
+                "RECURRING": "Citas recurrentes"
+            },
+            "SIGN_UP": "Regístrate ahora",
+            "FREE_TRIAL": "7 días de prueba gratis sin necesidad de tarjeta de crédito"
+        }
+    }
+}

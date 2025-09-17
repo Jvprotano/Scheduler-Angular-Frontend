@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from '../../account/services/account.service';
 import { Observable } from 'rxjs';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgbDropdownModule],
+  imports: [CommonModule, RouterModule, NgbDropdownModule, TranslateModule],
   templateUrl: './menu-login.component.html',
   styleUrl: './menu-login.component.css'
 })

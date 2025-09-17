@@ -47,7 +47,7 @@ export class BasicInfoComponent implements OnInit {
       image: this.image,
       isPhysicalCompany: this.isPhysicalCompany
     };
-    this.next.emit(data);
+    this.next.emit(data); 
   }
 
   hasImage(): boolean {

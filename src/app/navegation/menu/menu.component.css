@@ -13,3 +13,40 @@
     border-radius: 150px;
     margin: 1%;
 }
+
+.dropdown-toggle {
+    padding: 0;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-toggle::after {
+    margin-left: 0.5rem;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-menu {
+    min-width: 160px;
+}
+
+.dropdown img {
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item.active {
+    background-color: var(--dark-blue);
+    color: white;
+}

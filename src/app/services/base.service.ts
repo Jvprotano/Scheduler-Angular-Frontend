@@ -1,93 +1,78 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http"
-import { catchError, map, throwError } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { environment } from "../../environments/environment.development";
 import { LocalStorageUtils } from "../utils/localstorage";
 import { inject } from "@angular/core";
+import { ApiResponse } from "../shared/interfaces/api-response.interface";
+import { ErrorHandlingService } from "../shared/services/error-handling.service";
 
-export class BaseService {
-
+export abstract class BaseService {
     protected httpClient: HttpClient;
+    protected errorHandler: ErrorHandlingService;
 
     constructor() {
         this.httpClient = inject(HttpClient);
+        this.errorHandler = inject(ErrorHandlingService);
     }
-    protected UrlServiceV1: string = environment.apiUrl;
-    public LocalStorage = new LocalStorageUtils();
 
-    protected GetHeaderJson() {
+    protected readonly apiUrl: string = environment.apiUrl;
+    public localStorage = new LocalStorageUtils();
+
+    protected getHeaderJson(): { headers: HttpHeaders } {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
-        }
+        };
     }
 
-    protected GetAuthHeaderJson() {
+    protected getAuthHeaderJson(): { headers: HttpHeaders } {
         return {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.LocalStorage.getUserToken()}`
+                'Authorization': `Bearer ${this.localStorage.getUserToken()}`
             })
-        }
+        };
     }
 
-    protected get(route: string, authenticated: boolean = true) {
-        return this.httpClient.get(`${this.UrlServiceV1}${route}`, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
+    protected get<T>(route: string, authenticated: boolean = true): Observable<T> {
+        return this.httpClient
+            .get<ApiResponse<T>>(`${this.apiUrl}${route}`, authenticated ? this.getAuthHeaderJson() : this.getHeaderJson())
             .pipe(
                 map(this.extractData),
-                catchError(this.serviceError)
-            );
-    }
-    protected post(route: string, data: any, authenticated: boolean = true) {
-        return this.httpClient.post(`${this.UrlServiceV1}${route}`, data, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
-            .pipe(
-                map(this.extractData),
-                catchError(this.serviceError)
-            );
-    }
-    protected put(route: string, data: any, authenticated: boolean = true) {
-        return this.httpClient.put(`${this.UrlServiceV1}${route}`, data, authenticated ? this.GetAuthHeaderJson() : this.GetHeaderJson())
-            .pipe(
-                map(this.extractData),
-                catchError(this.serviceError)
+                catchError(error => this.errorHandler.handleError(error))
             );
     }
 
-    protected extractData(response: any) {
-        return response.data || {};
+    protected post<T>(route: string, data: unknown, authenticated: boolean = true): Observable<T> {
+        return this.httpClient
+            .post<ApiResponse<T>>(`${this.apiUrl}${route}`, data, authenticated ? this.getAuthHeaderJson() : this.getHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(error => this.errorHandler.handleError(error))
+            );
     }
 
-    protected serviceError(response: HttpErrorResponse) {
-        let customErrorMessage: string;
+    protected put<T>(route: string, data: unknown, authenticated: boolean = true): Observable<T> {
+        return this.httpClient
+            .put<ApiResponse<T>>(`${this.apiUrl}${route}`, data, authenticated ? this.getAuthHeaderJson() : this.getHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(error => this.errorHandler.handleError(error))
+            );
+    }
 
-        if (!response)
-            customErrorMessage = "Erro ao processar a requisição, por favor tente novamente mais tarde";
-        else
-            switch (response.status) {
-                case 400:
-                    customErrorMessage = 'Dados incorretos ou inválidos';
-                    break;
-                case 401:
-                    customErrorMessage = 'Você não está autorizado a acessar este recurso';
-                    break;
-                case 403:
-                    customErrorMessage = 'Você não tem permissão para acessar este recurso';
-                    break;
-                case 404:
-                    customErrorMessage = 'Opção não encontrada, por favor tente novamente mais tarde';
-                    break;
-                case 500:
-                    customErrorMessage = 'Ocorreu um erro interno no servidor, por favor tente novamente mais tarde';
-                    break;
-                default:
-                    customErrorMessage = 'Erro ao processar a requisição, por favor tente novamente mais tarde';
-                    break;
-            }
+    protected delete<T>(route: string, authenticated: boolean = true): Observable<T> {
+        return this.httpClient
+            .delete<ApiResponse<T>>(`${this.apiUrl}${route}`, authenticated ? this.getAuthHeaderJson() : this.getHeaderJson())
+            .pipe(
+                map(this.extractData),
+                catchError(error => this.errorHandler.handleError(error))
+            );
+    }
 
-        return throwError(() => new HttpErrorResponse({
-            ...response,
-            error: customErrorMessage,
-            url: response?.url || undefined
-        }));
+    protected extractData<T>(response: ApiResponse<T>): T {
+        return response.data;
     }
 }

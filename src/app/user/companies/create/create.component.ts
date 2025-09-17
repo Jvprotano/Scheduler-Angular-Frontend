@@ -43,6 +43,8 @@ export class CreateComponent {
     /**
      * Inicializa o form com os dados
      */
+    console.log("Company to edit")
+    console.log(this.companyToEdit)
     this.initFormValidation(this.companyToEdit);
   }
 
@@ -75,6 +77,7 @@ export class CreateComponent {
       site: [''],
       description: [''],
       schedulingUrl: [company?.schedulingUrl],
+      openingHours: [company?.openingHours]
     });
   }
 
@@ -143,6 +146,7 @@ export class CreateComponent {
 
   onSubmit(): void {
     console.log('submit');
+    console.log(this.companyToEdit)
     console.log(this.createForm.value)
     // Lógica para enviar dados do formulário para o backend
   }
