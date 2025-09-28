@@ -252,8 +252,8 @@ hr {
 }
 
 .services-circle .node {
-  width: 86px;
-  height: 86px;
+      width: 120px;
+    height: 120px;
   border-radius: 50%;
   background: white;
   display: flex;
@@ -272,7 +272,12 @@ hr {
   display: block;
   font-size: 0.65rem;
   color: #0f172a;
-  margin-top: 6px;
+  /* margin-top: 6px; */
+}
+
+.service-icon {
+      width: 55px;
+    height: 55px;
 }
 
 .services-circle .node:hover {

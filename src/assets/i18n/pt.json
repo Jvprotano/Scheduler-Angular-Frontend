@@ -135,7 +135,13 @@
     "TRY_FREE": "Experimente grátis",
     "SERVICES": {
       "TITLE": "Serviços Disponíveis",
-      "SUBTITLE": "Encontre o profissional perfeito para você"
+      "SUBTITLE": "Encontre o profissional perfeito para você",
+      "ITEM_1": "Barbearia",
+      "ITEM_2": "Manicure",
+      "ITEM_3": "Massagem",
+      "ITEM_4": "Estética",
+      "ITEM_5": "Spa",
+      "ITEM_6": "Maquiagem"
     }
   }
 }
