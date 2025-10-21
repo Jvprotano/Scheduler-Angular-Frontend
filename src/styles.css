@@ -19,6 +19,46 @@ input.form-control {
     --light-blue: #edf7ff;
     --medium-blue: #ACD7EC;
     --purple-blue: #8B95C9;
+    --gradient: linear-gradient(90deg, hsla(167, 35%, 24%, 1) 0%, hsla(167, 46%, 61%, 1) 100%);
+    --gradient-btn: linear-gradient(180deg, hsla(167, 35%, 24%, 1) 0%, hsla(167, 53%, 41%, 1) 90%);
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.btn-gradient {
+    background: var(--gradient-btn);
+    color: white !important;
+    border: none;
+}
+
+.btn-gradient:hover {
+    background: var(--gradient);
+    color: white !important;
+}
+
+.btn-white {
+    background: white;
+    color: var(--dark-blue) !important;
+    border: none;
+}
+
+.btn-white:hover {
+    background: var(--light-blue);
+    color: var(--dark-blue) !important;
+    border: none;
+}
+
+.btn-lg {
+    height: 56px;
+    line-height: 40px;
 }
 
 html {

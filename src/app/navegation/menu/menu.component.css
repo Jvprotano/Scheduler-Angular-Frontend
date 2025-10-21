@@ -1,4 +1,4 @@
-.navbar-brand{
+.navbar-brand {
     font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
@@ -10,8 +10,8 @@
 
 .navbar {
     background-color: transparent;
-    border-radius: 150px;
-    margin: 1%;
+    /* border-radius: 150px;
+    margin: 1%; */
 }
 
 .dropdown-toggle {
@@ -39,7 +39,7 @@
 .dropdown img {
     object-fit: cover;
     border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-item:hover {
@@ -49,4 +49,14 @@
 .dropdown-item.active {
     background-color: var(--dark-blue);
     color: white;
+}
+
+.icon-header {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient);
+}
+
+.icon-header svg {
+    width: 22px;
 }

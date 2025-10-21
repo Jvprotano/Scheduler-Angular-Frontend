@@ -126,6 +126,18 @@
       },
       "SIGN_UP": "Regístrate ahora",
       "FREE_TRIAL": "7 días de prueba gratis sin necesidad de tarjeta de crédito"
+    },
+    "GET_STARTED": "Comenzar",
+    "TRY_FREE": "Prueba gratuita",
+    "SERVICES": {
+      "TITLE": "Servicios Disponibles",
+      "SUBTITLE": "Encuentra al profesional perfecto para ti",
+      "ITEM_1": "Barbería",
+      "ITEM_2": "Manicura",
+      "ITEM_3": "Masaje",
+      "ITEM_4": "Estética",
+      "ITEM_5": "Spa",
+      "ITEM_6": "Maquillaje"
     }
   }
 }

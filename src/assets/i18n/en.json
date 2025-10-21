@@ -126,6 +126,18 @@
       },
       "SIGN_UP": "Sign up now",
       "FREE_TRIAL": "7-day free trial with no upfront credit card registration"
+    },
+    "GET_STARTED": "Get Started",
+    "TRY_FREE": "Try Free",
+    "SERVICES": {
+      "TITLE": "Available Services",
+      "SUBTITLE": "Find the perfect professional for you",
+      "ITEM_1": "Barber Shop",
+      "ITEM_2": "Manicure",
+      "ITEM_3": "Massage",
+      "ITEM_4": "Aesthetics",
+      "ITEM_5": "Spa",
+      "ITEM_6": "Makeup"
     }
   }
 }
