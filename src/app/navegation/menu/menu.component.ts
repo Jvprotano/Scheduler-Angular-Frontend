@@ -31,12 +31,15 @@ export class MenuComponent implements OnInit {
     private translate: TranslateService
   ) { 
     this.isLoggedIn$ = this.accountService.userIsLoggedObs;
-    this.currentLang = this.translate.currentLang || 'pt';
+    // normalize language code to primary subtag (e.g. 'en' from 'en-US') so it matches flag filenames
+    const initialLang = this.translate.currentLang || 'pt';
+    this.currentLang = initialLang.split('-')[0];
   }
 
   switchLanguage(lang: string) {
     this.translate.use(lang);
-    this.currentLang = lang;;
+    // ensure we use the primary subtag for the flag file (assets/flags/{lang}.svg)
+    this.currentLang = (lang || '').split('-')[0] || 'pt';
   }
 
   ngOnInit(): void {

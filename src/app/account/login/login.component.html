@@ -1,84 +1,48 @@
-<div class="row w-100">
-  <div class="col-md-6 container-info p-md-4">
+<div class="auth-wrapper">
+  <div class="auth-left">
     <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
-    <div class="content-info float-end mt-5 w-75">
-      <h1 class="mt-4 mb-3"><span>{{ 'LOGIN.WELCOME_BACK' | translate }}</span></h1>
-      <h2 class="mb-1">{{ 'LOGIN.WELCOME_TEXT' | translate }}</h2>
-      <h2>{{ 'LOGIN.WELCOME_TEXT_2' | translate }} <span>Agende</span></h2>
-      <img src="assets/login.png" alt="Login" class="img-fluid w-75">
+    <div class="hero">
+      <h1>{{ 'LOGIN.WELCOME_BACK' | translate }}</h1>
+      <p class="lead">{{ 'LOGIN.WELCOME_TEXT' | translate }}</p>
+      <img src="assets/login.png" alt="Login illustration" class="hero-img">
     </div>
-
   </div>
 
-  <div class="align-items-center col-md-6 container-login d-flex flex-column justify-content-center">
-    <a class="navbar-brand navbar-brand-mobile ps-4" style="display: none;" routerLink="/home">Agende</a>
-    <h1 class="text-center mb-0">{{ 'LOGIN.LOGIN_ACCOUNT' | translate }}</h1>
-    <form novalidate (ngSubmit)="login()" [ngClass]="isScheduling ? 'col-12' : 'col-6'" [formGroup]="loginForm">
-      <hr>
-      <div class="form-group">
-        <label class="control-label mb-2">{{ 'LOGIN.EMAIL.LABEL' | translate }}</label>
-        <input [ngClass]="{
-            'is-invalid': formSubmited && form['emailOrPhone'].errors
-          }" class="form-control shadow-none" id="emailOrPhone" type="text" 
-          [placeholder]="'LOGIN.EMAIL.PLACEHOLDER' | translate"
-          formControlName="emailOrPhone" />
-        <div *ngIf="formSubmited && form['emailOrPhone'].errors" class="invalid-feedback">
-          <div *ngIf="form['emailOrPhone'].errors['required']">
-            {{ 'LOGIN.EMAIL.REQUIRED' | translate }}
-          </div>
-          <div *ngIf="form['emailOrPhone'].errors['emailOrPhone']">
-            {{ 'LOGIN.EMAIL.INVALID' | translate }}
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label mb-2">{{ 'LOGIN.PASSWORD.LABEL' | translate }}</label>
-        <input [ngClass]="{
-            'is-invalid': formSubmited && form['password'].errors
-          }" class="form-control shadow-none" id="password" type="password" 
-          [placeholder]="'LOGIN.PASSWORD.PLACEHOLDER' | translate"
-          formControlName="password" />
-        <div *ngIf="formSubmited && form['password'].errors" class="invalid-feedback">
-          <div *ngIf="form['password'].errors['required']">
-            {{ 'LOGIN.PASSWORD.REQUIRED' | translate }}
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group d-flex justify-content-end">
-        <button [ngClass]=" isScheduling ? 'btn btn-login' : 'btn btn-login w-50'" id="Login"
-          type="submit">{{!isDisabledLogin ?
-          ('LOGIN.ACCESS' | translate) : ''}}
-          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabledLogin">
-            <span class="me-2">
-              {{ 'LOGIN.ACCESSING' | translate }}
-            </span>
-            <span class="spinner-border flex-shrink-0" role="status">
-              <span class="visually-hidden">{{ 'LOGIN.ACCESSING' | translate }}</span>
-            </span>
-          </span></button>
-        </div>
+  <div class="auth-card">
+    <div class="card-inner">
+      <h2 class="card-title">{{ 'LOGIN.LOGIN_ACCOUNT' | translate }}</h2>
+      <form novalidate (ngSubmit)="login()" [formGroup]="loginForm">
         <div class="form-group">
-          <p class="me-2 mb-0" style="font-size: 10px;">{{ 'LOGIN.AUTO_FILL' | translate }}</p>
+          <label>{{ 'LOGIN.EMAIL.LABEL' | translate }}</label>
+          <input [ngClass]="{ 'is-invalid': formSubmited && form['emailOrPhone'].errors }"
+            class="form-control" id="emailOrPhone" type="text" [placeholder]="'LOGIN.EMAIL.PLACEHOLDER' | translate"
+            formControlName="emailOrPhone" />
+          <div *ngIf="formSubmited && form['emailOrPhone'].errors" class="invalid-feedback">
+            <div *ngIf="form['emailOrPhone'].errors['required']">{{ 'LOGIN.EMAIL.REQUIRED' | translate }}</div>
+            <div *ngIf="form['emailOrPhone'].errors['emailOrPhone']">{{ 'LOGIN.EMAIL.INVALID' | translate }}</div>
+          </div>
         </div>
-      <div class="form-group d-flex justify-content-end" *ngIf="isScheduling">
-        <button class="btn btn-login" id="GuestLogin" (click)="guestLogin()">{{ 'LOGIN.GUEST_LOGIN' | translate }}
-          <span class="align-items-center d-flex justify-content-center" *ngIf="isDisabledGuest">
-            <span class="me-2">
-              {{ 'LOGIN.ACCESSING' | translate }}
-            </span>
-            <span class="spinner-border flex-shrink-0" role="status">
-              <span class="visually-hidden">{{ 'LOGIN.ACCESSING' | translate }}</span>
-            </span>
-          </span>
-        </button>
-      </div>
 
-      <div class="form-group d-flex justify-content-end align-items-center mt-4">
-        <p class="text-center me-2 mb-0">{{ 'LOGIN.NO_ACCOUNT' | translate }}</p>
-        <a class="btn btn-outline-dark w-auto" id="Register" [routerLink]="['/account/register']">{{ 'LOGIN.REGISTER' | translate }}</a>
-      </div>
-    </form>
+        <div class="form-group">
+          <label>{{ 'LOGIN.PASSWORD.LABEL' | translate }}</label>
+          <input [ngClass]="{ 'is-invalid': formSubmited && form['password'].errors }" class="form-control"
+            id="password" type="password" [placeholder]="'LOGIN.PASSWORD.PLACEHOLDER' | translate" formControlName="password" />
+          <div *ngIf="formSubmited && form['password'].errors" class="invalid-feedback">
+            <div *ngIf="form['password'].errors['required']">{{ 'LOGIN.PASSWORD.REQUIRED' | translate }}</div>
+          </div>
+        </div>
+
+        <div class="form-actions d-flex justify-content-between align-items-center">
+          <a class="text-muted small" routerLink="/account/register">{{ 'LOGIN.NO_ACCOUNT' | translate }}</a>
+          <button class="btn btn-gradient" type="submit">
+            <span *ngIf="!isDisabledLogin">{{ 'LOGIN.ACCESS' | translate }}</span>
+            <span *ngIf="isDisabledLogin" class="d-flex align-items-center">
+              {{ 'LOGIN.ACCESSING' | translate }}
+              <span class="spinner-border ms-2" role="status"></span>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

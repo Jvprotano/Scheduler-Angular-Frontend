@@ -4,12 +4,13 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Typed from 'typed.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { RouterModule } from '@angular/router';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

@@ -1,110 +1,80 @@
-<div class="container d-flex">
-    <div class="container-info col-md-6">
-        <hr>
-        <div class="content-info">
-            <h1>{{ 'REGISTER.WELCOME.TITLE' | translate }}</h1>
-            <h2>{{ 'REGISTER.WELCOME.DESCRIPTION' | translate }}</h2>
-        </div>
+<div class="auth-wrapper">
+  <div class="auth-left">
+    <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
+    <div class="hero">
+      <h1>{{ 'REGISTER.WELCOME.TITLE' | translate }}</h1>
+      <p class="lead">{{ 'REGISTER.WELCOME.DESCRIPTION' | translate }}</p>
     </div>
+  </div>
 
-    <div class="container-login col-md-6">
-        <div class="container-login col-md-6">
-            <h1 class="text-center">{{ 'REGISTER.TITLE' | translate }}</h1>
-            <form novalidate class="d-grid justify-content-center" [formGroup]="registerForm">
-                <hr>
-                <div class="alert alert-danger" *ngIf="errors.length > 0">
-                    <h3 id="msgRetorno">{{ 'REGISTER.ERRORS.TITLE' | translate }}</h3>
-                    <ul>
-                        <li *ngFor="let error of errors">{{ error }}</li>
-                    </ul>
-                </div>
-                <div *ngIf="!registerInfoField">
-                    <div class="form-group">
-                        <label class="control-label">{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</label>
-                        <input class="form-control" id="email" type="text" [placeholder]="'REGISTER.FORM.EMAIL.PLACEHOLDER' | translate"
-                            formControlName="email" [ngClass]="{'is-invalid': displayMessage['email'] }" />
-                        <span class="text-danger" *ngIf="displayMessage['email']">
-                            <p [innerHTML]="displayMessage['email']"></p>
-                        </span>
-                    </div>
+  <div class="auth-card">
+    <div class="card-inner">
+      <h2 class="card-title">{{ 'REGISTER.TITLE' | translate }}</h2>
 
-                    <div class="form-group">
-                        <label class="control-label">{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</label>
-                        <input class="form-control" id="password" type="password"
-                            [placeholder]="'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate" formControlName="password"
-                            [ngClass]="{'is-invalid': displayMessage['password'] }" />
-                        <span class="text-danger" *ngIf="displayMessage['password']">
-                            <p [innerHTML]="displayMessage['password']"></p>
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">{{ 'REGISTER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</label>
-                        <input class="form-control" id="confirmPassword" type="password"
-                            [placeholder]="'REGISTER.FORM.CONFIRM_PASSWORD.PLACEHOLDER' | translate" formControlName="confirmPassword"
-                            [ngClass]="{'is-invalid': displayMessage['confirmPassword'] }" />
-                        <span class="text-danger" *ngIf="displayMessage['confirmPassword']">
-                            <p [innerHTML]="displayMessage['confirmPassword']"></p>
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-outline-primary" type="submit" [disabled]="!registerForm.valid"
-                            (click)="registerInfoField = true">{{ 'REGISTER.BUTTONS.CONTINUE' | translate }}</button>
-                    </div>
-                </div>
-            </form>
-
-            <form novalidate (ngSubmit)="addAccount()" class="d-grid justify-content-center"
-                [formGroup]="registerUserInfoForm" *ngIf="registerInfoField">
-                <div>
-                    <div class="row">
-                        <div class="form-group">
-                            <label class="control-label">{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }}</label>
-                            <input class="form-control" id="firstName" type="text"
-                                [placeholder]="'REGISTER.FORM.FIRST_NAME.PLACEHOLDER' | translate"
-                                formControlName="firstName" [ngClass]="{'is-invalid': displayMessage['firstName'] }" />
-                            <span class="text-danger" *ngIf="displayMessage['firstName']">
-                                <p [innerHTML]="displayMessage['firstName']"></p>
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">{{ 'REGISTER.FORM.LAST_NAME.LABEL' | translate }}</label>
-                            <input class="form-control" id="lastName" type="text"
-                                [placeholder]="'REGISTER.FORM.LAST_NAME.PLACEHOLDER' | translate"
-                                formControlName="lastName" [ngClass]="{'is-invalid': displayMessage['lastName'] }" />
-                            <span class="text-danger" *ngIf="displayMessage['lastName']">
-                                <p [innerHTML]="displayMessage['lastName']"></p>
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">{{ 'REGISTER.FORM.PHONE.LABEL' | translate }}</label>
-                            <input class="form-control" id="phone" type="text"
-                                [placeholder]="'REGISTER.FORM.PHONE.PLACEHOLDER' | translate"
-                                formControlName="phone" [ngClass]="{'is-invalid': displayMessage['phone'] }" />
-                            <span class="text-danger" *ngIf="displayMessage['phone']">
-                                <p [innerHTML]="displayMessage['phone']"></p>
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">{{ 'REGISTER.FORM.BIRTH_DATE.LABEL' | translate }}</label>
-                            <input class="form-control" id="birthDate" type="date"
-                                [placeholder]="'REGISTER.FORM.BIRTH_DATE.PLACEHOLDER' | translate"
-                                formControlName="birthDate" [ngClass]="{'is-invalid': displayMessage['birthDate'] }" />
-                            <span class="text-danger" *ngIf="displayMessage['birthDate']">
-                                <p [innerHTML]="displayMessage['birthDate']"></p>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-outline-primary" type="submit"
-                            (click)="registerInfoField = false">{{ 'REGISTER.BUTTONS.BACK' | translate }}</button>
-                        <button class="btn btn-outline-primary"
-                            [disabled]="!registerForm.valid || !registerUserInfoForm.valid"
-                            type="submit">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
-                    </div>
-                </div>
-            </form>
+      <form novalidate class="step-one" [formGroup]="registerForm" *ngIf="!registerInfoField">
+        <div *ngIf="errors.length > 0" class="alert alert-danger">
+          <h5>{{ 'REGISTER.ERRORS.TITLE' | translate }}</h5>
+          <ul><li *ngFor="let error of errors">{{ error }}</li></ul>
         </div>
+
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</label>
+          <input class="form-control" id="email" type="text"
+            [placeholder]="'REGISTER.FORM.EMAIL.PLACEHOLDER' | translate" formControlName="email"
+            [ngClass]="{'is-invalid': displayMessage['email'] }" />
+          <div *ngIf="displayMessage['email']" class="invalid-feedback" [innerHTML]="displayMessage['email']"></div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</label>
+          <input class="form-control" id="password" type="password"
+            [placeholder]="'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate" formControlName="password"
+            [ngClass]="{'is-invalid': displayMessage['password'] }" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</label>
+          <input class="form-control" id="confirmPassword" type="password"
+            [placeholder]="'REGISTER.FORM.CONFIRM_PASSWORD.PLACEHOLDER' | translate" formControlName="confirmPassword"
+            [ngClass]="{'is-invalid': displayMessage['confirmPassword'] }" />
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-outline-primary" type="button" [disabled]="!registerForm.valid"
+            (click)="registerInfoField = true">{{ 'REGISTER.BUTTONS.CONTINUE' | translate }}</button>
+        </div>
+      </form>
+
+      <form novalidate (ngSubmit)="addAccount()" [formGroup]="registerUserInfoForm" *ngIf="registerInfoField">
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }}</label>
+          <input class="form-control" id="firstName" type="text" formControlName="firstName"
+            [ngClass]="{'is-invalid': displayMessage['firstName'] }" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.LAST_NAME.LABEL' | translate }}</label>
+          <input class="form-control" id="lastName" type="text" formControlName="lastName"
+            [ngClass]="{'is-invalid': displayMessage['lastName'] }" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.PHONE.LABEL' | translate }}</label>
+          <input class="form-control" id="phone" type="text" formControlName="phone"
+            [ngClass]="{'is-invalid': displayMessage['phone'] }" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'REGISTER.FORM.BIRTH_DATE.LABEL' | translate }}</label>
+          <input class="form-control" id="birthDate" type="date" formControlName="birthDate"
+            [ngClass]="{'is-invalid': displayMessage['birthDate'] }" />
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-outline-primary" type="button" (click)="registerInfoField = false">{{ 'REGISTER.BUTTONS.BACK' | translate }}</button>
+          <button class="btn btn-gradient" type="submit" [disabled]="!registerForm.valid || !registerUserInfoForm.valid">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="row" *ngIf="hasDateSelected()">
-                    <h2 style="color: var(--green-conci);" *ngIf="!timesAvailable">Desculpe. A agenda na data selecionada já está
+                    <h2 style="color: var(--primary-green);" *ngIf="!timesAvailable">Desculpe. A agenda na data selecionada já está
                         cheia ou fechada! :( Altere o filtro de data para obter os horários disponíveis. </h2>
                     <div *ngFor="let time of timesAvailable" class="col-md-2">
                         <button class="card-option bg-transparent" href="javascript:void(0);" (click)="selectTime(time)"

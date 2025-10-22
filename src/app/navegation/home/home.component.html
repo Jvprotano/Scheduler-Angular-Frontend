@@ -6,9 +6,9 @@
         <span id="typed"></span>
       </div>
       <div #homeButtons class="home-buttons d-flex align-items-center gap-4">
-        <a class="btn btn-gradient btn-lg rounded-5" routerLink="/account/register"><i
+        <a class="btn btn-gradient btn-lg rounded-5" [routerLink]="'/account/register'"><i
             class="bi bi-calendar-plus me-2"></i>{{ 'HOME.GET_STARTED' | translate }}</a>
-        <a class="btn btn-white btn-lg rounded-5" routerLink="/account/login"><i class="bi bi-play me-2"></i>{{
+        <a class="btn btn-white btn-lg rounded-5" [routerLink]="'/account/register'"><i class="bi bi-play me-2"></i>{{
           'HOME.TRY_FREE' | translate }}</a>
       </div>
     </div>
@@ -24,7 +24,7 @@
   <div class="header-style"></div>
 </div>
 
-<div class="container functionalities">
+<div class="container functionalities" id="features">
   <div class="row">
     <div class="col-12 text-center mb-4">
       <h2 class="fs-1 mb-4">{{ 'HOME.FEATURES.TITLE' | translate }}</h2>
@@ -69,7 +69,7 @@
   </div>
 </div>
 
-<div class="container services my-5">
+<div class="container services my-5" id="services">
   <h2 class="fs-1 my-4 text-center">{{ 'HOME.SERVICES.TITLE' | translate }}</h2>
   <p class="fs-5 subtitle text-center">{{ 'HOME.SERVICES.SUBTITLE' | translate }}</p>
   <div class="services-animation d-flex justify-content-center">
@@ -104,7 +104,7 @@
 </div>
 
 <hr>
-<div class="container-price">
+<div class="container-price" id="pricing">
   <div class="row">
     <div class="col-md-4 col-sm-12">
       <h1 id="planos">{{ 'HOME.PRICING.TITLE' | translate }}</h1>
