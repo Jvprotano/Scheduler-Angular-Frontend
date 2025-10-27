@@ -26,7 +26,11 @@
         "LABEL": "Password",
         "PLACEHOLDER": "Password (required)",
         "REQUIRED": "Password is required",
-        "LENGTH": "Password must be between 6 and 15 characters"
+        "LENGTH": "Password must be between 6 and 15 characters",
+        "MIN_LENGTH": "Password must be at least 8 characters",
+        "MAX_LENGTH": "Password must be at most 30 characters",
+        "PATTERN": "Password must contain uppercase, lowercase, number and special character",
+        "REQUIREMENTS": "At least 8 characters, one uppercase, one lowercase, one number and one special character"
       },
       "CONFIRM_PASSWORD": {
         "LABEL": "Confirm your password",
@@ -55,6 +59,8 @@
       "CONTINUE": "Continue",
       "BACK": "Back",
       "REGISTER": "Register"
+    ,
+    "LOGIN": "Already have an account? Login"
     },
     "ERRORS": {
       "TITLE": "Oops! Something went wrong:",
@@ -65,6 +71,8 @@
       "TITLE": "Welcome!",
       "MESSAGE": "Registration completed successfully!"
     }
+  ,
+  "HAVE_ACCOUNT": "Already have an account?"
   },
   "LOGIN": {
     "TITLE": "Login",
@@ -89,6 +97,7 @@
     "GUEST_LOGIN": "Continue as guest",
     "NO_ACCOUNT": "Don't have an account?",
     "REMEMBER_ME": "Remember me",
+  "OR": "or",
     "FORGOT_PASSWORD": "Forgot your password?",
     "SIGN_IN": "Sign in",
     "REGISTER": "Create an account",

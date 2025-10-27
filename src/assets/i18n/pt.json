@@ -28,7 +28,11 @@
         "LABEL": "Senha",
         "PLACEHOLDER": "Senha (obrigatório)",
         "REQUIRED": "Senha é obrigatória",
-        "LENGTH": "A senha deve ter entre 6 e 15 caracteres"
+        "LENGTH": "A senha deve ter entre 6 e 15 caracteres",
+        "MIN_LENGTH": "A senha deve ter pelo menos 8 caracteres",
+        "MAX_LENGTH": "A senha deve ter no máximo 30 caracteres",
+        "PATTERN": "A senha deve conter letra maiúscula, minúscula, número e caractere especial",
+        "REQUIREMENTS": "Pelo menos 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial"
       },
       "CONFIRM_PASSWORD": {
         "LABEL": "Confirme sua senha",
@@ -57,6 +61,8 @@
       "CONTINUE": "Continuar",
       "BACK": "Voltar",
       "REGISTER": "Cadastrar"
+    ,
+    "LOGIN": "Já tem uma conta? Entrar"
     },
     "ERRORS": {
       "TITLE": "Ops! Algo deu errado:",
@@ -67,6 +73,8 @@
       "TITLE": "Bem-vindo!",
       "MESSAGE": "Cadastro realizado com sucesso!"
     }
+  ,
+  "HAVE_ACCOUNT": "Já tem uma conta?"
   },
   "LOGIN": {
     "TITLE": "Entrar",
@@ -91,6 +99,7 @@
     "GUEST_LOGIN": "Continuar como convidado",
     "NO_ACCOUNT": "Não tem uma conta?",
     "REMEMBER_ME": "Lembrar-me",
+  "OR": "ou",
     "FORGOT_PASSWORD": "Esqueceu sua senha?",
     "SIGN_IN": "Entrar",
     "REGISTER": "Criar uma conta",

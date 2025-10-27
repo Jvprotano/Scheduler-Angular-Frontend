@@ -27,8 +27,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   errors: any[] = [];
 
   registerForm!: FormGroup;
-  registerUserInfoForm!: FormGroup;
   usuario!: AppUser;
+  showPassword: boolean = false;
 
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
@@ -87,9 +87,13 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     let confirmPasswordValidate = new FormControl('', passwordValidators);
 
     this.registerForm = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: passwordValidate,
-      confirmPassword: confirmPasswordValidate
+      confirmPassword: confirmPasswordValidate,
+      phone: [''],
+      birthDate: ['']
     }, { validator: PasswordMatcher.match });
 
     // this.registerUserInfoForm = this.fb.group({
@@ -111,17 +115,22 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   addAccount() {
-    if (this.registerForm.dirty && this.registerForm.valid && this.registerUserInfoForm.valid) {
-      
+    if (this.registerForm.dirty && this.registerForm.valid) {
       this.usuario = Object.assign({}, this.usuario, this.registerForm.value);
-      this.usuario = Object.assign(this.usuario, this.registerUserInfoForm.value);
 
       this.accountService.registerUser(this.usuario).subscribe({
         next: (result) => {
           this.processarSucesso(result);
         }, error: err => { this.processarFalha(err) }
       })
+    } else {
+      // ensure validation messages are shown
+      this.displayMessage = this.genericValidator.processMessages(this.registerForm);
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   processarFalha(response: any) {

@@ -1,92 +1,108 @@
-<div class="auth-wrapper">
-  <div class="auth-left">
-    <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
-    <div class="hero">
-      <h1>{{ 'REGISTER.WELCOME.TITLE' | translate }}</h1>
-      <p class="lead">{{ 'REGISTER.WELCOME.DESCRIPTION' | translate }}</p>
-    </div>
+<div class="register-container">
+  <div class="welcome-section text-center">
+    <a class="brand-link" routerLink="/home">
+      <div class="brand-icon"><i class="bi bi-scissors"></i></div>
+      <h1 class="brand-text">Agende</h1>
+    </a>
+    <p class="welcome-text">{{ 'REGISTER.WELCOME.TITLE' | translate }}</p>
+    <p class="text-muted small">{{ 'REGISTER.WELCOME.DESCRIPTION' | translate }}</p>
   </div>
 
-  <div class="auth-card">
-    <div class="card-inner">
-      <h2 class="card-title">{{ 'REGISTER.TITLE' | translate }}</h2>
+  <div class="register-card">
+    <form novalidate (ngSubmit)="addAccount()" [formGroup]="registerForm" class="register-form">
+      <div *ngIf="errors.length > 0" class="alert alert-danger">
+        <h5>{{ 'REGISTER.ERRORS.TITLE' | translate }}</h5>
+        <ul><li *ngFor="let error of errors">{{ error }}</li></ul>
+      </div>
 
-      <form novalidate (ngSubmit)="addAccount()" class="step-one" [formGroup]="registerForm">
-        <div *ngIf="errors.length > 0" class="alert alert-danger">
-          <h5>{{ 'REGISTER.ERRORS.TITLE' | translate }}</h5>
-          <ul><li *ngFor="let error of errors">{{ error }}</li></ul>
+      <div class="row g-2">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label>{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }}</label>
+            <input class="form-control" id="firstName" type="text" formControlName="firstName"
+              [ngClass]="{'is-invalid': displayMessage['firstName'] }" />
+            <div *ngIf="displayMessage['firstName']" class="invalid-feedback" [innerHTML]="displayMessage['firstName']"></div>
+          </div>
         </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label>{{ 'REGISTER.FORM.LAST_NAME.LABEL' | translate }}</label>
+            <input class="form-control" id="lastName" type="text" formControlName="lastName"
+              [ngClass]="{'is-invalid': displayMessage['lastName'] }" />
+            <div *ngIf="displayMessage['lastName']" class="invalid-feedback" [innerHTML]="displayMessage['lastName']"></div>
+          </div>
+        </div>
+      </div>
 
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</label>
-          <input class="form-control" id="email" type="text"
+      <div class="form-group mt-2">
+        <label>{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</label>
+        <div class="input-group">
+          <span class="input-icon"><i class="bi bi-envelope"></i></span>
+          <input class="form-control" id="email" type="email"
             [placeholder]="'REGISTER.FORM.EMAIL.PLACEHOLDER' | translate" formControlName="email"
             [ngClass]="{'is-invalid': displayMessage['email'] }" />
-          <div *ngIf="displayMessage['email']" class="invalid-feedback" [innerHTML]="displayMessage['email']"></div>
         </div>
+        <div *ngIf="displayMessage['email']" class="invalid-feedback" [innerHTML]="displayMessage['email']"></div>
+      </div>
 
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</label>
-          <input class="form-control" id="password" type="password"
+      <div class="form-group">
+        <label>{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</label>
+        <div class="input-group">
+          <span class="input-icon"><i class="bi bi-lock"></i></span>
+          <input class="form-control" id="password"
+            [type]="showPassword ? 'text' : 'password'"
             [placeholder]="'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate" formControlName="password"
             [ngClass]="{'is-invalid': displayMessage['password'] }" />
-          <div *ngIf="displayMessage['password']" class="invalid-feedback" [innerHTML]="displayMessage['password']"></div>
-          <small class="form-text text-muted mt-1">
-            {{ 'REGISTER.FORM.PASSWORD.REQUIREMENTS' | translate }}:
-            <ul class="mb-0 ps-3 mt-1">
-              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_LENGTH' | translate }}</li>
-              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_UPPERCASE' | translate }}</li>
-              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_LOWERCASE' | translate }}</li>
-              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_NUMBER' | translate }}</li>
-              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_SPECIAL' | translate }}</li>
-            </ul>
-          </small>
+          <button type="button" class="btn-toggle-password" (click)="togglePasswordVisibility()">
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+          </button>
         </div>
+        <div *ngIf="displayMessage['password']" class="invalid-feedback" [innerHTML]="displayMessage['password']"></div>
+        <small class="form-text text-muted mt-1">
+          {{ 'REGISTER.FORM.PASSWORD.REQUIREMENTS' | translate }}
+        </small>
+      </div>
 
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</label>
-          <input class="form-control" id="confirmPassword" type="password"
+      <div class="form-group">
+        <label>{{ 'REGISTER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</label>
+        <div class="input-group">
+          <span class="input-icon"><i class="bi bi-lock"></i></span>
+          <input class="form-control" id="confirmPassword"
+            [type]="showPassword ? 'text' : 'password'"
             [placeholder]="'REGISTER.FORM.CONFIRM_PASSWORD.PLACEHOLDER' | translate" formControlName="confirmPassword"
             [ngClass]="{'is-invalid': displayMessage['confirmPassword'] }" />
-          <div *ngIf="displayMessage['confirmPassword']" class="invalid-feedback" [innerHTML]="displayMessage['confirmPassword']"></div>
         </div>
+        <div *ngIf="displayMessage['confirmPassword']" class="invalid-feedback" [innerHTML]="displayMessage['confirmPassword']"></div>
+      </div>
 
-        <!-- <div class="d-flex justify-content-between">
-          <button class="btn btn-outline-primary" type="button" [disabled]="!registerForm.valid"
-            (click)="registerInfoField = true">{{ 'REGISTER.BUTTONS.CONTINUE' | translate }}</button>
-        </div> -->
-        <div class="d-flex justify-content-between">
-          <!-- <button class="btn btn-outline-primary" type="button">{{ 'REGISTER.BUTTONS.BACK' | translate }}</button> -->
-          <button class="btn btn-gradient" type="submit" [disabled]="!registerForm.valid">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
+      <div class="row g-2">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label>{{ 'REGISTER.FORM.PHONE.LABEL' | translate }}</label>
+            <input class="form-control" id="phone" type="text" formControlName="phone"
+              [ngClass]="{'is-invalid': displayMessage['phone'] }" />
+            <div *ngIf="displayMessage['phone']" class="invalid-feedback" [innerHTML]="displayMessage['phone']"></div>
+          </div>
         </div>
-      </form>
-
-      <!-- <form novalidate (ngSubmit)="addAccount()" [formGroup]="registerUserInfoForm" *ngIf="registerInfoField">
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }}</label>
-          <input class="form-control" id="firstName" type="text" formControlName="firstName"
-            [ngClass]="{'is-invalid': displayMessage['firstName'] }" />
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label>{{ 'REGISTER.FORM.BIRTH_DATE.LABEL' | translate }}</label>
+            <input class="form-control" id="birthDate" type="date" formControlName="birthDate"
+              [ngClass]="{'is-invalid': displayMessage['birthDate'] }" />
+            <div *ngIf="displayMessage['birthDate']" class="invalid-feedback" [innerHTML]="displayMessage['birthDate']"></div>
+          </div>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.LAST_NAME.LABEL' | translate }}</label>
-          <input class="form-control" id="lastName" type="text" formControlName="lastName"
-            [ngClass]="{'is-invalid': displayMessage['lastName'] }" />
-        </div>
+      <button class="btn btn-gradient w-100 mt-3" type="submit" [disabled]="!registerForm.valid">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
 
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.PHONE.LABEL' | translate }}</label>
-          <input class="form-control" id="phone" type="text" formControlName="phone"
-            [ngClass]="{'is-invalid': displayMessage['phone'] }" />
-        </div>
-
-        <div class="form-group">
-          <label>{{ 'REGISTER.FORM.BIRTH_DATE.LABEL' | translate }}</label>
-          <input class="form-control" id="birthDate" type="date" formControlName="birthDate"
-            [ngClass]="{'is-invalid': displayMessage['birthDate'] }" />
-        </div>
-
-      </form> -->
-    </div>
+      <p class="text-center mt-3 small text-muted">
+        {{ 'REGISTER.HAVE_ACCOUNT' | translate }}
+        <a routerLink="/account/login" class="register-link">{{ 'REGISTER.BUTTONS.LOGIN' | translate }}</a>
+      </p>
+    </form>
   </div>
+
+  <div class="decoration-circle circle-1"></div>
+  <div class="decoration-circle circle-2"></div>
 </div>

@@ -26,7 +26,11 @@
         "LABEL": "Contraseña",
         "PLACEHOLDER": "Contraseña (requerida)",
         "REQUIRED": "La contraseña es obligatoria",
-        "LENGTH": "La contraseña debe tener entre 6 y 15 caracteres"
+        "LENGTH": "La contraseña debe tener entre 6 y 15 caracteres",
+        "MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres",
+        "MAX_LENGTH": "La contraseña debe tener como máximo 30 caracteres",
+        "PATTERN": "La contraseña debe contener mayúsculas, minúsculas, número y carácter especial",
+        "REQUIREMENTS": "Al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
       },
       "CONFIRM_PASSWORD": {
         "LABEL": "Confirma tu contraseña",
@@ -55,6 +59,8 @@
       "CONTINUE": "Continuar",
       "BACK": "Volver",
       "REGISTER": "Registrarse"
+    ,
+    "LOGIN": "¿Ya tienes una cuenta? Iniciar sesión"
     },
     "ERRORS": {
       "TITLE": "¡Ops! Algo salió mal:",
@@ -65,6 +71,8 @@
       "TITLE": "¡Bienvenido!",
       "MESSAGE": "¡Registro completado con éxito!"
     }
+  ,
+  "HAVE_ACCOUNT": "¿Ya tienes una cuenta?"
   },
   "LOGIN": {
     "TITLE": "Iniciar sesión",
@@ -89,6 +97,7 @@
     "GUEST_LOGIN": "Continuar como invitado",
     "NO_ACCOUNT": "¿No tienes una cuenta?",
     "REMEMBER_ME": "Recuérdame",
+  "OR": "o",
     "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
     "SIGN_IN": "Ingresar",
     "REGISTER": "Crear una cuenta",
