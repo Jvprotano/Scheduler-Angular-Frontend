@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isDisabledLogin: boolean = false;
   isDisabledGuest: boolean = false;
   isScheduling: boolean = false;
+  showPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -113,6 +114,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.isDisabledLogin = false;
     this.toastr.error(err.error, 'Ops! :(');
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   ngOnDestroy(): void {

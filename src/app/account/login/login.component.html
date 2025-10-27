@@ -1,48 +1,102 @@
-<div class="auth-wrapper">
-  <div class="auth-left">
-    <a class="navbar-brand ps-4" routerLink="/home">Agende</a>
-    <div class="hero">
-      <h1>{{ 'LOGIN.WELCOME_BACK' | translate }}</h1>
-      <p class="lead">{{ 'LOGIN.WELCOME_TEXT' | translate }}</p>
-      <img src="assets/login.png" alt="Login illustration" class="hero-img">
-    </div>
+<div class="login-container">
+  <!-- Logo and welcome section -->
+  <div class="welcome-section text-center">
+    <a class="brand-link" routerLink="/home">
+      <div class="brand-icon">
+        <i class="bi bi-scissors"></i>
+      </div>
+      <h1 class="brand-text">Agende</h1>
+    </a>
+    <p class="welcome-text">{{ 'LOGIN.WELCOME_BACK' | translate }}</p>
   </div>
 
-  <div class="auth-card">
-    <div class="card-inner">
-      <h2 class="card-title">{{ 'LOGIN.LOGIN_ACCOUNT' | translate }}</h2>
-      <form novalidate (ngSubmit)="login()" [formGroup]="loginForm">
-        <div class="form-group">
-          <label>{{ 'LOGIN.EMAIL.LABEL' | translate }}</label>
+  <!-- Login form -->
+  <div class="login-card">
+    <form novalidate (ngSubmit)="login()" [formGroup]="loginForm" class="login-form">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-icon">
+            <i class="bi bi-envelope"></i>
+          </span>
           <input [ngClass]="{ 'is-invalid': formSubmited && form['emailOrPhone'].errors }"
-            class="form-control" id="emailOrPhone" type="text" [placeholder]="'LOGIN.EMAIL.PLACEHOLDER' | translate"
+            class="form-control" id="emailOrPhone" type="text" 
+            [placeholder]="'LOGIN.EMAIL.PLACEHOLDER' | translate"
             formControlName="emailOrPhone" />
-          <div *ngIf="formSubmited && form['emailOrPhone'].errors" class="invalid-feedback">
-            <div *ngIf="form['emailOrPhone'].errors['required']">{{ 'LOGIN.EMAIL.REQUIRED' | translate }}</div>
-            <div *ngIf="form['emailOrPhone'].errors['emailOrPhone']">{{ 'LOGIN.EMAIL.INVALID' | translate }}</div>
-          </div>
         </div>
-
-        <div class="form-group">
-          <label>{{ 'LOGIN.PASSWORD.LABEL' | translate }}</label>
-          <input [ngClass]="{ 'is-invalid': formSubmited && form['password'].errors }" class="form-control"
-            id="password" type="password" [placeholder]="'LOGIN.PASSWORD.PLACEHOLDER' | translate" formControlName="password" />
-          <div *ngIf="formSubmited && form['password'].errors" class="invalid-feedback">
-            <div *ngIf="form['password'].errors['required']">{{ 'LOGIN.PASSWORD.REQUIRED' | translate }}</div>
-          </div>
+        <div *ngIf="formSubmited && form['emailOrPhone'].errors" class="invalid-feedback">
+          <div *ngIf="form['emailOrPhone'].errors['required']">{{ 'LOGIN.EMAIL.REQUIRED' | translate }}</div>
+          <div *ngIf="form['emailOrPhone'].errors['emailOrPhone']">{{ 'LOGIN.EMAIL.INVALID' | translate }}</div>
         </div>
+      </div>
 
-        <div class="form-actions d-flex justify-content-between align-items-center">
-          <a class="text-muted small" routerLink="/account/register">{{ 'LOGIN.NO_ACCOUNT' | translate }}</a>
-          <button class="btn btn-gradient" type="submit">
-            <span *ngIf="!isDisabledLogin">{{ 'LOGIN.ACCESS' | translate }}</span>
-            <span *ngIf="isDisabledLogin" class="d-flex align-items-center">
-              {{ 'LOGIN.ACCESSING' | translate }}
-              <span class="spinner-border ms-2" role="status"></span>
-            </span>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-icon">
+            <i class="bi bi-lock"></i>
+          </span>
+          <input [ngClass]="{ 'is-invalid': formSubmited && form['password'].errors }" 
+            class="form-control" id="password" 
+            [type]="showPassword ? 'text' : 'password'" 
+            [placeholder]="'LOGIN.PASSWORD.PLACEHOLDER' | translate"
+            formControlName="password" />
+          <button type="button" class="btn-toggle-password" (click)="togglePasswordVisibility()">
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
           </button>
         </div>
-      </form>
-    </div>
+        <div *ngIf="formSubmited && form['password'].errors" class="invalid-feedback">
+          <div *ngIf="form['password'].errors['required']">{{ 'LOGIN.PASSWORD.REQUIRED' | translate }}</div>
+        </div>
+      </div>
+
+      <div class="form-group options-row">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="rememberMe" formControlName="rememberMe">
+          <label class="form-check-label" for="rememberMe">
+            {{ 'LOGIN.REMEMBER_ME' | translate }}
+          </label>
+        </div>
+        <a class="forgot-password" routerLink="/account/forgot-password">
+          {{ 'LOGIN.FORGOT_PASSWORD' | translate }}
+        </a>
+      </div>
+
+      <button class="btn btn-gradient w-100" type="submit" [disabled]="isDisabledLogin">
+        <span *ngIf="!isDisabledLogin" class="d-flex align-items-center justify-content-center">
+          <i class="bi bi-box-arrow-in-right me-2"></i>
+          {{ 'LOGIN.ACCESS' | translate }}
+        </span>
+        <span *ngIf="isDisabledLogin" class="d-flex align-items-center justify-content-center">
+          <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ 'LOGIN.ACCESSING' | translate }}
+        </span>
+      </button>
+
+      <div class="divider">
+        <span>{{ 'LOGIN.OR' | translate }}</span>
+      </div>
+
+      <button *ngIf="isScheduling" type="button" class="btn btn-outline w-100" (click)="guestLogin()" [disabled]="isDisabledGuest">
+        <span *ngIf="!isDisabledGuest" class="d-flex align-items-center justify-content-center">
+          <i class="bi bi-person me-2"></i>
+          {{ 'LOGIN.GUEST_LOGIN' | translate }}
+        </span>
+        <span *ngIf="isDisabledGuest" class="d-flex align-items-center justify-content-center">
+          <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ 'LOGIN.ACCESSING' | translate }}
+        </span>
+      </button>
+    </form>
+
+    <p class="text-center mt-4">
+      {{ 'LOGIN.NO_ACCOUNT' | translate }}
+      <a class="register-link" routerLink="/account/register">
+        {{ 'LOGIN.REGISTER' | translate }}
+      </a>
+    </p>
   </div>
+
+  <!-- Decorative elements -->
+  <div class="decoration-circle circle-1"></div>
+  <div class="decoration-circle circle-2"></div>
+  <div class="decoration-circle circle-3"></div>
 </div>

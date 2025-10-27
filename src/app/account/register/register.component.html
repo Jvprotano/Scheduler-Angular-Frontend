@@ -11,7 +11,7 @@
     <div class="card-inner">
       <h2 class="card-title">{{ 'REGISTER.TITLE' | translate }}</h2>
 
-      <form novalidate class="step-one" [formGroup]="registerForm" *ngIf="!registerInfoField">
+      <form novalidate (ngSubmit)="addAccount()" class="step-one" [formGroup]="registerForm">
         <div *ngIf="errors.length > 0" class="alert alert-danger">
           <h5>{{ 'REGISTER.ERRORS.TITLE' | translate }}</h5>
           <ul><li *ngFor="let error of errors">{{ error }}</li></ul>
@@ -30,6 +30,17 @@
           <input class="form-control" id="password" type="password"
             [placeholder]="'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate" formControlName="password"
             [ngClass]="{'is-invalid': displayMessage['password'] }" />
+          <div *ngIf="displayMessage['password']" class="invalid-feedback" [innerHTML]="displayMessage['password']"></div>
+          <small class="form-text text-muted mt-1">
+            {{ 'REGISTER.FORM.PASSWORD.REQUIREMENTS' | translate }}:
+            <ul class="mb-0 ps-3 mt-1">
+              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_LENGTH' | translate }}</li>
+              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_UPPERCASE' | translate }}</li>
+              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_LOWERCASE' | translate }}</li>
+              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_NUMBER' | translate }}</li>
+              <li>{{ 'REGISTER.FORM.PASSWORD.REQ_SPECIAL' | translate }}</li>
+            </ul>
+          </small>
         </div>
 
         <div class="form-group">
@@ -37,15 +48,20 @@
           <input class="form-control" id="confirmPassword" type="password"
             [placeholder]="'REGISTER.FORM.CONFIRM_PASSWORD.PLACEHOLDER' | translate" formControlName="confirmPassword"
             [ngClass]="{'is-invalid': displayMessage['confirmPassword'] }" />
+          <div *ngIf="displayMessage['confirmPassword']" class="invalid-feedback" [innerHTML]="displayMessage['confirmPassword']"></div>
         </div>
 
-        <div class="d-flex justify-content-between">
+        <!-- <div class="d-flex justify-content-between">
           <button class="btn btn-outline-primary" type="button" [disabled]="!registerForm.valid"
             (click)="registerInfoField = true">{{ 'REGISTER.BUTTONS.CONTINUE' | translate }}</button>
+        </div> -->
+        <div class="d-flex justify-content-between">
+          <!-- <button class="btn btn-outline-primary" type="button">{{ 'REGISTER.BUTTONS.BACK' | translate }}</button> -->
+          <button class="btn btn-gradient" type="submit" [disabled]="!registerForm.valid">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
         </div>
       </form>
 
-      <form novalidate (ngSubmit)="addAccount()" [formGroup]="registerUserInfoForm" *ngIf="registerInfoField">
+      <!-- <form novalidate (ngSubmit)="addAccount()" [formGroup]="registerUserInfoForm" *ngIf="registerInfoField">
         <div class="form-group">
           <label>{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }}</label>
           <input class="form-control" id="firstName" type="text" formControlName="firstName"
@@ -70,11 +86,7 @@
             [ngClass]="{'is-invalid': displayMessage['birthDate'] }" />
         </div>
 
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-outline-primary" type="button" (click)="registerInfoField = false">{{ 'REGISTER.BUTTONS.BACK' | translate }}</button>
-          <button class="btn btn-gradient" type="submit" [disabled]="!registerForm.valid || !registerUserInfoForm.valid">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
-        </div>
-      </form>
+      </form> -->
     </div>
   </div>
 </div>

@@ -9,6 +9,7 @@ import { ValidationMessages, GenericValidator, DisplayMessage } from '../../util
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PasswordMatcher } from '../../utils/password-matcher';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   registerForm!: FormGroup;
   registerUserInfoForm!: FormGroup;
   usuario!: AppUser;
-  registerInfoField: boolean = false;
 
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
@@ -50,12 +50,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       },
       password: {
         required: translate.instant('REGISTER.FORM.PASSWORD.REQUIRED'),
-        rangeLength: translate.instant('REGISTER.FORM.PASSWORD.LENGTH')
+        minlength: translate.instant('REGISTER.FORM.PASSWORD.MIN_LENGTH'),
+        maxlength: translate.instant('REGISTER.FORM.PASSWORD.MAX_LENGTH'),
+        pattern: translate.instant('REGISTER.FORM.PASSWORD.PATTERN')
       },
       confirmPassword: {
         required: translate.instant('REGISTER.FORM.CONFIRM_PASSWORD.REQUIRED'),
-        rangeLength: translate.instant('REGISTER.FORM.PASSWORD.LENGTH'),
-        equalTo: translate.instant('REGISTER.FORM.CONFIRM_PASSWORD.NOT_MATCHING')
+        minlength: translate.instant('REGISTER.FORM.PASSWORD.MIN_LENGTH'),
+        maxlength: translate.instant('REGISTER.FORM.PASSWORD.MAX_LENGTH'),
+        pattern: translate.instant('REGISTER.FORM.PASSWORD.PATTERN'),
+        match: translate.instant('REGISTER.FORM.CONFIRM_PASSWORD.NOT_MATCHING')
       }
     };
 
@@ -63,22 +67,37 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // Password must contain:
+    // - At least 8 characters
+    // - Maximum 30 characters
+    // - At least one uppercase letter
+    // - At least one lowercase letter
+    // - At least one number
+    // - At least one special character (@$!%*?&)
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,30}$/;
 
+    const passwordValidators = [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(30),
+      Validators.pattern(passwordPattern)
+    ];
 
-    let passwordValidate = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
-    let confirmPasswordValidate = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]);
+    let passwordValidate = new FormControl('', passwordValidators);
+    let confirmPasswordValidate = new FormControl('', passwordValidators);
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: passwordValidate,
       confirmPassword: confirmPasswordValidate
-    });
-    this.registerUserInfoForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      birthDate: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-    });
+    }, { validator: PasswordMatcher.match });
+
+    // this.registerUserInfoForm = this.fb.group({
+    //   firstName: ['', [Validators.required]],
+    //   lastName: ['', [Validators.required]],
+    //   birthDate: ['', [Validators.required]],
+    //   phone: ['', [Validators.required]],
+    // });
   }
 
   ngAfterViewInit(): void {
@@ -86,8 +105,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
     merge(...controlBlurs).subscribe(() => {
-      this.displayMessage = this.genericValidator.processarMensagens(this.registerForm);
-      // this.unsavedChanges = true;
+      this.displayMessage = this.genericValidator.processMessages(this.registerForm);
     });
 
   }
@@ -97,11 +115,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       
       this.usuario = Object.assign({}, this.usuario, this.registerForm.value);
       this.usuario = Object.assign(this.usuario, this.registerUserInfoForm.value);
-      // this.accountService.registerUser(this.usuario)
-      //   .subscribe(
-      //     sucesso => { this.processarSucesso(sucesso) }
-      //     // falha => {this.processarFalha(falha)}
-      //   );
 
       this.accountService.registerUser(this.usuario).subscribe({
         next: (result) => {
