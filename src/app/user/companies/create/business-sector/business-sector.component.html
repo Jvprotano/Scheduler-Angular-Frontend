@@ -1,10 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="business-hours-form">
+<form [formGroup]="form" class="business-hours-form">
   <mat-card class="mb-4 day-schedule-card">
     <mat-card-header>
       <mat-card-title>Horário de Funcionamento</mat-card-title>
       <mat-card-subtitle>Configure os horários de atendimento da sua empresa</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="day-schedule-card">
+      <!-- General Schedule Error Message -->
+      <div *ngIf="scheduleError" class="error-message mat-error mb-3">
+        {{ scheduleError }}
+      </div>
+
       <div formArrayName="schedule" class="schedule-container">
         <div *ngFor="let dayControl of getScheduleControls(); let dayIndex = index" 
              [formGroupName]="dayIndex"
@@ -23,20 +28,26 @@
                    class="time-interval">
                 <mat-form-field appearance="outline">
                   <mat-label>Início</mat-label>
-                  <mat-select formControlName="start">
-                    <mat-option *ngFor="let time of timeOptions" [value]="time">
+                  <mat-select formControlName="start" (selectionChange)="onChangeTimeRange()">
+                    <mat-option *ngFor="let time of timeOptions" [value]="time" >
                       {{ time }}
                     </mat-option>
                   </mat-select>
+                  <mat-error *ngIf="interval.get('start')?.errors?.['required']">
+                    Horário inicial é obrigatório
+                  </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                   <mat-label>Fim</mat-label>
-                  <mat-select formControlName="end">
-                    <mat-option *ngFor="let time of timeOptions" [value]="time">
+                  <mat-select formControlName="end" (selectionChange)="onChangeTimeRange()">
+                    <mat-option *ngFor="let time of timeOptions" [value]="time" >
                       {{ time }}
                     </mat-option>
                   </mat-select>
+                  <mat-error *ngIf="interval.get('end')?.errors?.['required']">
+                    Horário final é obrigatório
+                  </mat-error>
                 </mat-form-field>
 
                 <button mat-icon-button color="warn" type="button"

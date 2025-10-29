@@ -181,22 +181,38 @@
 }
 
 /* Message Styles */
-.message-success {
-  color: #10b981;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-  display: flex;
+.url-status {
+  display: flex !important;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
 }
 
-.message-error {
-  color: #f44336;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.url-status.success {
+  color: #10b981 !important;
+}
+
+.url-status.error {
+  color: #f44336 !important;
+}
+
+.status-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.checking-icon {
+  animation: spin 1s linear infinite;
+  color: rgba(0, 0, 0, 0.38);
+  font-size: 18px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .form-actions {

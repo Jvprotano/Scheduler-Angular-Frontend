@@ -5,8 +5,8 @@ import { StringUtils } from "../../utils/string-utils";
 
 export class CompanyService extends BaseService {
 
-    getAllByUserId(userId: string): Observable<Company> {
-        return this.get('company/getByUserId/' + userId, true);
+    getAll(): Observable<Company[]> {
+        return this.get('company/getByUserId/', true);
     }
 
     getById(id: string): Observable<Company> {

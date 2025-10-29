@@ -24,11 +24,6 @@
     </div>
     <div class="float-end justify-content-between modal-footer w-100">
       <div *ngIf="currentStep === 0"></div>
-      <!-- <button type="button" *ngIf="currentStep != 0" class="btn btn-outline-secondary"
-        (click)="currentStep = currentStep - 1">Anterior</button>
-      <button type="button" *ngIf="currentStep != 1" class="btn btn-success" (click)="currentStep = currentStep + 1">Próximo</button>
-       -->
-
        <div class="form-actions">
         <button 
           *ngIf="currentStep != 0" 
@@ -39,10 +34,11 @@
         </button>
         <button 
           *ngIf="currentStep != 1" 
-          mat-flat-button 
+          mat-flat-button
           color="primary" 
           type="button"
-          (click)="currentStep = currentStep + 1">
+          (click)="currentStep = currentStep + 1"
+          >
           Próximo
           <mat-icon>arrow_forward</mat-icon>
         </button>

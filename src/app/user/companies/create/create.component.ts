@@ -1,5 +1,11 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
@@ -18,20 +24,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CompanyService } from '../../../company/services/company.service';
+import { catchError, scheduled, take } from 'rxjs';
+import { Router } from '@angular/router';
+import { DaySchedule } from '../../../company/models/business-hours';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  providers: [LocationService],
+  providers: [LocationService, CompanyService],
   imports: [
-    ReactiveFormsModule, 
-    HttpClientModule, 
-    NgxSpinnerModule, 
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxSpinnerModule,
     CommonModule,
-    FormsModule, 
-    NgbModalModule, 
-    MatProgressBarModule, 
-    BasicInfoComponent, 
+    FormsModule,
+    NgbModalModule,
+    MatProgressBarModule,
+    BasicInfoComponent,
     BusinessSectorComponent,
     MatButtonModule,
     MatCardModule,
@@ -40,10 +50,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSelectModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   templateUrl: './create.component.html',
-  styleUrl: './create.component.css'
+  styleUrl: './create.component.css',
 })
 export class CreateComponent {
   createForm!: FormGroup;
@@ -57,8 +67,10 @@ export class CreateComponent {
   constructor(
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private companyService: CompanyService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.spinner.show();
@@ -69,8 +81,8 @@ export class CreateComponent {
     this.spinner.hide();
   }
 
-
   onNextStep(data: any) {
+    console.log('on next step create called');
     this.createForm.patchValue(data);
     this.currentStep++;
   }
@@ -84,9 +96,7 @@ export class CreateComponent {
       image: [company?.image],
       cnpj: [''],
       name: [company?.name],
-      email: [company?.email],
       schedulingUrl: [company?.schedulingUrl],
-      openingHours: [company?.openingHours]
     });
   }
 
@@ -95,11 +105,36 @@ export class CreateComponent {
   }
 
   onSubmit(): void {
-    console.log('submit');
-    console.log(this.companyToEdit)
-    console.log(this.createForm.value)
+    let request = this.createForm.value as Company;
+    request.schedule = request.schedule.filter((day: any) => day.isOpen);
 
-    
-    // Lógica para enviar dados do formulário para o backend
+    request.schedule.forEach((day: DaySchedule) => {
+      day.intervals.forEach((interval) => {
+        if (interval.start.length === 5)
+          interval.start = interval.start + ':00';
+
+        if (interval.end.length === 5)
+          interval.end = interval.end + ':00';
+      });
+    });
+
+    console.log('request to submit:');
+    console.log(request);
+
+    this.companyService
+      .create(request)
+      .pipe(
+        take(1),
+        catchError((error) => {
+          console.error('Error creating company:', error);
+          throw error;
+        })
+      )
+      .subscribe((result) => {
+        console.log('Company created successfully:', result);
+        this.modalService.dismissAll();
+
+        this.router.navigate(['/companies/@id/schedule', result.id]);
+      });
   }
 }

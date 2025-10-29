@@ -1,8 +1,9 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LocationService } from '../../../../company/services/location.service';
 import { StringUtils } from '../../../../utils/string-utils';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CompanyService } from '../../../../company/services/company.service';
 import { MatCardModule } from '@angular/material/card';
@@ -39,11 +40,15 @@ export class BasicInfoComponent implements OnInit {
   cnpj: string = '';
   email: string = '';
   image: string = '';
+  schedulingUrl: string = '';
 
   prefix!: string;
   urlToCheck!: string;
   urlErrorMessage: string | undefined;
   urlSuccessMessage: string | undefined;
+  isCheckingUrl: boolean = false;
+  private urlSubject = new Subject<string>();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private companyService: CompanyService
@@ -53,20 +58,19 @@ export class BasicInfoComponent implements OnInit {
     console.log(this.form);
     this.prefix = 'agende.com/';
 
-    // this.form.controls['name'].setValue('abc');
+    // Set up URL validation with debounce
+    this.urlSubject.pipe(
+      debounceTime(500), // Wait 500ms after the last change
+      distinctUntilChanged(),
+      takeUntil(this.destroy$)
+    ).subscribe(url => {
+      this.validateUrl(url);
+    });
   }
 
-  onNext() {
-    if (!this.form.valid) {
-      return;
-    }
-
-    const data = {
-      nme: this.name,
-      cnpj: this.cnpj,
-      image: this.image,
-    };
-    this.next.emit(data);
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   hasImage(): boolean {
@@ -94,34 +98,44 @@ export class BasicInfoComponent implements OnInit {
     }
   }
 
-  updateForm(dados: any): void {
-    // this.createForm.patchValue({
-    //   city: dados.localidade,
-    //   street: dados.logradouro,
-    //   state: dados.uf,
-    //   neighborhood: dados.bairro,
-    // });
-  }
+  // updateForm(dados: any): void {
+  //   // this.createForm.patchValue({
+  //   //   city: dados.localidade,
+  //   //   street: dados.logradouro,
+  //   //   state: dados.uf,
+  //   //   neighborhood: dados.bairro,
+  //   // });
+  // }
 
   checkUrlIsValid() {
+    const url = this.form.get('schedulingUrl')?.value;
+    this.urlSubject.next(url);
+  }
+
+  private validateUrl(url: string) {
     this.urlErrorMessage = undefined;
     this.urlSuccessMessage = undefined;
+    this.isCheckingUrl = true;
 
-    this.urlToCheck = this.form.get('schedulingUrl')?.value;
-
-    if (this.urlToCheck.length <= 2) {
-      this.urlErrorMessage = 'Url deve ter ao menos 3 caracteres';
+    if (url.length <= 2) {
+      this.urlErrorMessage = 'A URL deve ter ao menos 3 caracteres';
+      this.isCheckingUrl = false;
       return;
     }
 
-    this.companyService.checkUrlIsValid('', this.urlToCheck).subscribe({
+    this.companyService.checkUrlIsValid('', url).subscribe({
       next: (result: boolean) => {
-        if (result === true) this.urlSuccessMessage = 'Url válido.';
-        else this.urlErrorMessage = 'Url inválido ou já utilizado.';
+        if (result === true) {
+          this.urlSuccessMessage = '✓ URL disponível para uso';
+        } else {
+          this.urlErrorMessage = '✗ URL já está sendo utilizada';
+        }
+        this.isCheckingUrl = false;
       },
-      error(err) {
+      error: (err) => {
         console.log(err);
-        return false;
+        this.urlErrorMessage = 'Erro ao verificar a URL';
+        this.isCheckingUrl = false;
       },
     });
   }

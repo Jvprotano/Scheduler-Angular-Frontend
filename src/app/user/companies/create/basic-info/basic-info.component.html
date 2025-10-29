@@ -50,10 +50,13 @@
             <input matInput formControlName="schedulingUrl" 
                    (keyup)="checkUrlIsValid()"
                    placeholder="your-company">
-            <mat-hint *ngIf="urlSuccessMessage" class="text-success">
+            <mat-icon matSuffix *ngIf="isCheckingUrl" class="checking-icon">sync</mat-icon>
+            <mat-hint *ngIf="urlSuccessMessage" class="url-status success">
+              <mat-icon class="status-icon">check_circle</mat-icon>
               {{ urlSuccessMessage }}
             </mat-hint>
-            <mat-error class="text-error" *ngIf="urlErrorMessage">
+            <mat-error *ngIf="urlErrorMessage" class="url-status error">
+              <mat-icon class="status-icon">error</mat-icon>
               {{ urlErrorMessage }}
             </mat-error>
           </mat-form-field>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, OnDestroy, Renderer2, ViewChildren, QueryList } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BusinessHours, DAYS_OF_WEEK, DaySchedule, TimeInterval } from '../../../../company/models/business-hours';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
-import { ViewChildren, QueryList } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
@@ -42,13 +41,14 @@ export class BusinessSectorComponent implements OnInit, AfterViewInit, OnDestroy
 
   @ViewChildren(MatSelect) private selects!: QueryList<MatSelect>;
 
+  scheduleError: string | null = null;
   constructor(private fb: FormBuilder, private renderer: Renderer2) {
     this.generateTimeOptions();
   }
 
   ngOnInit(): void {
     if (!this.form.get('schedule')) {
-      this.form.addControl('schedule', this.fb.array(this.daysOfWeek.map(day => this.createDaySchedule())));
+      this.form.addControl('schedule', this.fb.array(this.daysOfWeek.map(day => this.createDaySchedule(day.id))));
     }
 
 }
@@ -91,14 +91,15 @@ export class BusinessSectorComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  private initForm() {
-    this.form = this.fb.group({
-      schedule: this.fb.array(this.daysOfWeek.map(day => this.createDaySchedule()))
-    });
-  }
+  // private initForm() {
+  //   this.form = this.fb.group({
+  //     schedule: this.fb.array(this.daysOfWeek.map(day => this.createDaySchedule(day.id)))
+  //   });
+  // }
 
-  private createDaySchedule() {
+  private createDaySchedule(day : number) {
     return this.fb.group({
+      dayOfWeek: day,
       isOpen: [false],
       intervals: this.fb.array([])
     });
@@ -142,7 +143,9 @@ export class BusinessSectorComponent implements OnInit, AfterViewInit, OnDestroy
 
   validateIntervals(dayIndex: number): boolean {
     const intervals = this.getIntervals(dayIndex).value as TimeInterval[];
+    console.log("Validating intervals for day index", dayIndex, intervals);
     if (intervals.length === 0) return true;
+    if (intervals.every(interval => interval.start == '' && interval.end == '')) return true;
 
     // Sort intervals by start time
     intervals.sort((a, b) => a.start.localeCompare(b.start));
@@ -161,10 +164,12 @@ export class BusinessSectorComponent implements OnInit, AfterViewInit, OnDestroy
     return true;
   }
 
-  onSubmit() {
+  onChangeTimeRange() {
+    console.log("on submit hours called");
     const scheduleControl = this.form.get('schedule');
-    if (scheduleControl && scheduleControl.valid) {
+    if (scheduleControl) {
       const formValue = scheduleControl.value;
+
       const businessHours: BusinessHours = {
         schedule: formValue.map((day: DaySchedule, index: number) => ({
           dayOfWeek: this.daysOfWeek[index].id,
@@ -173,9 +178,15 @@ export class BusinessSectorComponent implements OnInit, AfterViewInit, OnDestroy
         }))
       };
 
-      if (this.isValidSchedule(businessHours)) {
-        this.next.emit(businessHours);
+      console.log("Validating business hours:", businessHours);
+
+      if (!this.isValidSchedule(businessHours)) {
+        this.scheduleError = 'Schedule contains invalid or overlapping time intervals.';
+        scheduleControl.setErrors({ invalidSchedule: true });
+        return;
       }
+
+      this.scheduleError = null;
     }
   }
 
