@@ -1,63 +1,72 @@
 .business-hours-form {
-  max-width: 800px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.25rem;
 }
 
 .schedule-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+}
+
+/* Use a neutral card background and subtle primary accents */
+.day-schedule-card {
+  background-color: var(--background-primary);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
 }
 
 .day-schedule {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1rem;
-  background-color: #fafafa;
-  transition: all 0.3s ease;
+  background-color: var(--background-primary);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .day-schedule:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
 }
 
 .day-header {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .intervals-container {
-  padding-left: 2rem;
-  margin-top: 1rem;
-  animation: fadeIn 0.3s ease-in-out;
+  padding-left: 1.25rem;
+  margin-top: 0.75rem;
+  animation: fadeIn 0.22s ease-in-out;
 }
 
 .time-interval {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .time-interval mat-form-field {
   flex: 1;
-  max-width: 140px;
+  max-width: 160px;
 }
 
 .add-interval {
   margin-top: 0.5rem;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
+  opacity: 0.95;
+  transition: all 0.18s ease;
+  color: var(--primary-green);
+  border-radius: 8px;
 }
 
 .add-interval:hover {
   opacity: 1;
+  transform: translateY(-2px);
 }
 
 .remove-interval {
-  margin-top: -1rem;
-  opacity: 0.7;
+  opacity: 0.8;
   transition: opacity 0.2s ease;
 }
 
@@ -68,25 +77,17 @@
 .form-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
-  padding: 1rem 0;
+  margin-top: 1.5rem;
+  padding: 0.75rem 0;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media screen and (max-width: 600px) {
-  .business-hours-form {
-    padding: 1rem;
-  }
+  .business-hours-form { padding: 0.75rem; }
 
   .time-interval {
     flex-direction: column;
@@ -94,16 +95,9 @@
     gap: 0.5rem;
   }
 
-  .time-interval mat-form-field {
-    max-width: 100%;
-  }
+  .time-interval mat-form-field { max-width: 100%; }
 
-  .remove-interval {
-    margin-top: 0;
-    align-self: flex-end;
-  }
+  .remove-interval { align-self: flex-end; }
 
-  .intervals-container {
-    padding-left: 1rem;
-  }
+  .intervals-container { padding-left: 0.75rem; }
 }

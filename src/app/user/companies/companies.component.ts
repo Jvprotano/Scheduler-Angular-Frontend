@@ -11,7 +11,7 @@ import { CreateComponent } from './create/create.component';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, RouterModule, CreateComponent, NgbDropdownModule],
   templateUrl: './companies.component.html',
-  styleUrl: './companies.component.css'
+  styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
 

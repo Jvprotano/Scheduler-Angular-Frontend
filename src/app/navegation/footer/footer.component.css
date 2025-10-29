@@ -1,10 +1,19 @@
 .footer {
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    margin-top: 20px;
-  }
-
-.text-footer {
-    color: var(--dark-blue);
+  height: 60px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: transparent;
 }
+
+.footer p {
+  margin: 0;
+  color: var(--dark-blue);
+  font-size: 0.95rem;
+}
+
+.text-footer { color: var(--dark-blue); }

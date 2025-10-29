@@ -1,0 +1,96 @@
+@use '@angular/material' as mat;
+@use './_colors.scss' as colors;
+
+// Define the custom palette using our color system
+ $agende-primary: (
+  50: colors.color('primary', 50),
+  100: colors.color('primary', 100),
+  200: colors.color('primary', 200),
+  300: colors.color('primary', 300),
+  400: colors.color('primary', 400),
+  500: colors.color('primary', 500),
+  600: colors.color('primary', 600),
+  700: colors.color('primary', 700),
+  800: colors.color('primary', 800),
+  900: colors.color('primary', 900),
+  contrast: (
+    50: rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    200: rgba(0,0,0,0.87),
+    300: rgba(0,0,0,0.87),
+    400: rgba(0,0,0,0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+// Create the theme
+$agende-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette($agende-primary),
+    accent: mat.define-palette(mat.$teal-palette),
+    warn: mat.define-palette(mat.$red-palette),
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Apply the theme to all Material components
+@include mat.all-component-themes($agende-theme);
+
+// Custom Material component styles
+.mat-mdc-card {
+  --mdc-elevated-card-container-color: white !important;
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: white;
+  --mdc-outlined-text-field-outline-color: rgba(0, 0, 0, 0.12);
+  --mdc-outlined-text-field-focus-outline-color: var(--primary-green);
+}
+
+// Fix z-index issues with modals and dropdowns
+.cdk-overlay-container {
+  z-index: 1500 !important;
+}
+
+.modal-backdrop {
+  z-index: 1400 !important;
+}
+
+.modal {
+  z-index: 1450 !important;
+}
+
+.cdk-global-overlay-wrapper {
+  z-index: 1500 !important;
+}
+
+.mat-mdc-select-panel {
+  z-index: 1600 !important;
+}
+
+/* Ensure labels and inputs are readable in Material components */
+::ng-deep .mat-mdc-form-field-label,
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-label,
+::ng-deep .mat-mdc-floating-label {
+  color: var(--text-primary) !important;
+  font-weight: 500;
+}
+
+::ng-deep .mat-mdc-text-field-input,
+::ng-deep .mat-input-element {
+  color: var(--text-primary) !important;
+  background-color: var(--background-primary) !important;
+}
+
+/* Focus ring using theme primary */
+::ng-deep .mat-mdc-form-field.mat-mdc-focused .mat-mdc-form-field-outline {
+  box-shadow: 0 0 0 6px rgba(63,134,156,0.06) !important;
+}

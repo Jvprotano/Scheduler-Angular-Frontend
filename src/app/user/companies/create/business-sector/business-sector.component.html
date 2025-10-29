@@ -1,10 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="business-hours-form">
-  <mat-card class="mb-4">
+  <mat-card class="mb-4 day-schedule-card">
     <mat-card-header>
       <mat-card-title>Horário de Funcionamento</mat-card-title>
       <mat-card-subtitle>Configure os horários de atendimento da sua empresa</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="day-schedule-card">
       <div formArrayName="schedule" class="schedule-container">
         <div *ngFor="let dayControl of getScheduleControls(); let dayIndex = index" 
              [formGroupName]="dayIndex"
@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <button mat-stroked-button color="primary" type="button"
+            <button mat-stroked-button color="secondary" type="button"
                     (click)="addInterval(dayIndex)"
                     class="add-interval">
               <mat-icon>add</mat-icon>
@@ -60,15 +60,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-
-  <div class="form-actions">
-    <button mat-stroked-button type="button" (click)="onPrevious()">
-      <mat-icon>arrow_back</mat-icon>
-      Voltar
-    </button>
-    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">
-      Próximo
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
-  </div>
 </form>

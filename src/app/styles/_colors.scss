@@ -1,0 +1,155 @@
+// Color Palette
+$colors: (
+  // Brand Colors
+  brand: (
+    primary: #3F869C,
+    secondary: #28534A,
+    accent: #84DCC6,
+  ),
+
+  // Neutrals
+  neutral: (
+    white: #FFFFFF,
+    black: #000000,
+    gray-50: #F8F9FA,
+    gray-100: #E9ECEF,
+    gray-200: #DEE2E6,
+    gray-300: #CED4DA,
+    gray-400: #ADB5BD,
+    gray-500: #6C757D,
+    gray-600: #495057,
+    gray-700: #343A40,
+    gray-800: #212529,
+    gray-900: #111111,
+  ),
+
+  // Semantic Colors
+  semantic: (
+    success: #10B981,
+    error: #F44336,
+    warning: #FBBF24,
+    info: #3B82F6
+  ),
+
+  // Brand Color Variations
+  primary: (
+    50: #E8F3F7,
+    100: #C6E0E9,
+    200: #A1CCDB,
+    300: #7BB7CC,
+    400: #5EA7C1,
+    500: #3F869C,
+    600: #397E94,
+    700: #31738A,
+    800: #296980,
+    900: #1B566E,
+  )
+);
+
+// Gradients
+$gradients: (
+  primary: linear-gradient(90deg, map-get(map-get($colors, 'brand'), 'secondary') 0%, map-get(map-get($colors, 'brand'), 'primary') 100%),
+  btn: linear-gradient(180deg, darken(map-get(map-get($colors, 'brand'), 'secondary'), 5%) 0%, map-get(map-get($colors, 'brand'), 'secondary') 90%),
+  overlay: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2))
+);
+
+// Shadow Definitions
+$shadows: (
+  sm: 0 1px 2px rgba(0, 0, 0, 0.05),
+  md: 0 4px 6px rgba(0, 0, 0, 0.1),
+  lg: 0 10px 15px rgba(0, 0, 0, 0.1),
+  xl: 0 20px 25px rgba(0, 0, 0, 0.15)
+);
+
+// Z-index Scale
+$z-index: (
+  below: -1,
+  base: 0,
+  above: 1,
+  header: 100,
+  modal-backdrop: 1400,
+  modal: 1450,
+  overlay: 1500,
+  tooltip: 1600,
+  toast: 1700
+);
+
+// CSS Custom Properties
+:root {
+  // Brand Colors
+  --primary-green: #{map-get(map-get($colors, 'brand'), 'primary')};
+  --dark-blue: #{map-get(map-get($colors, 'brand'), 'secondary')};
+  --light-green: #{map-get(map-get($colors, 'brand'), 'accent')};
+  
+  // Neutrals
+  --gray-50: #{map-get(map-get($colors, 'neutral'), 'gray-50')};
+  --gray-100: #{map-get(map-get($colors, 'neutral'), 'gray-100')};
+  --gray-500: #{map-get(map-get($colors, 'neutral'), 'gray-500')};
+  
+  // Semantic Colors
+  --success-color: #{map-get(map-get($colors, 'semantic'), 'success')};
+  --error-color: #{map-get(map-get($colors, 'semantic'), 'error')};
+  --warning-color: #{map-get(map-get($colors, 'semantic'), 'warning')};
+  --info-color: #{map-get(map-get($colors, 'semantic'), 'info')};
+  
+  // Gradients
+  --gradient: #{map-get($gradients, 'primary')};
+  --gradient-btn: #{map-get($gradients, 'btn')};
+  
+  // Background Colors
+  --background-primary: #{map-get(map-get($colors, 'neutral'), 'white')};
+  --background-secondary: #{map-get(map-get($colors, 'neutral'), 'gray-50')};
+  
+  // Text Colors
+  --text-primary: #{map-get(map-get($colors, 'neutral'), 'gray-900')};
+  --text-secondary: #{map-get(map-get($colors, 'neutral'), 'gray-600')};
+  --text-muted: #{map-get(map-get($colors, 'neutral'), 'gray-500')};
+  
+  // Border Colors
+  --border-color: #{map-get(map-get($colors, 'neutral'), 'gray-200')};
+  
+  // Shadow Variables
+  --shadow-sm: #{map-get($shadows, 'sm')};
+  --shadow-md: #{map-get($shadows, 'md')};
+  --shadow-lg: #{map-get($shadows, 'lg')};
+  --shadow-xl: #{map-get($shadows, 'xl')};
+}
+
+// Utility Classes
+.text-primary { color: var(--primary-green) !important; }
+.text-secondary { color: var(--dark-blue) !important; }
+.text-success { color: var(--success-color) !important; }
+.text-error { color: var(--error-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+.text-info { color: var(--info-color) !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+.bg-primary { background-color: var(--primary-green) !important; }
+.bg-secondary { background-color: var(--dark-blue) !important; }
+.bg-light { background-color: var(--background-secondary) !important; }
+.bg-white { background-color: var(--background-primary) !important; }
+
+.shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-md { box-shadow: var(--shadow-md) !important; }
+.shadow-lg { box-shadow: var(--shadow-lg) !important; }
+.shadow-xl { box-shadow: var(--shadow-xl) !important; }
+
+// Function to get color from map
+@function color($category, $shade) {
+  @return map-get(map-get($colors, $category), $shade);
+}
+
+// Function to get gradient
+@function gradient($name) {
+  @return map-get($gradients, $name);
+}
+
+// Function to get shadow
+@function shadow($size) {
+  @return map-get($shadows, $size);
+}
+
+// Function to get z-index
+@function z($layer) {
+  @return map-get($z-index, $layer);
+}

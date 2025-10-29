@@ -5,14 +5,31 @@ import { StringUtils } from '../../../../utils/string-utils';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { CompanyService } from '../../../../company/services/company.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-basic-info',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxMaskDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRippleModule,
+  ],
   providers: [LocationService, provideNgxMask(), CompanyService],
   templateUrl: './basic-info.component.html',
-  styleUrl: './basic-info.component.css'
+  styleUrl: './basic-info.component.css',
 })
 export class BasicInfoComponent implements OnInit {
   @Output() next: EventEmitter<any> = new EventEmitter();
@@ -22,8 +39,6 @@ export class BasicInfoComponent implements OnInit {
   cnpj: string = '';
   email: string = '';
   image: string = '';
-  isPhysicalCompany: boolean = false;
-  cep: string = '';
 
   prefix!: string;
   urlToCheck!: string;
@@ -31,31 +46,25 @@ export class BasicInfoComponent implements OnInit {
   urlSuccessMessage: string | undefined;
 
   constructor(
-    private locationService: LocationService,
-    private companyService: CompanyService) { }
+    private companyService: CompanyService
+  ) {}
 
   ngOnInit(): void {
     console.log(this.form);
-    this.prefix = 'agende.com/'
+    this.prefix = 'agende.com/';
 
     // this.form.controls['name'].setValue('abc');
   }
 
-  onCheckboxChange() {
-    this.isPhysicalCompany = !this.isPhysicalCompany;
-  }
-
   onNext() {
-    // Validar os campos do formulário, se necessário
-
-    // Emitir evento para informar ao componente pai que a primeira etapa foi concluída
+    if (!this.form.valid) {
+      return;
+    }
 
     const data = {
       nme: this.name,
       cnpj: this.cnpj,
-      email: this.email,
       image: this.image,
-      isPhysicalCompany: this.isPhysicalCompany
     };
     this.next.emit(data);
   }
@@ -65,7 +74,7 @@ export class BasicInfoComponent implements OnInit {
   }
 
   removeImage(): void {
-    this.image = ""
+    this.image = '';
   }
 
   onFileChange(event: any) {
@@ -76,24 +85,15 @@ export class BasicInfoComponent implements OnInit {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        this.image = reader.result as string
+        this.image = reader.result as string;
+
+        this.form.patchValue({
+          image: this.image,
+        });
       };
     }
   }
 
-  searchCEP(): void {
-    var cep = this.cep;
-
-    cep = StringUtils.onlyNumbers(cep);
-
-    if (cep?.length !== 8) {
-      return;
-    }
-
-    this.locationService.obterDadosCep(cep).subscribe(
-      (dados: any) => this.updateForm(dados),
-    );
-  }
   updateForm(dados: any): void {
     // this.createForm.patchValue({
     //   city: dados.localidade,
@@ -109,27 +109,20 @@ export class BasicInfoComponent implements OnInit {
 
     this.urlToCheck = this.form.get('schedulingUrl')?.value;
 
-    if (this.urlToCheck.length <= 1) {
-      this.urlErrorMessage = "Url deve ter ao menos 2 letras"
-      return
+    if (this.urlToCheck.length <= 2) {
+      this.urlErrorMessage = 'Url deve ter ao menos 3 caracteres';
+      return;
     }
 
-    let testeUrl = false;
-
-    this.companyService.checkUrlIsValid("", this.urlToCheck)
-      .subscribe({
-        next: (result: boolean) => {
-          if (result === true)
-            this.urlSuccessMessage = "Url válido."
-          else
-            this.urlErrorMessage = "Url inválido ou já utilizado."
-        },
-        error(err) {
-          console.log(err)
-          testeUrl = false
-          return false;
-        },
-      })
+    this.companyService.checkUrlIsValid('', this.urlToCheck).subscribe({
+      next: (result: boolean) => {
+        if (result === true) this.urlSuccessMessage = 'Url válido.';
+        else this.urlErrorMessage = 'Url inválido ou já utilizado.';
+      },
+      error(err) {
+        console.log(err);
+        return false;
+      },
+    });
   }
-
 }

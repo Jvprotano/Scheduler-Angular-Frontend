@@ -1,0 +1,142 @@
+@use 'app/styles/_colors.scss' as colors;
+
+/* Global styles (SCSS) - imports design tokens from _colors.scss */
+
+/* Fallback :root CSS variables in case SCSS partial isn't available at runtime */
+:root {
+  --primary-green: #3F869C;
+  --dark-blue: #28534A;
+  --light-green: #84DCC6;
+  --light-blue: #F8FAFC;
+  --medium-blue: #ACD7EC;
+  --purple-blue: #8B95C9;
+
+  --gradient: linear-gradient(90deg, var(--dark-blue), var(--primary-green));
+  --gradient-btn: linear-gradient(180deg, rgba(41,105,128,1) 0%, rgba(63,134,156,1) 90%);
+
+  --background-primary: #FFFFFF;
+  --background-secondary: #F8F9FA;
+
+  --text-primary: #111111;
+  --text-secondary: #495057;
+  --text-muted: #6C757D;
+
+  --border-color: #DEE2E6;
+  --success-color: #10B981;
+  --error-color: #F44336;
+}
+
+/* Animations */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.cdk-overlay-pane{
+  position: absolute !important;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
+
+/* Standardize inputs and Material labels across the app */
+mat-label,
+label,
+.mat-mdc-form-field-label,
+::ng-deep .mat-mdc-form-field-label,
+.mat-mdc-floating-label {
+  color: var(--text-primary) !important;
+  font-weight: 500;
+}
+
+/* Input text color and placeholders */
+input,
+textarea,
+select,
+.form-control,
+.mat-mdc-text-field-input,
+.mat-input-element {
+  color: var(--text-primary) !important;
+  background-color: var(--background-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Placeholder color */
+::placeholder,
+::-webkit-input-placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Material outline field adjustments */
+::ng-deep .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+  border-radius: 8px;
+  border-color: var(--border-color);
+}
+
+::ng-deep .mat-mdc-form-field-appearance-outline.mat-mdc-focused .mat-mdc-form-field-outline {
+  border-color: var(--primary-green) !important;
+  box-shadow: 0 0 0 6px rgba(63,134,156,0.06) !important;
+}
+
+/* Material label small/floating state color */
+::ng-deep .mat-mdc-form-field.mat-mdc-focused .mat-mdc-form-field-label,
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-label {
+  color: var(--text-secondary) !important;
+}
+
+/* Buttons */
+.btn-gradient {
+  background: var(--gradient);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+}
+
+.btn-gradient:hover { transform: translateY(-2px); }
+.btn-white { background: white; color: var(--dark-blue) !important; border: none; }
+.btn-white:hover { background: var(--light-blue); }
+.btn-lg { height: 56px; line-height: 40px; }
+
+/* Layout and typography */
+html { font-size: 14px; position: relative; min-height: 100%; font-family: Poppins, sans-serif; }
+@media (min-width: 768px) { html { font-size: 16px; } }
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+body {
+  background-color: rgba(3,92,79,0.02);
+  margin: 0; padding: 0;
+  display: flex; flex-direction: column; min-height: 100vh;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Make main content flex so footer stays at fixed size */
+.app-content {
+  flex: 1 1 auto;
+  display: block;
+}
+
+input, select, file, textarea { max-width: 400px; }
+
+/* Card */
+.card { border: 1px solid rgba(40,83,74,0.15); border-radius: 8px; padding: 20px; margin-bottom: 20px; transition: transform 0.18s ease; }
+.card:hover { transform: translateY(-4px); }
+
+/* Bootstrap form-control consistency */
+.form-control {
+  height: auto;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Utilities */
+.required-label::after { content: " *"; color: var(--error-color); }
+
+/* Bootstrap var fallbacks already provided in _colors.scss :root */

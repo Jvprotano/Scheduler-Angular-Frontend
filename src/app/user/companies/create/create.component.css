@@ -8,8 +8,106 @@ label {
   margin-bottom: 5px;
 }
 
-.company-modal input.form-control {
-  padding: 7px !important;
-  max-width: none;
+.company-modal {
+  padding: 2rem;
+  background-color: #f8fafc;
 }
 
+.modal-header {
+  border: none;
+  padding: 2rem 2rem 1rem;
+  background-color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.modal-header .modal-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--primary-green);
+  margin: 0;
+}
+
+.modal-header .btn-close {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--primary-green);
+  opacity: 0.7;
+}
+
+.modal-header .btn-close:hover {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+
+::ng-deep .modal-content {
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1) !important;
+  background-color: #f8fafc !important;
+  overflow: hidden;
+}
+
+::ng-deep .modal-dialog {
+  max-width: 800px !important;
+  margin-top: 2rem !important;
+}
+
+::ng-deep .mat-mdc-progress-bar {
+  height: 4px !important;
+  background-color: rgba(63, 134, 156, 0.1) !important;
+}
+
+::ng-deep .mat-mdc-progress-bar-fill::after {
+  background-color: var(--primary-green) !important;
+}
+
+.modal-footer {
+  background-color: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1.5rem 2rem;
+  border-radius: 0 0 16px 16px;
+}
+
+.modal-footer button {
+  min-width: 120px;
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-footer button.btn-success {
+  background: var(--gradient-btn);
+  border: none;
+  color: white;
+}
+
+.modal-footer button.btn-success:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(40, 83, 74, 0.2);
+}
+
+.modal-footer button.btn-outline-secondary {
+  color: var(--primary-green);
+  border: 2px solid var(--primary-green);
+  background: white;
+}
+
+.modal-footer button.btn-outline-secondary:hover {
+  background: var(--primary-green);
+  color: white;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}

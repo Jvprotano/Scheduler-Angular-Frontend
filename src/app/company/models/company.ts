@@ -5,6 +5,7 @@ import { OpeningHours } from "./opening_hours";
 export interface Company {
     id: string,
     name: string,
+    image: string,
     description: string,
     email: string,
     phone: string,

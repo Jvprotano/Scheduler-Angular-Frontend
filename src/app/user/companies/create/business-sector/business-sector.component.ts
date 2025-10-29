@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -9,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BusinessHours, DAYS_OF_WEEK, DaySchedule, TimeInterval } from '../../../../company/models/business-hours';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelect } from '@angular/material/select';
+import { ViewChildren, QueryList } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
@@ -27,17 +29,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule
   ],
   templateUrl: './business-sector.component.html',
-  styleUrl: './business-sector.component.css'
+  styleUrls: ['./business-sector.component.css']
 })
-export class BusinessSectorComponent implements OnInit {
+export class BusinessSectorComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() form!: FormGroup;
   @Output() previous = new EventEmitter<void>();
   @Output() next = new EventEmitter<BusinessHours>();
 
   daysOfWeek = DAYS_OF_WEEK;
   timeOptions: string[] = [];
+  private removeDocumentListener: (() => void) | null = null;
 
-  constructor(private fb: FormBuilder) {
+  @ViewChildren(MatSelect) private selects!: QueryList<MatSelect>;
+
+  constructor(private fb: FormBuilder, private renderer: Renderer2) {
     this.generateTimeOptions();
   }
 
@@ -47,6 +52,34 @@ export class BusinessSectorComponent implements OnInit {
     }
 
 }
+
+  ngAfterViewInit(): void {
+    // Listen for mousedown on document and close any open MatSelect panels when clicking outside them.
+    this.removeDocumentListener = this.renderer.listen('document', 'mousedown', (event: MouseEvent) => {
+      const path = (event as any).composedPath ? (event as any).composedPath() : (event as any).path || [];
+      const clickedInsidePanel = path.some((el: any) => {
+        try {
+          return el && el.classList && (el.classList.contains('mat-mdc-select-panel') || el.classList.contains('mat-select-panel'));
+        } catch (e) {
+          return false;
+        }
+      });
+
+      if (!clickedInsidePanel) {
+        // Close all open selects; clicking on other inputs or areas should close them.
+        this.selects.forEach(s => {
+          try { if (s.panelOpen) s.close(); } catch (e) { /* ignore */ }
+        });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.removeDocumentListener) {
+      this.removeDocumentListener();
+      this.removeDocumentListener = null;
+    }
+  }
 
   private generateTimeOptions() {
     // Generate time options from 00:00 to 23:30 in 30-minute intervals
