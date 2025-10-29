@@ -162,6 +162,11 @@ textarea {
     --bs-btn-disabled-border-color: var(--primary-green);
 }
 
+.required-label::after {
+  content: " *";
+  color: red;
+}
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;

@@ -9,6 +9,14 @@
       "LOGIN": "Login to your account"
     }
   },
+  "ERROR": {
+    "GENERIC": "An error occurred",
+    "BAD_REQUEST": "Bad request",
+    "UNAUTHORIZED": "Unauthorized",
+    "FORBIDDEN": "Access denied",
+    "NOT_FOUND": "Resource not found",
+    "SERVER_ERROR": "Server error"
+  },
   "REGISTER": {
     "TITLE": "Create your account",
     "WELCOME": {

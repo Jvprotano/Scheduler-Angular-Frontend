@@ -9,6 +9,14 @@
       "LOGIN": "Iniciar sesión"
     }
   },
+  "ERROR": {
+    "GENERIC": "Ocurrió un error inesperado",
+    "BAD_REQUEST": "Solicitud incorrecta",
+    "UNAUTHORIZED": "No autorizado. Verifica tus credenciales",
+    "FORBIDDEN": "Acceso denegado",
+    "NOT_FOUND": "Recurso no encontrado",
+    "SERVER_ERROR": "Error del servidor"
+  },
   "REGISTER": {
     "TITLE": "Crea tu cuenta",
     "WELCOME": {

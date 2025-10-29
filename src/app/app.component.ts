@@ -6,15 +6,27 @@ import { MenuComponent } from './navegation/menu/menu.component';
 import { FooterComponent } from './navegation/footer/footer.component';
 import { AccountService } from './account/services/account.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LocalStorageUtils } from './utils/localstorage';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HomeComponent, MenuComponent, FooterComponent, HttpClientModule],
-  providers: [AccountService],
+  imports: [CommonModule, RouterOutlet, MenuComponent, FooterComponent, HttpClientModule, TranslateModule],
+  providers: [AccountService, LocalStorageUtils],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Agende';
+
+  constructor(
+    private translate: TranslateService,
+    private localStorage: LocalStorageUtils
+  ) {
+    // Initialize translation with saved language
+    const savedLang = this.localStorage.getLanguage();
+    translate.setFallbackLang(savedLang);
+    translate.use(savedLang);
+  }
 }

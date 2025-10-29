@@ -78,6 +78,7 @@ export class CreateComponent {
       description: [''],
       schedulingUrl: [company?.schedulingUrl],
       openingHours: [company?.openingHours]
+      // The schedule control will be added by the BusinessSectorComponent
     });
   }
 

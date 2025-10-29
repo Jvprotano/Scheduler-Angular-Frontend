@@ -1,226 +1,109 @@
-.date-input {
-  height: 38px !important;
+.business-hours-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-::ng-deep.flatpickr-calendar {
-  background: transparent;
-  opacity: 0;
-  display: none;
-  text-align: center;
-  visibility: hidden;
-  padding: 0;
-  -webkit-animation: none;
-  animation: none;
-  direction: ltr;
-  border: 0;
-  font-size: 14px;
-  line-height: 24px;
-  border-radius: 5px;
-  position: absolute;
-  width: 307.875px;
-  box-sizing: border-box;
-  touch-action: manipulation;
-  background: #fff;
-  background: #fff;
-  box-shadow: 1px 0 #e9ebec, -1px 0 #e9ebec, 0 1px #e9ebec, 0 -1px #e9ebec, 0 3px 13px #00000014;
-  box-shadow: 1px 0 0 #e9ebec, -1px 0 0 #e9ebec, 0 1px 0 #e9ebec, 0 -1px 0 #e9ebec, 0 3px 13px #00000014;
-}
-
-::ng-deep.flatpickr-time {
-  text-align: center;
-  outline: 0;
-  display: block;
-  height: 0;
-  line-height: 40px;
-  max-height: 40px;
-  box-sizing: border-box;
-  overflow: hidden;
+.schedule-container {
   display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-::ng-deep.flatpickr-calendar.hasTime .flatpickr-time {
-  height: 40px;
-  border-top: 1px solid #e9ebec;
-  border-top: 1px solid #e9ebec;
+.day-schedule {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
 }
 
-::ng-deep.flatpickr-time.time24hr .numInputWrapper {
-  width: 49%;
+.day-schedule:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
-::ng-deep.flatpickr-time .numInputWrapper {
+.day-header {
+  margin-bottom: 1rem;
+}
+
+.intervals-container {
+  padding-left: 2rem;
+  margin-top: 1rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.time-interval {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.time-interval mat-form-field {
   flex: 1;
-  width: 40%;
-  height: 40px;
-  float: left;
+  max-width: 140px;
 }
 
-::ng-deep.flatpickr-time input.flatpickr-hour {
-  font-weight: 700;
+.add-interval {
+  margin-top: 0.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
 }
 
-::ng-deep.flatpickr-time input {
-  background: transparent;
-  box-shadow: none;
-  border: 0;
-  border-radius: 0;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  height: inherit;
-  line-height: inherit;
-  color: #212529;
-  color: #212529;
-  font-size: 14px;
-  position: relative;
-  box-sizing: border-box;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  outline: none;
-}
-
-::ng-deep.numInputWrapper span.arrowUp {
-  top: 0;
-  border-bottom: 0;
-}
-
-::ng-deep.numInputWrapper span {
-  position: absolute;
-  right: 0;
-  width: 14px;
-  padding: 0 4px 0 2px;
-  height: 50%;
-  line-height: 50%;
-  opacity: 0;
-  cursor: pointer;
-  border: 1px solid rgba(33, 37, 41, .15);
-  border: 1px solid rgba(33, 37, 41, .15);
-  box-sizing: border-box;
-}
-
-::ng-deep.numInputWrapper span.arrowDown {
-  top: 50%;
-}
-
-::ng-deep.numInputWrapper span {
-  position: absolute;
-  right: 0;
-  width: 14px;
-  padding: 0 4px 0 2px;
-  height: 50%;
-  line-height: 50%;
-  opacity: 0;
-  cursor: pointer;
-  border: 1px solid rgba(33, 37, 41, .15);
-  border: 1px solid rgba(var(--vz-dark-rgb), .15);
-  box-sizing: border-box;
-}
-
-::ng-deep.flatpickr-time .flatpickr-time-separator,
-.flatpickr-time .flatpickr-am-pm {
-  height: inherit;
-  float: left;
-  line-height: inherit;
-  color: #212529;
-  color: var(--vz-body-color);
-  font-weight: 700;
-  width: 2%;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  align-self: center;
-}
-
-::ng-deep.flatpickr-calendar.animate.open {
-  -webkit-animation: fpFadeInDown .3s cubic-bezier(.23, 1, .32, 1);
-  animation: fpFadeInDown .3s cubic-bezier(.23, 1, .32, 1);
-}
-
-::ng-deep.flatpickr-calendar.open {
-  z-index: 1061;
-}
-
-::ng-deep.flatpickr-calendar.open {
-  display: inline-block;
-  z-index: 1056;
-}
-
-::ng-deep.flatpickr-calendar.open,
-.flatpickr-calendar.inline {
+.add-interval:hover {
   opacity: 1;
-  max-height: 640px;
-  visibility: visible;
 }
 
-::ng-deep.flatpickr-time .numInputWrapper span.arrowUp:after,
-.flatpickr-time .numInputWrapper span.arrowDown:after {
-  border-bottom-color: #e9ebec;
-  border-bottom-color: var(--vz-border-color);
+.remove-interval {
+  margin-top: -1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
 }
 
-::ng-deep.numInputWrapper span.arrowUp:after {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid rgba(57, 57, 57, .6);
-  top: 26%;
+.remove-interval:hover {
+  opacity: 1;
 }
 
-::ng-deep.numInputWrapper span:after {
-  display: block;
-  content: "";
-  position: absolute;
-}
-
-::ng-deep.numInputWrapper span.arrowDown:after {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid rgba(57, 57, 57, .6);
-  top: 40%;
-}
-
-::ng-deep.numInputWrapper input {
-  width: 100%;
-}
-
-::ng-deep.numInputWrapper input,
-.numInputWrapper span {
-  display: inline-block;
-}
-
-::ng-deep.flatpickr-calendar:before,
-.flatpickr-calendar:after {
-  position: absolute;
-  display: block;
-  pointer-events: none;
-  border: solid transparent;
-  content: "";
-  height: 0;
-  width: 0;
-  left: 22px;
-}
-
-::ng-deep.input-group-text {
-  margin-left: -10px !important;
-  z-index: 9 !important;
-}
-
-.input-group {
-  position: relative;
+.form-actions {
   display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  width: 100%;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding: 1rem 0;
 }
 
-.flatpickr-input {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: #ced4da !important;
-  cursor: pointer;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.day-closed {
-  color: #757676;
+@media screen and (max-width: 600px) {
+  .business-hours-form {
+    padding: 1rem;
+  }
+
+  .time-interval {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .time-interval mat-form-field {
+    max-width: 100%;
+  }
+
+  .remove-interval {
+    margin-top: 0;
+    align-self: flex-end;
+  }
+
+  .intervals-container {
+    padding-left: 1rem;
+  }
 }

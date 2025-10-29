@@ -18,16 +18,27 @@
       <div class="row g-2">
         <div class="col-12 col-md-6">
           <div class="form-group">
-            <label>{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }}</label>
-            <input class="form-control" id="firstName" type="text" formControlName="firstName"
+            <label class="required-label">{{ 'REGISTER.FORM.FIRST_NAME.LABEL' | translate }} </label>
+            <input 
+              class="form-control" 
+              id="firstName" 
+              type="text" 
+              formControlName="firstName"
+              required
+              [placeholder]="'REGISTER.FORM.FIRST_NAME.PLACEHOLDER' | translate"
               [ngClass]="{'is-invalid': displayMessage['firstName'] }" />
             <div *ngIf="displayMessage['firstName']" class="invalid-feedback" [innerHTML]="displayMessage['firstName']"></div>
           </div>
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group">
-            <label>{{ 'REGISTER.FORM.LAST_NAME.LABEL' | translate }}</label>
-            <input class="form-control" id="lastName" type="text" formControlName="lastName"
+            <label class="required-label">{{ 'REGISTER.FORM.LAST_NAME.LABEL' | translate }}</label>
+            <input 
+              class="form-control" 
+              id="lastName" 
+              type="text" 
+              formControlName="lastName"
+              [placeholder]="'REGISTER.FORM.LAST_NAME.PLACEHOLDER' | translate"
               [ngClass]="{'is-invalid': displayMessage['lastName'] }" />
             <div *ngIf="displayMessage['lastName']" class="invalid-feedback" [innerHTML]="displayMessage['lastName']"></div>
           </div>
@@ -35,10 +46,13 @@
       </div>
 
       <div class="form-group mt-2">
-        <label>{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</label>
+        <label class="required-label">{{ 'REGISTER.FORM.EMAIL.LABEL' | translate }}</label>
         <div class="input-group">
           <span class="input-icon"><i class="bi bi-envelope"></i></span>
-          <input class="form-control" id="email" type="email"
+          <input 
+            class="form-control" 
+            id="email" 
+            type="email"
             [placeholder]="'REGISTER.FORM.EMAIL.PLACEHOLDER' | translate" formControlName="email"
             [ngClass]="{'is-invalid': displayMessage['email'] }" />
         </div>
@@ -46,14 +60,15 @@
       </div>
 
       <div class="form-group">
-        <label>{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</label>
+        <label class="required-label">{{ 'REGISTER.FORM.PASSWORD.LABEL' | translate }}</label>
         <div class="input-group">
           <span class="input-icon"><i class="bi bi-lock"></i></span>
           <input class="form-control" id="password"
             [type]="showPassword ? 'text' : 'password'"
             [placeholder]="'REGISTER.FORM.PASSWORD.PLACEHOLDER' | translate" formControlName="password"
-            [ngClass]="{'is-invalid': displayMessage['password'] }" />
-          <button type="button" class="btn-toggle-password" (click)="togglePasswordVisibility()">
+            [ngClass]="{'is-invalid': displayMessage['password'] }" 
+            />
+                  <button type="button" class="btn-toggle-password" (click)="togglePasswordVisibility()">
             <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
           </button>
         </div>
@@ -64,7 +79,7 @@
       </div>
 
       <div class="form-group">
-        <label>{{ 'REGISTER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</label>
+        <label class="required-label">{{ 'REGISTER.FORM.CONFIRM_PASSWORD.LABEL' | translate }}</label>
         <div class="input-group">
           <span class="input-icon"><i class="bi bi-lock"></i></span>
           <input class="form-control" id="confirmPassword"
@@ -79,7 +94,12 @@
         <div class="col-12 col-md-6">
           <div class="form-group">
             <label>{{ 'REGISTER.FORM.PHONE.LABEL' | translate }}</label>
-            <input class="form-control" id="phone" type="text" formControlName="phone"
+            <input 
+              class="form-control" 
+              id="phone" 
+              type="text" 
+              formControlName="phone"
+              [placeholder]="'REGISTER.FORM.PHONE.LABEL' | translate"
               [ngClass]="{'is-invalid': displayMessage['phone'] }" />
             <div *ngIf="displayMessage['phone']" class="invalid-feedback" [innerHTML]="displayMessage['phone']"></div>
           </div>
@@ -97,7 +117,6 @@
       <button class="btn btn-gradient w-100 mt-3" type="submit" [disabled]="!registerForm.valid">{{ 'REGISTER.BUTTONS.REGISTER' | translate }}</button>
 
       <p class="text-center mt-3 small text-muted">
-        {{ 'REGISTER.HAVE_ACCOUNT' | translate }}
         <a routerLink="/account/login" class="register-link">{{ 'REGISTER.BUTTONS.LOGIN' | translate }}</a>
       </p>
     </form>

@@ -4,12 +4,13 @@ import { LocationService } from '../../../../company/services/location.service';
 import { StringUtils } from '../../../../utils/string-utils';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { CompanyService } from '../../../../company/services/company.service';
 
 @Component({
   selector: 'app-basic-info',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe],
-  providers: [LocationService, provideNgxMask()],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxMaskDirective],
+  providers: [LocationService, provideNgxMask(), CompanyService],
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.css'
 })
@@ -24,10 +25,19 @@ export class BasicInfoComponent implements OnInit {
   isPhysicalCompany: boolean = false;
   cep: string = '';
 
-  constructor(private locationService: LocationService) { }
+  prefix!: string;
+  urlToCheck!: string;
+  urlErrorMessage: string | undefined;
+  urlSuccessMessage: string | undefined;
+
+  constructor(
+    private locationService: LocationService,
+    private companyService: CompanyService) { }
 
   ngOnInit(): void {
     console.log(this.form);
+    this.prefix = 'agende.com/'
+
     // this.form.controls['name'].setValue('abc');
   }
 
@@ -47,7 +57,7 @@ export class BasicInfoComponent implements OnInit {
       image: this.image,
       isPhysicalCompany: this.isPhysicalCompany
     };
-    this.next.emit(data); 
+    this.next.emit(data);
   }
 
   hasImage(): boolean {
@@ -91,6 +101,35 @@ export class BasicInfoComponent implements OnInit {
     //   state: dados.uf,
     //   neighborhood: dados.bairro,
     // });
+  }
+
+  checkUrlIsValid() {
+    this.urlErrorMessage = undefined;
+    this.urlSuccessMessage = undefined;
+
+    this.urlToCheck = this.form.get('schedulingUrl')?.value;
+
+    if (this.urlToCheck.length <= 1) {
+      this.urlErrorMessage = "Url deve ter ao menos 2 letras"
+      return
+    }
+
+    let testeUrl = false;
+
+    this.companyService.checkUrlIsValid("", this.urlToCheck)
+      .subscribe({
+        next: (result: boolean) => {
+          if (result === true)
+            this.urlSuccessMessage = "Url válido."
+          else
+            this.urlErrorMessage = "Url inválido ou já utilizado."
+        },
+        error(err) {
+          console.log(err)
+          testeUrl = false
+          return false;
+        },
+      })
   }
 
 }

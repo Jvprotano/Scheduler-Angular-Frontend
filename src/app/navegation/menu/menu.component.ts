@@ -7,13 +7,15 @@ import { CommonModule } from '@angular/common';
 import { EventService } from '../../services/event.service';
 import { AccountService } from '../../account/services/account.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LocalStorageUtils } from '../../utils/localstorage';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
-  imports: [NgbCollapse, NgbDropdownModule, RouterModule, MenuLoginComponent, CommonModule, TranslateModule]
+    imports: [NgbCollapse, NgbDropdownModule, RouterModule, MenuLoginComponent, CommonModule, TranslateModule],
+    providers: [LocalStorageUtils]
 })
 export class MenuComponent implements OnInit {
 
@@ -28,16 +30,20 @@ export class MenuComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private accountService: AccountService,
-    private translate: TranslateService
+     private translate: TranslateService,
+     private localStorage: LocalStorageUtils
   ) { 
     this.isLoggedIn$ = this.accountService.userIsLoggedObs;
-    // normalize language code to primary subtag (e.g. 'en' from 'en-US') so it matches flag filenames
-    const initialLang = this.translate.currentLang || 'pt';
-    this.currentLang = initialLang.split('-')[0];
+     // Get saved language or default to 'pt'
+     const savedLang = this.localStorage.getLanguage();
+     this.translate.use(savedLang);
+     // normalize language code to primary subtag (e.g. 'en' from 'en-US') so it matches flag filenames
+     this.currentLang = savedLang.split('-')[0];
   }
 
   switchLanguage(lang: string) {
-    this.translate.use(lang);
+     this.translate.use(lang);
+     this.localStorage.saveLanguage(lang);
     // ensure we use the primary subtag for the flag file (assets/flags/{lang}.svg)
     this.currentLang = (lang || '').split('-')[0] || 'pt';
   }

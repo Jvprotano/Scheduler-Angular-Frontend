@@ -1,74 +1,159 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { FlatpickrDefaults, FlatpickrModule } from 'angularx-flatpickr';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BusinessHours, DAYS_OF_WEEK, DaySchedule, TimeInterval } from '../../../../company/models/business-hours';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-business-sector',
   standalone: true,
-  imports: [NgSelectModule, FlatpickrModule, CommonModule, ReactiveFormsModule],
-  providers: [FlatpickrDefaults],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatTooltipModule
+  ],
   templateUrl: './business-sector.component.html',
   styleUrl: './business-sector.component.css'
 })
-
 export class BusinessSectorComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Output() previous: EventEmitter<any> = new EventEmitter();
-  @Output() next: EventEmitter<any> = new EventEmitter();
+  @Output() previous = new EventEmitter<void>();
+  @Output() next = new EventEmitter<BusinessHours>();
 
-  weekdays: any[] = [
-    { id: 1, day: 'Segunda-feira', checked: true, intervals: [{ start: '', end: '' }] },
-    { id: 2, day: 'Terça-feira', checked: true, intervals: [{ start: '', end: '' }] },
-    { id: 3, day: 'Quarta-feira', checked: true, intervals: [{ start: '', end: '' }] },
-    { id: 4, day: 'Quinta-feira', checked: true, intervals: [{ start: '', end: '' }] },
-    { id: 5, day: 'Sexta-feira', checked: true, intervals: [{ start: '', end: '' }] },
-    { id: 6, day: 'Sábado', checked: false, intervals: [{ start: '', end: '' }] },
-    { id: 7, day: 'Domingo', checked: false, intervals: [{ start: '', end: '' }] },
-  ]
+  daysOfWeek = DAYS_OF_WEEK;
+  timeOptions: string[] = [];
 
-  dayNames = [
-    'Segunda-feira',
-    'Terça-feira',
-    'Quarta-feira',
-    'Quinta-feira',
-    'Sexta-feira',
-    'Sábado',
-    'Domingo',
-  ];
-
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    this.generateTimeOptions();
+  }
 
   ngOnInit(): void {
-    // Inicializa o formulário com um FormArray para os dias da semana
+    if (!this.form.get('schedule')) {
+      this.form.addControl('schedule', this.fb.array(this.daysOfWeek.map(day => this.createDaySchedule())));
+    }
+
+}
+
+  private generateTimeOptions() {
+    // Generate time options from 00:00 to 23:30 in 30-minute intervals
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute of [0, 30]) {
+        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        this.timeOptions.push(timeString);
+      }
+    }
+  }
+
+  private initForm() {
     this.form = this.fb.group({
-      weekdays: new FormArray(
-        [
-          new FormControl(null), 
-          new FormControl(null), 
-          new FormControl(null),
-          new FormControl(null),
-          new FormControl(null),
-          new FormControl(null),
-          new FormControl(null),
-        ]),
+      schedule: this.fb.array(this.daysOfWeek.map(day => this.createDaySchedule()))
     });
   }
 
-  onNext() {
-    const data = {
-      categoria: [1, 2, 3],
-      servicos: [1, 2, 3],
-    };
-    this.next.emit(data);
-  }
-  onPrevious() {
-    this.previous.emit();
+  private createDaySchedule() {
+    return this.fb.group({
+      isOpen: [false],
+      intervals: this.fb.array([])
+    });
   }
 
-  onSubmit(): void {
-    console.log(this.form.value);
-    console.log(this.weekdays);
+  private createTimeInterval() {
+    return this.fb.group({
+      start: ['', Validators.required],
+      end: ['', Validators.required]
+    });
+  }
+
+  getScheduleControls() {
+    return (this.form.get('schedule') as FormArray).controls;
+  }
+
+  getIntervals(dayIndex: number) {
+    return this.getScheduleControls()[dayIndex].get('intervals') as FormArray;
+  }
+
+  addInterval(dayIndex: number) {
+    const intervals = this.getIntervals(dayIndex);
+    intervals.push(this.createTimeInterval());
+  }
+
+  removeInterval(dayIndex: number, intervalIndex: number) {
+    const intervals = this.getIntervals(dayIndex);
+    intervals.removeAt(intervalIndex);
+  }
+
+  onDayToggle(dayIndex: number, isOpen: boolean) {
+    const intervals = this.getIntervals(dayIndex);
+    if (isOpen && intervals.length === 0) {
+      this.addInterval(dayIndex);
+    } else if (!isOpen) {
+      while (intervals.length !== 0) {
+        intervals.removeAt(0);
+      }
+    }
+  }
+
+  validateIntervals(dayIndex: number): boolean {
+    const intervals = this.getIntervals(dayIndex).value as TimeInterval[];
+    if (intervals.length === 0) return true;
+
+    // Sort intervals by start time
+    intervals.sort((a, b) => a.start.localeCompare(b.start));
+
+    // Check for overlaps and valid time ranges
+    for (let i = 0; i < intervals.length; i++) {
+      const interval = intervals[i];
+      if (interval.end <= interval.start) return false;
+      
+      if (i > 0) {
+        const prevInterval = intervals[i - 1];
+        if (interval.start <= prevInterval.end) return false;
+      }
+    }
+
+    return true;
+  }
+
+  onSubmit() {
+    const scheduleControl = this.form.get('schedule');
+    if (scheduleControl && scheduleControl.valid) {
+      const formValue = scheduleControl.value;
+      const businessHours: BusinessHours = {
+        schedule: formValue.map((day: DaySchedule, index: number) => ({
+          dayOfWeek: this.daysOfWeek[index].id,
+          isOpen: day.isOpen,
+          intervals: day.intervals || []
+        }))
+      };
+
+      if (this.isValidSchedule(businessHours)) {
+        this.next.emit(businessHours);
+      }
+    }
+  }
+
+  isValidSchedule(businessHours: BusinessHours): boolean {
+    return businessHours.schedule.every((day, index) => {
+      if (!day.isOpen) return true;
+      return this.validateIntervals(index);
+    });
+  }
+
+  onPrevious() {
+    this.previous.emit();
   }
 }

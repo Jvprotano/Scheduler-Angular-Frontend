@@ -11,3 +11,10 @@
   background: rgba(243,246,249);
   cursor: pointer;
 }
+
+.message-success{
+    color: green;
+}
+.message-error{
+    color: red;
+}

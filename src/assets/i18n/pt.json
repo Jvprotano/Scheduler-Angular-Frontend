@@ -11,6 +11,14 @@
       "LOGIN": "Login"
     }
   },
+  "ERROR": {
+    "GENERIC": "Ocorreu um erro inesperado",
+    "BAD_REQUEST": "Requisição inválida",
+    "UNAUTHORIZED": "Não autorizado. Verifique suas credenciais",
+    "FORBIDDEN": "Acesso negado",
+    "NOT_FOUND": "Recurso não encontrado",
+    "SERVER_ERROR": "Erro interno do servidor"
+  },
   "REGISTER": {
     "TITLE": "Crie sua conta",
     "WELCOME": {

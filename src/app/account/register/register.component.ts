@@ -92,16 +92,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       email: ['', [Validators.required, Validators.email]],
       password: passwordValidate,
       confirmPassword: confirmPasswordValidate,
-      phone: [''],
-      birthDate: ['']
+      phone: null,
+      birthDate: null
     }, { validator: PasswordMatcher.match });
-
-    // this.registerUserInfoForm = this.fb.group({
-    //   firstName: ['', [Validators.required]],
-    //   lastName: ['', [Validators.required]],
-    //   birthDate: ['', [Validators.required]],
-    //   phone: ['', [Validators.required]],
-    // });
   }
 
   ngAfterViewInit(): void {

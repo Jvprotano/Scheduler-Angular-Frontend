@@ -18,56 +18,30 @@
 
   <div class="row mb-1">
     <div class="form-group col-md-4">
-      <label class="form-label" for="name">Name:</label>
+      <label class="form-label required-label" for="name">Name:</label>
       <input class="form-control" type="text" id="name" formControlName="name" />
-    </div>
-    <div class="form-group col-md-4">
-      <label class="form-label" for="email">Email:</label>
-      <input class="form-control" type="text" id="email" formControlName="email" />
     </div>
     <div class="form-group col-md-4">
       <label class="form-label" for="cnpj">CNPJ:</label>
       <input class="form-control" type="text" mask="00.000.000/0000-00" id="cnpj" formControlName="cnpj" placeholder="Opcional" />
     </div>
-  </div>
-
-  <div *ngIf="isPhysicalCompany">
-    <div class="row mb-1">
-      <div class="form-group col-md-3">
-        <label class="form-label" for="cep">CEP:</label>
-        <input class="form-control" type="text" (blur)="searchCEP()" id="cep" formControlName="cep" />
+      <div class="row mb-1">
+    <div class="form-group col-md-12">
+      <label class="form-label">Url de compartilhamento</label>
+      <div>
+        <i style="font-size: small;">Este é o link que você enviará para seus clientes realizarem os agendamentos.</i>
       </div>
-      <div class="form-group col-md-3">
-        <label class="form-label" for="city">Cidade</label>
-        <input class="form-control" type="text" id="city" formControlName="city" />
-      </div>
-      <div class="form-group col-md-3">
-        <label class="form-label" for="state">Estado</label>
-        <input class="form-control" type="text" id="state" formControlName="state" />
-      </div>
-      <div class="form-group col-md-3">
-        <label class="form-label" for="neighborhood">Bairro</label>
-        <input class="form-control" type="text" id="neighborhood" formControlName="neighborhood" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-md-7">
-        <label class="form-label" for="street">Rua</label>
-        <input class="form-control" type="text" id="street" formControlName="street" />
-      </div>
-      <div class="form-group col-md-2">
-        <label class="form-label" for="number">Número</label>
-        <input class="form-control" type="text" id="number" formControlName="number" />
-      </div>
-      <div class="form-group col-md-3">
-        <label class="form-label" for="complement">Complemento</label>
-        <input class="form-control" type="text" id="complement" formControlName="complement" />
+      <div class="form-group col-md-6" style="display: flex;">
+        <input class="form-control" type="text" value="{{prefix}}" [readOnly]="true" [disabled]="true"
+          style="flex: 0 0 auto; width: 32%;">
+        <input class="form-control" (keyup)="checkUrlIsValid()" type="text" id="usernameInput" name="usernameInput"
+          formControlName="schedulingUrl" style="flex: 1;">
+        <i style="font-size: small;"
+          [ngClass]="{'message-success': urlSuccessMessage, 'message-error': urlErrorMessage}">
+          {{ urlSuccessMessage ?? urlErrorMessage }}
+        </i>
       </div>
     </div>
   </div>
-
-  <div class="align-items-center col-md-12 d-flex form-check form-switch fs-6 ms-1 mt-2">
-    <input class="form-check-input me-2" type="checkbox" (change)="onCheckboxChange()" formControlName="isPhysicalCompany" />
-    <label class="form-check-label mb-0"> Possui local físico </label>
   </div>
 </form>

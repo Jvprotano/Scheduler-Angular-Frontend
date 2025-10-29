@@ -1,6 +1,5 @@
 export class LocalStorageUtils {
     public saveUserLocalData(response: any) {
-
         this.saveUserToken(response.bearer);
         this.saveUser(response.userName);
     }
@@ -27,6 +26,17 @@ export class LocalStorageUtils {
 
     public saveUser(user: string) {
         localStorage.setItem('bie.user', JSON.stringify(user));
+    }
+
+    public getLanguage(): string {
+        if (typeof localStorage !== 'undefined') {
+            return localStorage.getItem('bie.language') || 'pt';
+        }
+        return 'pt';
+    }
+
+    public saveLanguage(lang: string) {
+        localStorage.setItem('bie.language', lang);
     }
 
     public clearUserLocalData() {

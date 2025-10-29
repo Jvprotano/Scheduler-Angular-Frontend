@@ -1,12 +1,74 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h3 class="mb-3">Dias da Semana</h3>
-  <div class="form-check mb-2" formArrayName="weekdays">
-    <div class="row">
-      <div class="align-items-center col-md-3 d-flex form-check form-switch fs-6 ms-1 mt-2" *ngFor="let control of $any(this.form.get('weekdays'))['controls']; let i = index">
-        <input class="form-check-input me-2" type="checkbox" [formControlName]="i" (change)="weekdays[i].checked = !weekdays[i].checked"/>
-        <label class="form-check-label mb-0"> {{weekdays[i].day}} </label>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="business-hours-form">
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-card-title>Horário de Funcionamento</mat-card-title>
+      <mat-card-subtitle>Configure os horários de atendimento da sua empresa</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div formArrayName="schedule" class="schedule-container">
+        <div *ngFor="let dayControl of getScheduleControls(); let dayIndex = index" 
+             [formGroupName]="dayIndex"
+             class="day-schedule">
+          <div class="day-header">
+            <mat-slide-toggle formControlName="isOpen" 
+                            (change)="onDayToggle(dayIndex, $event.checked)">
+              {{ daysOfWeek[dayIndex].name }}
+            </mat-slide-toggle>
+          </div>
+
+          <div class="intervals-container" *ngIf="dayControl.get('isOpen')?.value">
+            <div formArrayName="intervals">
+              <div *ngFor="let interval of getIntervals(dayIndex).controls; let intervalIndex = index" 
+                   [formGroupName]="intervalIndex"
+                   class="time-interval">
+                <mat-form-field appearance="outline">
+                  <mat-label>Início</mat-label>
+                  <mat-select formControlName="start">
+                    <mat-option *ngFor="let time of timeOptions" [value]="time">
+                      {{ time }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Fim</mat-label>
+                  <mat-select formControlName="end">
+                    <mat-option *ngFor="let time of timeOptions" [value]="time">
+                      {{ time }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <button mat-icon-button color="warn" type="button"
+                        *ngIf="getIntervals(dayIndex).length > 1"
+                        (click)="removeInterval(dayIndex, intervalIndex)"
+                        matTooltip="Remover intervalo"
+                        class="remove-interval">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <button mat-stroked-button color="primary" type="button"
+                    (click)="addInterval(dayIndex)"
+                    class="add-interval">
+              <mat-icon>add</mat-icon>
+              Adicionar intervalo
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="form-actions">
+    <button mat-stroked-button type="button" (click)="onPrevious()">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar
+    </button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">
+      Próximo
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
   </div>
-  <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

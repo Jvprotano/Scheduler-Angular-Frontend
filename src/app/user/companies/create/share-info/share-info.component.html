@@ -19,23 +19,5 @@
       <textarea class="form-control" formControlName="description" rows="3"></textarea>
     </div>
   </div>
-  <div class="row mb-1">
-    <div class="form-group col-md-12">
-      <label class="form-label">Url de compartilhamento</label>
-      <div>
-        <i style="font-size: small;">Este é o link que você enviará para seus clientes realizarem os agendamentos.</i>
-      </div>
-      <div class="form-group col-md-6" style="display: flex;">
-        <input class="form-control" type="text" value="{{prefix}}" [readOnly]="true" [disabled]="true"
-          style="flex: 0 0 auto; width: 32%;">
-        <input class="form-control" (keyup)="checkUrlIsValid()" type="text" id="usernameInput" name="usernameInput"
-          formControlName="schedulingUrl" style="flex: 1;">
-        <i style="font-size: small;"
-          [ngClass]="{'message-success': urlSuccessMessage, 'message-error': urlErrorMessage}">
-          {{ urlSuccessMessage ?? urlErrorMessage }}
-        </i>
-      </div>
-    </div>
-  </div>
+
 </form>
-<!-- <button (click)="onPrevious()">Anterior</button> -->
